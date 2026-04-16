@@ -176,6 +176,7 @@ body.theme-luka .image.avatar img {
   height: 220px;
   border-radius: 50%;
   object-fit: cover;
+  object-position: 62% 50%;
   box-shadow: 0 6px 24px var(--luka-shadow);
 }
 
@@ -353,8 +354,28 @@ body.theme-luka .exp-period {
 }
 
 body.theme-luka .project-card {
+  margin: 0 0 14px;
+  padding: 10px 0 10px 14px;
+  border-left: 2px solid var(--luka-border);
+  border-radius: 2px;
   font-size: 15px;
-  line-height: 1.7;
+  line-height: 1.75;
+}
+
+body.theme-luka .project-card strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+body.theme-luka .project-group-title {
+  margin-bottom: 10px;
+  padding: 0;
+  border-left: none;
+  font-size: 16px;
+}
+
+body.theme-luka .project-group-title strong {
+  margin-bottom: 0;
 }
 
 body.theme-luka .publications ol.bibliography {
