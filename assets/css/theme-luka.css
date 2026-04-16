@@ -354,28 +354,79 @@ body.theme-luka .exp-period {
 }
 
 body.theme-luka .project-card {
-  margin: 0 0 14px;
-  padding: 10px 0 10px 14px;
-  border-left: 2px solid var(--luka-border);
-  border-radius: 2px;
+  margin: 0 0 18px;
+  padding: 12px 14px;
+  border: 1px solid var(--luka-border);
+  border-left: 4px solid var(--luka-accent);
+  border-radius: 10px;
   font-size: 15px;
-  line-height: 1.75;
+  line-height: 1.7;
+  background: rgba(194, 113, 79, 0.03);
 }
 
-body.theme-luka .project-card strong {
-  display: block;
-  margin-bottom: 4px;
-}
-
-body.theme-luka .project-group-title {
-  margin-bottom: 10px;
-  padding: 0;
-  border-left: none;
+body.theme-luka .project-event {
+  margin: 0 0 8px;
   font-size: 16px;
+  font-weight: 700;
+  color: var(--luka-text);
 }
 
-body.theme-luka .project-group-title strong {
+body.theme-luka .project-meta {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 0 0 6px;
+}
+
+body.theme-luka .project-meta:last-child {
   margin-bottom: 0;
+}
+
+body.theme-luka .project-label {
+  width: 72px;
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--luka-accent);
+  letter-spacing: 0.02em;
+}
+
+body.theme-luka .project-value {
+  flex: 1;
+  color: var(--luka-text);
+}
+
+body.theme-luka .competition-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+body.theme-luka .competition-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0 0 10px;
+  padding: 0 0 10px;
+  border-bottom: 1px dashed var(--luka-border);
+}
+
+body.theme-luka .competition-list li:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+body.theme-luka .competition-time {
+  min-width: 42px;
+  font-size: 13px;
+  color: var(--luka-accent);
+  font-weight: 600;
+}
+
+body.theme-luka .competition-text {
+  color: var(--luka-text);
+  font-size: 14px;
 }
 
 body.theme-luka .publications ol.bibliography {
@@ -543,6 +594,21 @@ body.theme-luka strong {
   body.theme-luka .award-text,
   body.theme-luka .pub-content .author,
   body.theme-luka .pub-content .periodical {
+    font-size: 13px;
+  }
+
+  body.theme-luka .project-meta {
+    flex-direction: column;
+    gap: 2px;
+    margin-bottom: 8px;
+  }
+
+  body.theme-luka .project-label {
+    width: auto;
+  }
+
+  body.theme-luka .competition-time,
+  body.theme-luka .competition-text {
     font-size: 13px;
   }
 }
