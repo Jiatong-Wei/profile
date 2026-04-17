@@ -45,6 +45,8 @@ export default function Profile({ author, social, features, researchInterests }:
     const [isEmailPinned, setIsEmailPinned] = useState(false);
     const [lastClickedTooltip, setLastClickedTooltip] = useState<'email' | 'address' | null>(null);
     const clustrmapsRef = useRef<HTMLDivElement | null>(null);
+    const clustrmapsImageSrc = typeof social.clustrmaps_image_src === 'string' ? social.clustrmaps_image_src : undefined;
+    const clustrmapsSiteUrl = typeof social.clustrmaps_site_url === 'string' ? social.clustrmaps_site_url : 'https://clustrmaps.com';
     const clustrmapsSrc = typeof social.clustrmaps_embed_src === 'string' ? social.clustrmaps_embed_src : undefined;
 
     // Check local storage for user's like status
@@ -58,7 +60,7 @@ export default function Profile({ author, social, features, researchInterests }:
     }, [features.enable_likes]);
 
     useEffect(() => {
-        if (!clustrmapsSrc || !clustrmapsRef.current) return;
+        if (clustrmapsImageSrc || !clustrmapsSrc || !clustrmapsRef.current) return;
 
         const container = clustrmapsRef.current;
         container.innerHTML = '';
@@ -75,7 +77,7 @@ export default function Profile({ author, social, features, researchInterests }:
                 container.removeChild(script);
             }
         };
-    }, [clustrmapsSrc]);
+    }, [clustrmapsImageSrc, clustrmapsSrc]);
 
     const handleLike = () => {
         const newLikedState = !hasLiked;
@@ -337,13 +339,33 @@ export default function Profile({ author, social, features, researchInterests }:
                 </div>
             )}
 
-            {clustrmapsSrc && (
+            {(clustrmapsImageSrc || clustrmapsSrc) && (
                 <div className="bg-neutral-100 dark:bg-neutral-800 rounded-lg p-4 mb-6 hover:shadow-lg transition-all duration-200 hover:scale-[1.02]">
                     <h3 className="font-semibold text-primary mb-3">Visitor Map</h3>
-                    <div
-                        ref={clustrmapsRef}
-                        className="min-h-[120px] flex items-center justify-center text-xs text-neutral-500"
-                    />
+                    {clustrmapsImageSrc ? (
+                        <a
+                            href={clustrmapsSiteUrl}
+                            title="ClustrMaps"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="block overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-700"
+                        >
+                            {/* ClustrMaps provides a remote image endpoint that is not part of local static assets. */}
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                                src={clustrmapsImageSrc}
+                                alt="Visitor map powered by ClustrMaps"
+                                loading="lazy"
+                                referrerPolicy="no-referrer-when-downgrade"
+                                className="w-full h-auto"
+                            />
+                        </a>
+                    ) : (
+                        <div
+                            ref={clustrmapsRef}
+                            className="min-h-[120px] flex items-center justify-center text-xs text-neutral-500"
+                        />
+                    )}
                 </div>
             )}
 

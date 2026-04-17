@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
+import Link from 'next/link';
 import {
     MagnifyingGlassIcon,
     FunnelIcon,
@@ -15,6 +16,7 @@ import { Publication } from '@/types/publication';
 import { PublicationPageConfig } from '@/types/page';
 import { cn } from '@/lib/utils';
 import { useMessages } from '@/lib/i18n/useMessages';
+import { useLocaleStore } from '@/lib/stores/localeStore';
 
 interface PublicationsListProps {
     config: PublicationPageConfig;
@@ -24,6 +26,8 @@ interface PublicationsListProps {
 
 export default function PublicationsList({ config, publications, embedded = false }: PublicationsListProps) {
     const messages = useMessages();
+    const locale = useLocaleStore((state) => state.locale);
+    const isZh = locale.startsWith('zh');
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedYear, setSelectedYear] = useState<number | 'all'>('all');
     const [selectedType, setSelectedType] = useState<string | 'all'>('all');
@@ -58,6 +62,46 @@ export default function PublicationsList({ config, publications, embedded = fals
         });
     }, [publications, searchQuery, selectedYear, selectedType]);
 
+    const researchDirections = useMemo(() => {
+        if (isZh) {
+            return [
+                {
+                    title: '具身智能与自主决策',
+                    summary: '围绕多模态感知、任务规划与控制闭环，探索智能体在复杂场景中的可解释决策机制。',
+                    tags: ['Embodied AI', 'Decision Making', 'Multimodal Perception'],
+                },
+                {
+                    title: '机器人全栈系统开发',
+                    summary: '从算法到工程部署打通软件链路，关注 ROS2、仿真到实机迁移与系统鲁棒性。',
+                    tags: ['ROS2', 'Sim2Real', 'System Engineering'],
+                },
+                {
+                    title: '海洋与特种场景智能应用',
+                    summary: '面向海洋环境与极端任务需求，构建面向实际应用的感知、导航与交互能力。',
+                    tags: ['Marine Robotics', 'Field Deployment', 'Human-Robot Interaction'],
+                },
+            ];
+        }
+
+        return [
+            {
+                title: 'Embodied Intelligence and Autonomous Decision-Making',
+                summary: 'Building interpretable loops across multimodal perception, planning, and control for agents in complex environments.',
+                tags: ['Embodied AI', 'Decision Making', 'Multimodal Perception'],
+            },
+            {
+                title: 'Full-Stack Robotics System Development',
+                summary: 'Integrating the pipeline from algorithms to deployment, with emphasis on ROS2, sim-to-real transfer, and reliability.',
+                tags: ['ROS2', 'Sim2Real', 'System Engineering'],
+            },
+            {
+                title: 'Intelligent Applications for Marine and Extreme Scenarios',
+                summary: 'Designing perception, navigation, and interaction capabilities tailored for real-world field constraints.',
+                tags: ['Marine Robotics', 'Field Deployment', 'Human-Robot Interaction'],
+            },
+        ];
+    }, [isZh]);
+
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -74,6 +118,7 @@ export default function PublicationsList({ config, publications, embedded = fals
             </div>
 
             {/* Search and Filter Controls */}
+            {publications.length > 0 && (
             <div className="mb-8 space-y-4">
                 {/* ... (keep existing controls) ... */}
                 <div className="flex flex-col sm:flex-row gap-4">
@@ -182,13 +227,72 @@ export default function PublicationsList({ config, publications, embedded = fals
                     )}
                 </AnimatePresence>
             </div>
+            )}
 
             {/* Publications Grid */}
             <div className="space-y-6">
                 {filteredPublications.length === 0 ? (
-                    <div className="text-center py-12 text-neutral-500">
-                        {messages.publications.noResults}
-                    </div>
+                    publications.length === 0 ? (
+                        <div className="rounded-2xl border border-neutral-200/80 dark:border-neutral-700/70 bg-white/70 dark:bg-neutral-900/55 p-6 md:p-8 shadow-sm">
+                            <div className="mb-6">
+                                <h2 className="text-2xl font-serif font-semibold text-primary mb-2">
+                                    {isZh ? '暂无已发布论文' : 'Publications Coming Soon'}
+                                </h2>
+                                <p className="text-neutral-600 dark:text-neutral-400 max-w-3xl">
+                                    {isZh
+                                        ? '当前处于研究积累阶段，已聚焦以下方向并持续推进中。欢迎查看项目进展与开源实践。'
+                                        : 'I am currently building ongoing research outcomes in the following directions. You can explore project progress and open-source practice in the meantime.'}
+                                </p>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                                {researchDirections.map((direction) => (
+                                    <article
+                                        key={direction.title}
+                                        className="rounded-xl border border-neutral-200/80 dark:border-neutral-700/70 bg-gradient-to-b from-white to-neutral-50 dark:from-neutral-900 dark:to-neutral-800/70 p-4"
+                                    >
+                                        <h3 className="text-base font-semibold text-primary mb-2 leading-snug">
+                                            {direction.title}
+                                        </h3>
+                                        <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3 leading-relaxed">
+                                            {direction.summary}
+                                        </p>
+                                        <div className="flex flex-wrap gap-2">
+                                            {direction.tags.map((tag) => (
+                                                <span
+                                                    key={tag}
+                                                    className="text-xs px-2 py-1 rounded-full bg-accent/10 text-accent"
+                                                >
+                                                    {tag}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </article>
+                                ))}
+                            </div>
+
+                            <div className="flex flex-col sm:flex-row gap-3">
+                                <Link
+                                    href="/projects"
+                                    className="inline-flex items-center justify-center rounded-lg bg-accent text-white px-4 py-2 text-sm font-medium hover:bg-accent-dark transition-colors"
+                                >
+                                    {isZh ? '查看项目实践' : 'View Projects'}
+                                </Link>
+                                <a
+                                    href="https://github.com/Jiatong-Wei"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center justify-center rounded-lg border border-neutral-300 dark:border-neutral-600 px-4 py-2 text-sm font-medium text-neutral-700 dark:text-neutral-300 hover:border-accent hover:text-accent transition-colors"
+                                >
+                                    {isZh ? '访问 GitHub' : 'Visit GitHub'}
+                                </a>
+                            </div>
+                        </div>
+                    ) : (
+                        <div className="text-center py-12 text-neutral-500">
+                            {messages.publications.noResults}
+                        </div>
+                    )
                 ) : (
                     filteredPublications.map((pub, index) => (
                         <motion.div

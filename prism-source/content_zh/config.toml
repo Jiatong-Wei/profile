@@ -19,7 +19,8 @@ location_details = [
   "西北工业大学，中国西安"
 ]
 github = "https://github.com/Jiatong-Wei"
-clustrmaps_embed_src = "//clustrmaps.com/map_v2.js?d=TN6h67Q38I8k5lLijaitc8yNMMdIo9wGt_fqmGhIdig&cl=ffffff&w=a"
+clustrmaps_site_url = "https://clustrmaps.com/site/1c9rg"
+clustrmaps_image_src = "//www.clustrmaps.com/map_v2.png?d=TN6h67Q38I8k5lLijaitc8yNMMdIo9wGt_fqmGhIdig&cl=ffffff"
 
 [[navigation]]
 title = "关于我"
