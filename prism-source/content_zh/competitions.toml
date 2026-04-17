@@ -1,0 +1,31 @@
+type = "card"
+title = "竞赛"
+description = "数学建模、设计创新等代表性竞赛成果。"
+
+[[items]]
+title = "第十八届全国三维数字化创新设计大赛"
+subtitle = "国家级"
+date = "2025"
+content = "获得国家级一等奖。"
+tags = ["设计创新", "国家级一等奖"]
+
+[[items]]
+title = "第十三届未来设计师全国高校艺术设计大赛全国总决赛"
+subtitle = "国家级"
+date = "2025"
+content = "获得国家级三等奖。\n\n![比赛 Logo](/profile/logos/weilai.png)"
+tags = ["创意设计", "国家级三等奖"]
+
+[[items]]
+title = "高教社杯全国大学生数学建模竞赛"
+subtitle = "省级"
+date = "2025"
+content = "获得省级二等奖。"
+tags = ["数学建模", "省级二等奖"]
+
+[[items]]
+title = "美国大学生数学建模大赛（ICM）"
+subtitle = "国际竞赛"
+date = "2024"
+content = "获得 Honorable Mention。"
+tags = ["数学建模", "Honorable Mention"]

@@ -1,0 +1,22 @@
+type = "about"
+title = "关于我"
+
+[profile]
+research_interests = [
+  "具身智能",
+  "强化学习",
+  "机器人全栈开发",
+  "水下智能系统"
+]
+
+[[sections]]
+id = "about"
+type = "markdown"
+source = "bio.md"
+title = "关于我"
+
+[[sections]]
+id = "news"
+type = "list"
+title = "动态"
+source = "news.toml"

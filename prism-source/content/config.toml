@@ -1,0 +1,83 @@
+[site]
+title = "Jiatong Wei"
+description = "Undergraduate student at Northwestern Polytechnical University focusing on Embodied AI and full-stack robotics development."
+favicon = "/profile/favicon.svg"
+last_updated = "April 17, 2026"
+
+[author]
+name = "Jiatong Wei"
+title = "Undergraduate Student"
+institution = "Northwestern Polytechnical University"
+avatar = "/profile/portrait-photonew2.jpg"
+
+[social]
+# Contact information (leave blank or delete to hide)
+
+email = "weijiatong@mail.nwpu.edu.cn"
+location = "Xi'an, China"
+location_url = "https://maps.google.com/?q=Northwestern+Polytechnical+University+Xi'an"
+location_details = [
+  "School of Marine Science and Technology,",
+  "Northwestern Polytechnical University, Xi'an, China"
+]
+github = "https://github.com/Jiatong-Wei"
+clustrmaps_embed_src = "//clustrmaps.com/map_v2.js?d=TN6h67Q38I8k5lLijaitc8yNMMdIo9wGt_fqmGhIdig&cl=ffffff&w=a"
+
+[features]
+# Show a like button on the about page
+enable_likes = true
+
+# Display all subpages on a single page
+enable_one_page_mode = false
+
+[i18n]
+enabled = true
+locales = ["zh", "en"]
+default_locale = "zh"
+# "auto" means the locale will be determined by the browser's language setting, "fixed" means the locale will be fixed to the default locale (but can be switched still, if you want to disable, set "enable=false")
+mode = "auto"
+fixed_locale = "zh"
+# If true, PRISM will remember user's language preference in browser's localStorage
+persist = true
+# Show a language switcher on the top right corner
+switcher = true
+
+[i18n.labels]
+zh = "中文"
+en = "English"
+
+[[navigation]]
+title = "About"
+type = "page"
+target = "about"
+href = "/"
+
+[[navigation]]
+title = "Projects"
+type = "page"
+target = "projects"
+href = "/projects"
+
+[[navigation]]
+title = "Competitions"
+type = "page"
+target = "competitions"
+href = "/competitions"
+
+[[navigation]]
+title = "Publications"
+type = "page"
+target = "publications"
+href = "/publications"
+
+[[navigation]]
+title = "Awards"
+type = "page"
+target = "awards"
+href = "/awards"
+
+[[navigation]]
+title = "CV"
+type = "page"
+target = "cv"
+href = "/cv"

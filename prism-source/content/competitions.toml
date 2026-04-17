@@ -1,0 +1,31 @@
+type = "card"
+title = "Competitions"
+description = "Selected competition results in mathematical modeling, design, and innovation."
+
+[[items]]
+title = "18th National 3D Digital Innovation Design Competition"
+subtitle = "National Level"
+date = "2025"
+content = "Won National First Prize."
+tags = ["Design", "National First Prize"]
+
+[[items]]
+title = "13th Future Designer National Finals"
+subtitle = "National Level"
+date = "2025"
+content = "Won National Third Prize.\n\n![Competition Logo](/profile/logos/weilai.png)"
+tags = ["Creative Design", "National Third Prize"]
+
+[[items]]
+title = "Higher Education Press Cup National College Mathematical Modeling Competition"
+subtitle = "Provincial Level"
+date = "2025"
+content = "Won Provincial Second Prize."
+tags = ["Mathematical Modeling", "Provincial Second Prize"]
+
+[[items]]
+title = "Interdisciplinary Contest in Modeling (ICM)"
+subtitle = "International"
+date = "2024"
+content = "Received Honorable Mention."
+tags = ["Mathematical Modeling", "Honorable Mention"]

@@ -1,0 +1,4 @@
+type = "publication"
+title = "论文"
+description = "目前正在推进研究项目，论文将在后续阶段补充更新。"
+source = "publications.bib"

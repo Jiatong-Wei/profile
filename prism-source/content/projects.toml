@@ -1,0 +1,77 @@
+type = "card"
+title = "Projects"
+description = "Projects organized around engineering and scientific problems."
+
+[[items]]
+title = "Integrated Underwater Inspection and Disposal Platform"
+subtitle = "14th National Ocean Navigation Vehicle and Design Competition · National Finals"
+date = "2025.08"
+content = """
+- National Grand Prize.
+- Core member responsible for data acquisition and processing.
+- Supported algorithm validation and field testing with the team.
+
+![Competition Logo](/profile/logos/haihang.png)
+"""
+tags = ["Engineering Problem", "National Grand Prize", "Core Member"]
+
+[[items]]
+title = "Multifunctional Rotary Underwater Vehicle"
+subtitle = "14th National Ocean Navigation Vehicle and Design Competition · Northwest Regional"
+date = "2025.07"
+content = """
+- First Prize in the Northwest Regional, sole contributor.
+- Responsible for overall system design and physical assembly.
+- Independently built control topology and completed upper-lower controller integration.
+- Prototyped both TVC vector propulsion and dual-helical vector propulsion mechanisms.
+
+![Provincial Certificate](/profile/certificates/province_first.jpg)
+"""
+tags = ["Engineering Problem", "First Prize", "Sole Contributor"]
+
+[[items]]
+title = "Intelligent Logistics Transport Robot"
+subtitle = "China College Engineering Practice and Innovation Competition · Intelligent+ Track"
+date = "2025.04"
+content = """
+- Provincial First Prize, electrical/control lead.
+- Developed robot chassis control and implemented a three-loop coupled PID strategy.
+- Eliminated accumulated heading error caused by Mecanum wheel motion.
+- Advisors: Prof. Qilehua Qi, Prof. Jun Luo.
+
+![Competition Logo](/profile/logos/gongchuang.png)
+"""
+tags = ["Engineering Problem", "Provincial First Prize", "Robotics Control"]
+
+[[items]]
+title = "Digital Engineering Scenario for Smart Agriculture"
+subtitle = "China College Engineering Practice and Innovation Competition · Virtual Simulation Track"
+date = "2025.04"
+content = """
+- Provincial First Prize, Unreal Engine development lead.
+- Built a full digital-agriculture simulation and science-education system in Unreal Engine 5.
+- Advisors: Prof. Xiaoya Liang, Prof. Shenqi Hu.
+
+![Competition Logo](/profile/logos/gongchuang.png)
+"""
+tags = ["Engineering Problem", "Provincial First Prize", "UE5"]
+
+[[items]]
+title = "Omni-Wheel Intelligent Transport Platform"
+subtitle = "Undergraduate Innovation and Entrepreneurship Training Program"
+date = "2024-2025"
+content = """
+- Provincial-level project, sole project leader.
+- Focused on intelligent transport with omni-wheel design and deep-learning methods.
+"""
+tags = ["Scientific Problem", "Provincial Project", "Sole Leader"]
+
+[[items]]
+title = "Rotary Vector-Pump Underwater Vehicle"
+subtitle = "Undergraduate Innovation and Entrepreneurship Training Program"
+date = "2024-2025"
+content = """
+- National-level project, sole project leader.
+- Explored rotary-body underwater vehicle design with vector-pump propulsion.
+"""
+tags = ["Scientific Problem", "National Project", "Sole Leader"]

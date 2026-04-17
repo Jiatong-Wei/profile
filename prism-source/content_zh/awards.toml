@@ -1,0 +1,38 @@
+type = "card"
+title = "奖项"
+description = "荣誉奖项、学生工作与社会影响。"
+
+[[items]]
+title = "软件著作权 4 篇"
+subtitle = "核心成员"
+date = "2025"
+content = "作为核心成员参与发表软件著作权共 4 篇。"
+tags = ["科研产出", "知识产权"]
+
+[[items]]
+title = "优秀大学生"
+subtitle = "西北工业大学"
+date = "2024"
+content = "在学业与综合表现方面获得校级荣誉。"
+tags = ["校级荣誉"]
+
+[[items]]
+title = "校设奖学金"
+subtitle = "西北工业大学"
+date = "2024"
+content = "获得校设奖学金。"
+tags = ["奖学金"]
+
+[[items]]
+title = "航海学院田径队队长"
+subtitle = "学生工作"
+date = "2024-2025"
+content = "担任航海学院田径队队长，组织并带领队员获得校运会团体总分第一名。"
+tags = ["领导力", "学生工作"]
+
+[[items]]
+title = "3DGS 校园展机重建"
+subtitle = "知天下平台"
+date = "2025"
+content = "使用 3DGS 重建西北工业大学军工素质实践教育中心全部外场展机。单一作品浏览量进入全站 TOP100。[作品合集](https://3d.explorerglobal.cn/collection/web/5vxjmwx8)。"
+tags = ["社会影响", "3DGS"]

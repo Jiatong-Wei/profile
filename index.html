@@ -1,355 +1,65 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>魏佳桐 | Jiatong Wei</title>
-  <meta name="description" content="魏佳桐的个人学术主页，研究方向包括 Robotics、具身智能、强化学习与机器人全栈开发。">
-  <meta name="keywords" content="魏佳桐, Jiatong Wei, Robotics, 具身智能, 强化学习, 机器人, 西北工业大学, 水声工程">
-  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<!DOCTYPE html><html lang="zh" class="scroll-smooth"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="preload" as="image" href="/profile/portrait-photonew2.jpg"/><link rel="stylesheet" href="/profile/_next/static/css/0eb1b67c17b67289.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/profile/_next/static/chunks/webpack-ed35c082265e4aa8.js"/><script src="/profile/_next/static/chunks/4bd1b696-70b6d399998de86a.js" async=""></script><script src="/profile/_next/static/chunks/684-32b7fa3b5f2a32f2.js" async=""></script><script src="/profile/_next/static/chunks/main-app-b33a4abe423f8215.js" async=""></script><script src="/profile/_next/static/chunks/461-a9a5d7b05a71d978.js" async=""></script><script src="/profile/_next/static/chunks/874-6cc630662f3664af.js" async=""></script><script src="/profile/_next/static/chunks/291-e39730cc9327e39b.js" async=""></script><script src="/profile/_next/static/chunks/app/layout-80df3eef1d32314c.js" async=""></script><script src="/profile/_next/static/chunks/178-0267fea83c073d69.js" async=""></script><script src="/profile/_next/static/chunks/748-abdcac66b902b175.js" async=""></script><script src="/profile/_next/static/chunks/app/page-10b59f0eafb718ee.js" async=""></script><link rel="icon" href="/profile/favicon.svg" type="image/svg+xml"/><link rel="dns-prefetch" href="https://jialeliu.com"/><link rel="preconnect" href="https://jialeliu.com" crossorigin=""/><link rel="preload" as="font" type="font/woff2" href="https://jialeliu.com/fonts/georgiab.woff2" crossorigin=""/><script>
+              try {
+                const theme = localStorage.getItem('theme-storage');
+                const parsed = theme ? JSON.parse(theme) : null;
+                const setting = parsed?.state?.theme || 'system';
+                const prefersDark = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                const effective = setting === 'dark' ? 'dark' : (setting === 'light' ? 'light' : (prefersDark ? 'dark' : 'light'));
+                var root = document.documentElement;
+                root.classList.add(effective);
+                root.setAttribute('data-theme', effective);
+              } catch (e) {
+                var root = document.documentElement;
+                root.classList.add('light');
+                root.setAttribute('data-theme', 'light');
+              }
+            </script><script>
+    try {
+      const cfg = {"enabled":true,"locales":["zh","en"],"defaultLocale":"zh","mode":"auto","fixedLocale":"zh","persist":true,"switcher":true,"labels":{"zh":"中文","en":"English"}};
+      const storageKey = 'locale-storage';
+      const normalize = (value) => typeof value === 'string' ? value.trim().replace('_', '-').toLowerCase() : '';
+      const matchLocale = (candidate) => {
+        const normalized = normalize(candidate);
+        if (!normalized) return null;
+        if (cfg.locales.includes(normalized)) return normalized;
+        const language = normalized.split('-')[0];
+        if (cfg.locales.includes(language)) return language;
+        return null;
+      };
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+      let resolved = null;
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
-  <script src="https://kit.fontawesome.com/a860a211d3.js" crossorigin="anonymous"></script>
-
-  <link rel="stylesheet" href="assets/css/font_sans_serif.css">
-  <link rel="stylesheet" href="assets/css/theme-luka.css">
-</head>
-<body class="theme-luka">
-  <nav class="top-nav">
-    <div class="nav-container">
-      <div class="nav-left">
-        <a href="./">Home</a>
-      </div>
-      <div class="nav-right">
-        <button id="themeToggle" class="theme-toggle" title="Toggle theme" aria-label="Toggle theme">
-          <i class="fa-solid fa-moon"></i>
-        </button>
-      </div>
-    </div>
-  </nav>
-
-  <div class="wrapper">
-    <header class="sidebar">
-      <div class="profile-card">
-        <a class="image avatar">
-          <img src="assets/img/portrait-photonew.jpg" alt="Profile avatar">
-        </a>
-
-        <h1 class="site-name">魏佳桐</h1>
-        <p class="site-email">weijiatong@mail.nwpu.edu.cn</p>
-
-        <div class="social-icons">
-          <a href="mailto:weijiatong@mail.nwpu.edu.cn" title="Email"><i class="fa-solid fa-envelope"></i></a>
-          <a href="https://github.com/Jiatong-Wei" title="GitHub"><i class="fa-brands fa-github"></i></a>
-        </div>
-
-        <div class="visitor-card">
-          <div class="visitor-card-title">Visitor Map</div>
-          <div class="visitor-card-body">
-            <script type="text/javascript" id="clustrmaps" src="//clustrmaps.com/map_v2.js?d=TN6h67Q38I8k5lLijaitc8yNMMdIo9wGt_fqmGhIdig"></script>
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <section class="content">
-      <div class="section" id="about">
-        <h2 class="section-title">About Me</h2>
-        <div class="section-body">
-          <p>Hi, my name is Jiatong Wei. I am an undergraduate student at Northwestern Polytechnical University, currently in my third year of Underwater Acoustic studies. My research interests focus on Embodied AI and full-stack robotics development.</p>
-          <p>This homepage presents my engineering practice, research exploration, and staged outcomes, and it will continue to be updated with certificates, videos, and richer project details.</p>
-          <p>Email: <a href="mailto:weijiatong@mail.nwpu.edu.cn">weijiatong@mail.nwpu.edu.cn</a>; Location: Xi'an, China.</p>
-        </div>
-      </div>
-
-      <div class="section" id="education">
-        <h2 class="section-title">Education</h2>
-        <div class="section-body">
-          <div class="card">
-            <div class="experience-item">
-              <img src="assets/img/transparent1.png" alt="Northwestern Polytechnical University" class="institution-logo">
-              <div class="experience-content">
-                <p class="exp-title"><strong>西北工业大学 (Northwestern Polytechnical University)</strong></p>
-                <p class="exp-detail">本科生 | 水声工程</p>
-                <p class="exp-detail">平均分：85/100</p>
-                <p class="exp-period">2023.09 - 2027.06</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="section" id="experience">
-        <h2 class="section-title">Experience</h2>
-        <div class="section-body">
-          <div class="card timeline-item">
-            <div class="experience-item">
-              <img src="assets/img/transparent1.png" alt="Northwestern Polytechnical University" class="institution-logo">
-              <div class="experience-content">
-                <p class="exp-title"><strong>大学生创新创业训练计划</strong></p>
-                <p class="exp-detail">基于全向轮和深度学习的智能运输平台（省级，唯一负责人）</p>
-                <p class="exp-period">Scientific Problem | 已良好结题</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="card timeline-item">
-            <div class="experience-item">
-              <img src="assets/img/transparent1.png" alt="Northwestern Polytechnical University" class="institution-logo">
-              <div class="experience-content">
-                <p class="exp-title"><strong>大学生创新创业训练计划</strong></p>
-                <p class="exp-detail">回转体型矢量泵喷水下航行器（国家级，唯一负责人）</p>
-                <p class="exp-period">Scientific Problem | 已良好结题</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="section" id="projects">
-        <h2 class="section-title">Projects</h2>
-        <div class="section-body project-timeline">
-          <div class="card project-card is-collapsed" data-project-card>
-            <div class="project-header">
-              <img src="assets/img/gongchuang.png" alt="工创赛 Logo" class="project-logo">
-              <div class="project-header-main">
-                <p class="project-event">中国大学生工程实践与创新能力大赛</p>
-                <p class="project-tags"><span class="project-time">2025.04</span><span class="project-award">省级一等奖（智能+赛道）</span></p>
-              </div>
-              <button class="project-toggle" type="button" aria-expanded="false">查看详情</button>
-            </div>
-            <div class="project-details">
-              <p class="project-meta"><span class="project-label">项目名称</span><span class="project-value">智能物流搬运赛项</span></p>
-              <p class="project-meta"><span class="project-label">主要工作</span><span class="project-value">担任电控负责人，开发物流搬运机器人底盘，采用三环串并耦合 PID 控制，优化麦克纳姆轮累计角度偏差。</span></p>
-            </div>
-          </div>
-          <div class="card project-card is-collapsed" data-project-card>
-            <div class="project-header">
-              <img src="assets/img/gongchuang.png" alt="工创赛 Logo" class="project-logo">
-              <div class="project-header-main">
-                <p class="project-event">中国大学生工程实践与创新能力大赛</p>
-                <p class="project-tags"><span class="project-time">2025.04</span><span class="project-award">省级一等奖（虚拟仿真赛道）</span></p>
-              </div>
-              <button class="project-toggle" type="button" aria-expanded="false">查看详情</button>
-            </div>
-            <div class="project-details">
-              <p class="project-meta"><span class="project-label">项目名称</span><span class="project-value">工程场景数字化赛项</span></p>
-              <p class="project-meta"><span class="project-label">主要工作</span><span class="project-value">担任 Unreal Engine 5 开发负责人，完成数字农业仿真场景与科普系统搭建。</span></p>
-            </div>
-          </div>
-          <div class="card project-card is-collapsed" data-project-card>
-            <div class="project-header">
-              <img src="assets/img/haihang.png" alt="海航赛 Logo" class="project-logo">
-              <div class="project-header-main">
-                <p class="project-event">第十四届全国海洋航行器与设计大赛</p>
-                <p class="project-tags"><span class="project-time">2025.07</span><span class="project-award">西北赛区一等奖</span></p>
-              </div>
-              <button class="project-toggle" type="button" aria-expanded="false">查看详情</button>
-            </div>
-            <div class="project-details">
-              <p class="project-meta"><span class="project-label">项目名称</span><span class="project-value">智戍海疆·多功能回转体型航行器</span></p>
-              <p class="project-meta"><span class="project-label">主要工作</span><span class="project-value">唯一完成人，负责总体设计与实物装配，独立构建电控拓扑并完成上下位机联调。</span></p>
-              <div class="project-evidence">
-                <button class="project-certificate-button" type="button" data-lightbox-image="assets/img/province_first.jpg" data-lightbox-alt="海航赛省一证书">
-                  <img src="assets/img/province_first.jpg" alt="海航赛省一证书" class="project-certificate">
-                </button>
-                <span class="project-evidence-note">海航赛省一证书（点击查看大图）</span>
-              </div>
-            </div>
-          </div>
-          <div class="card project-card is-collapsed" data-project-card>
-            <div class="project-header">
-              <img src="assets/img/haihang.png" alt="海航赛 Logo" class="project-logo">
-              <div class="project-header-main">
-                <p class="project-event">第十四届全国海洋航行器与设计大赛</p>
-                <p class="project-tags"><span class="project-time">2025.08</span><span class="project-award">国家级特等奖</span></p>
-              </div>
-              <button class="project-toggle" type="button" aria-expanded="false">查看详情</button>
-            </div>
-            <div class="project-details">
-              <p class="project-meta"><span class="project-label">项目名称</span><span class="project-value">探海龙兵·水下探查与处置一体化作业平台</span></p>
-              <p class="project-meta"><span class="project-label">主要工作</span><span class="project-value">负责数据采集与处理，协助算法效果测试。</span></p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="section" id="competitions">
-        <h2 class="section-title">Selected Competitions</h2>
-        <div class="section-body">
-          <ul class="competition-list">
-            <li><span class="competition-time">2024</span><span class="competition-text">美国大学生数学建模大赛 (ICM) | Honorable Mention</span></li>
-            <li><span class="competition-time">2025</span><span class="competition-text">高教社杯全国大学生数学建模竞赛 | 省级二等奖</span></li>
-            <li><span class="competition-time">2025</span><span class="competition-text">第十八届全国三维数字化创新设计大赛 | 国家级一等奖</span></li>
-            <li>
-              <span class="competition-time">2025</span>
-              <span class="competition-text">第十三届未来设计师全国高校艺术设计大赛全国总决赛 | 国家级三等奖</span>
-              <img src="assets/img/weilai.png" alt="未来设计师大赛 Logo" class="competition-logo">
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="section" id="publications">
-        <h2 class="section-title">Publications</h2>
-        <div class="section-body">
-          <div class="publications">
-            <ol class="bibliography">
-              <li>
-                <div class="pub-row">
-                  <div class="pub-content">
-                    <div class="title">Publications</div>
-                    <div class="periodical"><em><strong>is coming...</strong></em></div>
-                  </div>
-                </div>
-              </li>
-            </ol>
-          </div>
-        </div>
-      </div>
-
-      <div class="section" id="awards">
-        <h2 class="section-title">Awards</h2>
-        <div class="section-body">
-          <div class="awards-grid">
-            <div class="award-item">
-              <span class="award-icon">🏅</span>
-              <div class="award-text"><strong>软件著作权 4 篇</strong></div>
-            </div>
-            <div class="award-item">
-              <span class="award-icon">🥇</span>
-              <div class="award-text"><strong>优秀大学生（2024）</strong></div>
-            </div>
-            <div class="award-item">
-              <span class="award-icon">🎓</span>
-              <div class="award-text"><strong>校设奖学金（2024）</strong></div>
-            </div>
-            <div class="award-item">
-              <span class="award-icon">🏃</span>
-              <div class="award-text"><strong>航海学院田径队队长（2024-2025），带队获校运会团体总分第一名</strong></div>
-            </div>
-            <div class="award-item">
-              <span class="award-icon">🌐</span>
-              <div class="award-text"><strong>3DGS 校园展机重建项目，单一作品浏览量进入平台 TOP100</strong>（<a href="https://3d.explorerglobal.cn/collection/web/5vxjmwx8">作品合集</a>）</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <footer class="site-footer">
-      <p>
-        &copy; 2026 魏佳桐. All rights reserved.
-      </p>
-    </footer>
-  </div>
-
-  <div id="imageLightbox" class="image-lightbox" aria-hidden="true" role="dialog" aria-label="Image preview dialog">
-    <button id="imageLightboxClose" class="image-lightbox-close" type="button" aria-label="Close image preview">&times;</button>
-    <img id="imageLightboxImage" class="image-lightbox-image" src="" alt="">
-  </div>
-
-  <script src="assets/js/scale.fix.js"></script>
-  <script>
-    (function() {
-      const themeToggle = document.getElementById('themeToggle');
-      const icon = themeToggle.querySelector('i');
-
-      function setTheme(isDark) {
-        document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
-        icon.classList.toggle('fa-sun', isDark);
-        icon.classList.toggle('fa-moon', !isDark);
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      if (cfg.persist) {
+        resolved = matchLocale(localStorage.getItem(storageKey));
       }
 
-      const savedTheme = localStorage.getItem('theme');
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setTheme(savedTheme ? savedTheme === 'dark' : prefersDark);
-
-      themeToggle.addEventListener('click', function() {
-        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        setTheme(!isDark);
-      });
-
-      if ('IntersectionObserver' in window) {
-        const observer = new IntersectionObserver(function(entries) {
-          entries.forEach(function(entry) {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('visible');
-              observer.unobserve(entry.target);
-            }
-          });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.section').forEach(function(el) {
-          observer.observe(el);
-        });
-      } else {
-        document.querySelectorAll('.section').forEach(function(el) {
-          el.classList.add('visible');
-        });
-      }
-
-      document.querySelectorAll('[data-project-card]').forEach(function(card) {
-        const toggle = card.querySelector('.project-toggle');
-        if (!toggle) {
-          return;
+      if (!resolved) {
+        if (cfg.mode === 'fixed') {
+          resolved = cfg.fixedLocale;
+        } else {
+          resolved = matchLocale(navigator.language);
         }
-
-        toggle.addEventListener('click', function() {
-          const expanded = card.classList.toggle('is-expanded');
-          card.classList.toggle('is-collapsed', !expanded);
-          toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
-          toggle.textContent = expanded ? '收起' : '查看详情';
-        });
-      });
-
-      const lightbox = document.getElementById('imageLightbox');
-      const lightboxImage = document.getElementById('imageLightboxImage');
-      const lightboxClose = document.getElementById('imageLightboxClose');
-
-      function closeLightbox() {
-        if (!lightbox || !lightboxImage) {
-          return;
-        }
-        lightbox.classList.remove('is-open');
-        lightbox.setAttribute('aria-hidden', 'true');
-        lightboxImage.src = '';
-        lightboxImage.alt = '';
-        document.body.classList.remove('no-scroll');
       }
 
-      if (lightbox && lightboxImage && lightboxClose) {
-        document.querySelectorAll('[data-lightbox-image]').forEach(function(trigger) {
-          trigger.addEventListener('click', function() {
-            lightboxImage.src = trigger.getAttribute('data-lightbox-image') || '';
-            lightboxImage.alt = trigger.getAttribute('data-lightbox-alt') || 'Certificate image';
-            lightbox.classList.add('is-open');
-            lightbox.setAttribute('aria-hidden', 'false');
-            document.body.classList.add('no-scroll');
-          });
-        });
-
-        lightboxClose.addEventListener('click', closeLightbox);
-
-        lightbox.addEventListener('click', function(event) {
-          if (event.target === lightbox) {
-            closeLightbox();
-          }
-        });
-
-        document.addEventListener('keydown', function(event) {
-          if (event.key === 'Escape' && lightbox.classList.contains('is-open')) {
-            closeLightbox();
-          }
-        });
+      if (!resolved) {
+        resolved = cfg.defaultLocale;
       }
-    })();
-  </script>
-</body>
-</html>
+
+      const root = document.documentElement;
+      root.lang = resolved;
+      root.setAttribute('data-locale', resolved);
+
+      if (cfg.persist) {
+        localStorage.setItem(storageKey, resolved);
+      }
+    } catch (e) {
+      const root = document.documentElement;
+      root.lang = 'zh';
+      root.setAttribute('data-locale', 'zh');
+    }
+  </script><title>Jiatong Wei</title><meta name="description" content="Undergraduate student at Northwestern Polytechnical University focusing on Embodied AI and full-stack robotics development."/><meta name="author" content="Jiatong Wei"/><meta name="keywords" content="Jiatong Wei,PhD,Research,Northwestern Polytechnical University"/><meta name="creator" content="Jiatong Wei"/><meta name="publisher" content="Jiatong Wei"/><meta property="og:title" content="Jiatong Wei"/><meta property="og:description" content="Undergraduate student at Northwestern Polytechnical University focusing on Embodied AI and full-stack robotics development."/><meta property="og:site_name" content="Jiatong Wei&#x27;s Academic Website"/><meta property="og:locale" content="zh_CN"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Jiatong Wei"/><meta name="twitter:description" content="Undergraduate student at Northwestern Polytechnical University focusing on Embodied AI and full-stack robotics development."/><link rel="icon" href="/profile/favicon.svg"/><script>document.querySelectorAll('body link[rel="icon"], body link[rel="apple-touch-icon"]').forEach(el => document.head.appendChild(el))</script><script src="/profile/_next/static/chunks/polyfills-42372ed130431b0a.js" noModule=""></script></head><body class="font-sans antialiased"><div style="visibility:hidden"><nav class="fixed top-0 left-0 right-0 z-50" data-headlessui-state=""><div class="transition-all duration-300 ease-out bg-transparent" style="transform:translateY(-100px)"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex justify-between items-center h-16 lg:h-20"><div class="flex-shrink-0" tabindex="0"><a class="text-xl lg:text-2xl font-serif font-semibold text-primary hover:text-accent transition-colors duration-200" href="/profile/">Jiatong Wei</a></div><div class="hidden lg:block"><div class="ml-10 flex items-center space-x-3"><div class="relative flex items-baseline space-x-1"><a data-nav-href="/" class="relative px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-150 text-primary" href="/profile/">About</a><a data-nav-href="/projects" class="relative px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-150 text-neutral-600" href="/profile/projects/">Projects</a><a data-nav-href="/competitions" class="relative px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-150 text-neutral-600" href="/profile/competitions/">Competitions</a><a data-nav-href="/publications" class="relative px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-150 text-neutral-600" href="/profile/publications/">Publications</a><a data-nav-href="/awards" class="relative px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-150 text-neutral-600" href="/profile/awards/">Awards</a><a data-nav-href="/cv" class="relative px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-150 text-neutral-600" href="/profile/cv/">CV</a></div><div class="flex items-center justify-center w-14 h-10 rounded-lg border border-neutral-200 dark:border-[rgba(148,163,184,0.24)] bg-background dark:bg-neutral-800"><div class="w-6 h-4 rounded bg-neutral-300 animate-pulse"></div></div><div class="flex items-center justify-center w-10 h-10 rounded-lg border border-neutral-200 dark:border-[rgba(148,163,184,0.24)] bg-background dark:bg-neutral-800"><div class="w-4 h-4 rounded-full bg-neutral-300 animate-pulse"></div></div></div></div><div class="lg:hidden flex items-center space-x-2"><div class="flex items-center justify-center w-14 h-10 rounded-lg border border-neutral-200 dark:border-[rgba(148,163,184,0.24)] bg-background dark:bg-neutral-800"><div class="w-6 h-4 rounded bg-neutral-300 animate-pulse"></div></div><div class="flex items-center justify-center w-10 h-10 rounded-lg border border-neutral-200 dark:border-[rgba(148,163,184,0.24)] bg-background dark:bg-neutral-800"><div class="w-4 h-4 rounded-full bg-neutral-300 animate-pulse"></div></div><button class="inline-flex items-center justify-center p-2 rounded-md text-neutral-600 hover:text-primary hover:bg-neutral-100 dark:hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent transition-colors duration-200" id="headlessui-disclosure-button-«R7pdb»" type="button" aria-expanded="false" data-headlessui-state=""><span class="sr-only">Open main menu</span><div><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" class="block h-6 w-6"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path></svg></div></button></div></div></div></div></nav><main class="min-h-screen pt-16 lg:pt-20"><div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-background min-h-screen"><div class="grid grid-cols-1 lg:grid-cols-3 gap-12"><div class="lg:col-span-1"><div class="sticky top-8" style="opacity:0;transform:translateY(20px)"><div class="w-64 h-64 mx-auto mb-6 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105"><img alt="Jiatong Wei" width="256" height="256" decoding="async" data-nimg="1" class="w-full h-full object-cover object-[32%_center]" style="color:transparent" src="/profile/portrait-photonew2.jpg"/></div><div class="text-center mb-6"><h1 class="text-3xl font-serif font-bold text-primary mb-2">Jiatong Wei</h1><p class="text-lg text-accent font-medium mb-1">Undergraduate Student</p><p class="text-neutral-600 mb-2">Northwestern Polytechnical University</p></div><div class="flex flex-wrap justify-center gap-3 sm:gap-4 mb-6 relative px-2"><div class="relative"><button class="p-2 sm:p-2 transition-colors duration-200 text-neutral-600 dark:text-neutral-400 hover:text-accent" aria-label="Email"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" class="h-5 w-5"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"></path></svg></button></div><div class="relative"><button class="p-2 sm:p-2 transition-colors duration-200 text-neutral-600 dark:text-neutral-400 hover:text-accent" aria-label="Location"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" class="h-5 w-5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"></path></svg></button></div><a href="https://github.com/Jiatong-Wei" target="_blank" rel="noopener noreferrer" class="p-2 sm:p-2 text-neutral-600 dark:text-neutral-400 hover:text-accent transition-colors duration-200" aria-label="GitHub"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github h-5 w-5" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg></a></div><div class="bg-neutral-100 dark:bg-neutral-800 rounded-lg p-4 mb-6 hover:shadow-lg transition-all duration-200 hover:scale-[1.02]"><h3 class="font-semibold text-primary mb-3">Research Interests</h3><div class="space-y-2 text-sm text-neutral-700 dark:text-neutral-500"><div>Embodied AI</div><div>Reinforcement Learning</div><div>Full-Stack Robotics Development</div><div>Underwater Intelligent Systems</div></div></div><div class="bg-neutral-100 dark:bg-neutral-800 rounded-lg p-4 mb-6 hover:shadow-lg transition-all duration-200 hover:scale-[1.02]"><h3 class="font-semibold text-primary mb-3">Visitor Map</h3><div class="min-h-[120px] flex items-center justify-center text-xs text-neutral-500"></div></div><div class="flex justify-center"><div class="relative"><button class="flex items-center space-x-2 px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-500 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 dark:hover:text-red-400 cursor-pointer" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" class="h-4 w-4"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"></path></svg><span>Like</span></button></div></div></div></div><div class="lg:col-span-2 space-y-8"><section id="about" class="scroll-mt-24 space-y-8"><section style="opacity:0;transform:translateY(20px)"><h2 class="text-2xl font-serif font-bold text-primary mb-4">About Me</h2><div class="text-neutral-700 dark:text-neutral-600 leading-relaxed"><p class="mb-4 last:mb-0">Hi, my name is Jiatong Wei (魏佳桐). I am an undergraduate student at Northwestern Polytechnical University, currently in my third year of Underwater Acoustic studies. My research interests focus on Embodied AI and full-stack robotics development.</p>
+<ul class="list-disc list-inside mb-4 space-y-1 ml-4">
+<li class="mb-1">B.Eng. in Underwater Acoustics, Northwestern Polytechnical University (2023.09 - 2027.06)</li>
+<li class="mb-1">Current average score: 85/100</li>
+</ul>
+<p class="mb-4 last:mb-0">I am particularly interested in connecting scientific exploration with practical engineering implementation for intelligent robotic systems.</p></div></section><section style="opacity:0;transform:translateY(20px)"><h2 class="text-2xl font-serif font-bold text-primary mb-4">News</h2><div class="space-y-3"><div class="flex items-start space-x-3"><span class="text-xs text-neutral-500 mt-1 w-16 flex-shrink-0">2025-08</span><p class="text-sm text-neutral-700">Won National Grand Prize at the 14th National Ocean Navigation Vehicle and Design Competition (national finals).</p></div><div class="flex items-start space-x-3"><span class="text-xs text-neutral-500 mt-1 w-16 flex-shrink-0">2025-07</span><p class="text-sm text-neutral-700">Won First Prize in the Northwest Regional of the 14th National Ocean Navigation Vehicle and Design Competition as the sole contributor.</p></div><div class="flex items-start space-x-3"><span class="text-xs text-neutral-500 mt-1 w-16 flex-shrink-0">2025-04</span><p class="text-sm text-neutral-700">Won two provincial first prizes in the China College Engineering Practice and Innovation Competition (Intelligent Logistics and Digital Engineering Scenario tracks).</p></div><div class="flex items-start space-x-3"><span class="text-xs text-neutral-500 mt-1 w-16 flex-shrink-0">2024-10</span><p class="text-sm text-neutral-700">Recognized as Outstanding Undergraduate Student at Northwestern Polytechnical University.</p></div></div></section></section></div></div></div><!--$--><!--/$--><!--$--><!--/$--></main><footer class="border-t border-neutral-200/50 bg-neutral-50/50 dark:bg-neutral-900/50 dark:border-neutral-700/50"><div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6"><div class="flex flex-col sm:flex-row justify-between items-center gap-2"><p class="text-xs text-neutral-500">Last updated<!-- -->: <!-- -->April 17, 2026</p><p class="text-xs text-neutral-500 flex items-center"><a href="https://github.com/xyjoey/PRISM" target="_blank" rel="noopener noreferrer">Built with PRISM</a><span class="ml-2">🚀</span></p></div></div></footer></div><script src="/profile/_next/static/chunks/webpack-ed35c082265e4aa8.js" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n3:I[3719,[\"461\",\"static/chunks/461-a9a5d7b05a71d978.js\",\"874\",\"static/chunks/874-6cc630662f3664af.js\",\"291\",\"static/chunks/291-e39730cc9327e39b.js\",\"177\",\"static/chunks/app/layout-80df3eef1d32314c.js\"],\"ThemeProvider\"]\n4:I[310,[\"461\",\"static/chunks/461-a9a5d7b05a71d978.js\",\"874\",\"static/chunks/874-6cc630662f3664af.js\",\"291\",\"static/chunks/291-e39730cc9327e39b.js\",\"177\",\"static/chunks/app/layout-80df3eef1d32314c.js\"],\"LocaleProvider\"]\n5:I[4574,[\"461\",\"static/chunks/461-a9a5d7b05a71d978.js\",\"874\",\"static/chunks/874-6cc630662f3664af.js\",\"291\",\"static/chunks/291-e39730cc9327e39b.js\",\"177\",\"static/chunks/app/layout-80df3eef1d32314c.js\"],\"default\"]\n6:I[7555,[],\"\"]\n7:I[1295,[],\"\"]\n8:I[2548,[\"461\",\"static/chunks/461-a9a5d7b05a71d978.js\",\"874\",\"static/chunks/874-6cc630662f3664af.js\",\"291\",\"static/chunks/291-e39730cc9327e39b.js\",\"177\",\"static/chunks/app/layout-80df3eef1d32314c.js\"],\"default\"]\n9:I[6613,[\"461\",\"static/chunks/461-a9a5d7b05a71d978.js\",\"178\",\"static/chunks/178-0267fea83c073d69.js\",\"874\",\"static/chunks/874-6cc630662f3664af.js\",\"748\",\"static/chunks/748-abdcac66b902b175.js\",\"974\",\"static/chunks/app/page-10b59f0eafb718ee.js\"],\"default\"]\na:I[9665,[],\"MetadataBoundary\"]\nc:I[9665,[],\"OutletBoundary\"]\nf:I[4911,[],\"AsyncMetadataOutlet\"]\n11:I[9665,[],\"ViewportBoundary\"]\n13:I[6614,[],\"\"]\n:HL[\"/profile/_next/static/css/0eb1b67c17b67289.css\",\"style\"]\n2:T590,\n    try {\n      const cfg = {\"enabled\":true,\"locales\":[\"zh\",\"en\"],\"defaultLocale\":\"zh\",\"mode\":\"auto\",\"fixedLocale\":\"zh\",\"persist\":true,\"switcher\":true,\"labels\":{\"zh\":\"中文\",\"en\":\"English\"}};\n      const storageKey = 'locale-storage';\n      const normalize = (value) =\u003e typeof value === 'string' ? value.trim().replace('_', '-').toLowerCase() : '';\n      const matchLocale = (candidate) =\u003e {\n        const normalized = normalize(candidate);\n        if (!normalized) return null;\n        if (cfg.locales.includes(normalized)) return normalized;\n        const language = normalized.split('-')[0];\n        if (cfg.locales.includes(language)) return language;\n"])</script><script>self.__next_f.push([1,"        return null;\n      };\n\n      let resolved = null;\n\n      if (cfg.persist) {\n        resolved = matchLocale(localStorage.getItem(storageKey));\n      }\n\n      if (!resolved) {\n        if (cfg.mode === 'fixed') {\n          resolved = cfg.fixedLocale;\n        } else {\n          resolved = matchLocale(navigator.language);\n        }\n      }\n\n      if (!resolved) {\n        resolved = cfg.defaultLocale;\n      }\n\n      const root = document.documentElement;\n      root.lang = resolved;\n      root.setAttribute('data-locale', resolved);\n\n      if (cfg.persist) {\n        localStorage.setItem(storageKey, resolved);\n      }\n    } catch (e) {\n      const root = document.documentElement;\n      root.lang = 'zh';\n      root.setAttribute('data-locale', 'zh');\n    }\n  "])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"b\":\"rhbggTUmkhMWV3xZt_x-f\",\"p\":\"/profile\",\"c\":[\"\",\"\"],\"i\":false,\"f\":[[[\"\",{\"children\":[\"__PAGE__\",{}]},\"$undefined\",\"$undefined\",true],[\"\",[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/profile/_next/static/css/0eb1b67c17b67289.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}]],[\"$\",\"html\",null,{\"lang\":\"zh\",\"className\":\"scroll-smooth\",\"suppressHydrationWarning\":true,\"children\":[[\"$\",\"head\",null,{\"children\":[[\"$\",\"link\",null,{\"rel\":\"icon\",\"href\":\"/profile/favicon.svg\",\"type\":\"image/svg+xml\"}],[\"$\",\"link\",null,{\"rel\":\"dns-prefetch\",\"href\":\"https://jialeliu.com\"}],[\"$\",\"link\",null,{\"rel\":\"preconnect\",\"href\":\"https://jialeliu.com\",\"crossOrigin\":\"\"}],[\"$\",\"link\",null,{\"rel\":\"preload\",\"as\":\"font\",\"type\":\"font/woff2\",\"href\":\"https://jialeliu.com/fonts/georgiab.woff2\",\"crossOrigin\":\"\"}],[\"$\",\"script\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"\\n              try {\\n                const theme = localStorage.getItem('theme-storage');\\n                const parsed = theme ? JSON.parse(theme) : null;\\n                const setting = parsed?.state?.theme || 'system';\\n                const prefersDark = typeof window !== 'undefined' \u0026\u0026 window.matchMedia \u0026\u0026 window.matchMedia('(prefers-color-scheme: dark)').matches;\\n                const effective = setting === 'dark' ? 'dark' : (setting === 'light' ? 'light' : (prefersDark ? 'dark' : 'light'));\\n                var root = document.documentElement;\\n                root.classList.add(effective);\\n                root.setAttribute('data-theme', effective);\\n              } catch (e) {\\n                var root = document.documentElement;\\n                root.classList.add('light');\\n                root.setAttribute('data-theme', 'light');\\n              }\\n            \"}}],[\"$\",\"script\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"$2\"}}]]}],[\"$\",\"body\",null,{\"className\":\"font-sans antialiased\",\"children\":[\"$\",\"$L3\",null,{\"children\":[\"$\",\"$L4\",null,{\"config\":{\"enabled\":true,\"locales\":[\"zh\",\"en\"],\"defaultLocale\":\"zh\",\"mode\":\"auto\",\"fixedLocale\":\"zh\",\"persist\":true,\"switcher\":true,\"labels\":{\"zh\":\"中文\",\"en\":\"English\"}},\"children\":[[\"$\",\"$L5\",null,{\"items\":[{\"title\":\"About\",\"type\":\"page\",\"target\":\"about\",\"href\":\"/\"},{\"title\":\"Projects\",\"type\":\"page\",\"target\":\"projects\",\"href\":\"/projects\"},{\"title\":\"Competitions\",\"type\":\"page\",\"target\":\"competitions\",\"href\":\"/competitions\"},{\"title\":\"Publications\",\"type\":\"page\",\"target\":\"publications\",\"href\":\"/publications\"},{\"title\":\"Awards\",\"type\":\"page\",\"target\":\"awards\",\"href\":\"/awards\"},{\"title\":\"CV\",\"type\":\"page\",\"target\":\"cv\",\"href\":\"/cv\"}],\"siteTitle\":\"Jiatong Wei\",\"enableOnePageMode\":false,\"i18n\":\"$0:f:0:1:1:props:children:1:props:children:1:props:children:props:children:props:config\",\"itemsByLocale\":{\"zh\":[{\"title\":\"关于我\",\"type\":\"page\",\"target\":\"about\",\"href\":\"/\"},{\"title\":\"项目\",\"type\":\"page\",\"target\":\"projects\",\"href\":\"/projects\"},{\"title\":\"竞赛\",\"type\":\"page\",\"target\":\"competitions\",\"href\":\"/competitions\"},{\"title\":\"论文\",\"type\":\"page\",\"target\":\"publications\",\"href\":\"/publications\"},{\"title\":\"奖项\",\"type\":\"page\",\"target\":\"awards\",\"href\":\"/awards\"},{\"title\":\"简历\",\"type\":\"page\",\"target\":\"cv\",\"href\":\"/cv\"}],\"en\":[{\"title\":\"About\",\"type\":\"page\",\"target\":\"about\",\"href\":\"/\"},{\"title\":\"Projects\",\"type\":\"page\",\"target\":\"projects\",\"href\":\"/projects\"},{\"title\":\"Competitions\",\"type\":\"page\",\"target\":\"competitions\",\"href\":\"/competitions\"},{\"title\":\"Publications\",\"type\":\"page\",\"target\":\"publications\",\"href\":\"/publications\"},{\"title\":\"Awards\",\"type\":\"page\",\"target\":\"awards\",\"href\":\"/awards\"},{\"title\":\"CV\",\"type\":\"page\",\"target\":\"cv\",\"href\":\"/cv\"}]},\"siteTitleByLocale\":{\"zh\":\"魏佳桐\",\"en\":\"Jiatong Wei\"}}],[\"$\",\"main\",null,{\"className\":\"min-h-screen pt-16 lg:pt-20\",\"children\":[\"$\",\"$L6\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L7\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":404}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]],[]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}],[\"$\",\"$L8\",null,{\"lastUpdated\":\"April 17, 2026\",\"lastUpdatedByLocale\":{\"zh\":\"2026年4月17日\",\"en\":\"April 17, 2026\"},\"defaultLocale\":\"zh\"}]]}]}]}]]}]]}],{\"children\":[\"__PAGE__\",[\"$\",\"$1\",\"c\",{\"children\":[[\"$\",\"$L9\",null,{\"dataByLocale\":{\"zh\":{\"author\":{\"name\":\"魏佳桐\",\"title\":\"本科生\",\"institution\":\"西北工业大学\",\"avatar\":\"/profile/portrait-photonew2.jpg\"},\"social\":{\"email\":\"weijiatong@mail.nwpu.edu.cn\",\"location\":\"中国西安\",\"location_url\":\"https://maps.google.com/?q=Northwestern+Polytechnical+University+Xi'an\",\"location_details\":[\"航海学院，\",\"西北工业大学，中国西安\"],\"github\":\"https://github.com/Jiatong-Wei\",\"clustrmaps_embed_src\":\"//clustrmaps.com/map_v2.js?d=TN6h67Q38I8k5lLijaitc8yNMMdIo9wGt_fqmGhIdig\u0026cl=ffffff\u0026w=a\"},\"features\":{\"enable_likes\":true,\"enable_one_page_mode\":false},\"enableOnePageMode\":false,\"researchInterests\":[\"具身智能\",\"强化学习\",\"机器人全栈开发\",\"水下智能系统\"],\"pagesToShow\":[{\"type\":\"about\",\"id\":\"about\",\"sections\":[{\"id\":\"about\",\"type\":\"markdown\",\"source\":\"bio.md\",\"title\":\"关于我\",\"content\":\"你好，我是魏佳桐（Jiatong Wei），西北工业大学本科生，目前就读于水声工程专业三年级。我的研究兴趣聚焦于具身智能与机器人全栈开发。\\n\\n- 西北工业大学 水声工程本科（2023.09 - 2027.06）\\n- 当前平均分：85/100\\n\\n我希望把科学问题探索与工程系统落地结合起来，持续推进智能机器人方向的实践与研究。\\n\"},{\"id\":\"news\",\"type\":\"list\",\"title\":\"动态\",\"source\":\"news.toml\",\"items\":[{\"date\":\"2025-08\",\"content\":\"在第十四届全国海洋航行器与设计大赛国赛中获得国家级特等奖。\"},{\"date\":\"2025-07\",\"content\":\"在第十四届全国海洋航行器与设计大赛西北赛区获得一等奖（唯一完成人）。\"},{\"date\":\"2025-04\",\"content\":\"在中国大学生工程实践与创新能力大赛中获得两项省级一等奖。\"},{\"date\":\"2024-10\",\"content\":\"获评西北工业大学优秀大学生。\"}]}]}]},\"en\":{\"author\":{\"name\":\"Jiatong Wei\",\"title\":\"Undergraduate Student\",\"institution\":\"Northwestern Polytechnical University\",\"avatar\":\"/profile/portrait-photonew2.jpg\"},\"social\":{\"email\":\"weijiatong@mail.nwpu.edu.cn\",\"location\":\"Xi'an, China\",\"location_url\":\"https://maps.google.com/?q=Northwestern+Polytechnical+University+Xi'an\",\"location_details\":[\"School of Marine Science and Technology,\",\"Northwestern Polytechnical University, Xi'an, China\"],\"github\":\"https://github.com/Jiatong-Wei\",\"clustrmaps_embed_src\":\"//clustrmaps.com/map_v2.js?d=TN6h67Q38I8k5lLijaitc8yNMMdIo9wGt_fqmGhIdig\u0026cl=ffffff\u0026w=a\"},\"features\":{\"enable_likes\":true,\"enable_one_page_mode\":false},\"enableOnePageMode\":false,\"researchInterests\":[\"Embodied AI\",\"Reinforcement Learning\",\"Full-Stack Robotics Development\",\"Underwater Intelligent Systems\"],\"pagesToShow\":[{\"type\":\"about\",\"id\":\"about\",\"sections\":[{\"id\":\"about\",\"type\":\"markdown\",\"source\":\"bio.md\",\"title\":\"About Me\",\"content\":\"Hi, my name is Jiatong Wei (魏佳桐). I am an undergraduate student at Northwestern Polytechnical University, currently in my third year of Underwater Acoustic studies. My research interests focus on Embodied AI and full-stack robotics development.\\n\\n- B.Eng. in Underwater Acoustics, Northwestern Polytechnical University (2023.09 - 2027.06)\\n- Current average score: 85/100\\n\\nI am particularly interested in connecting scientific exploration with practical engineering implementation for intelligent robotic systems.\"},{\"id\":\"news\",\"type\":\"list\",\"title\":\"News\",\"source\":\"news.toml\",\"items\":[{\"date\":\"2025-08\",\"content\":\"Won National Grand Prize at the 14th National Ocean Navigation Vehicle and Design Competition (national finals).\"},{\"date\":\"2025-07\",\"content\":\"Won First Prize in the Northwest Regional of the 14th National Ocean Navigation Vehicle and Design Competition as the sole contributor.\"},{\"date\":\"2025-04\",\"content\":\"Won two provincial first prizes in the China College Engineering Practice and Innovation Competition (Intelligent Logistics and Digital Engineering Scenario tracks).\"},{\"date\":\"2024-10\",\"content\":\"Recognized as Outstanding Undergraduate Student at Northwestern Polytechnical University.\"}]}]}]}},\"defaultLocale\":\"zh\"}],[\"$\",\"$La\",null,{\"children\":\"$Lb\"}],null,[\"$\",\"$Lc\",null,{\"children\":[\"$Ld\",\"$Le\",[\"$\",\"$Lf\",null,{\"promise\":\"$@10\"}]]}]]}],{},null,false]},null,false],[\"$\",\"$1\",\"h\",{\"children\":[null,[\"$\",\"$1\",\"7cmjjBM7-LWklMsPv-3H8\",{\"children\":[[\"$\",\"$L11\",null,{\"children\":\"$L12\"}],null]}],null]}],false]],\"m\":\"$undefined\",\"G\":[\"$13\",\"$undefined\"],\"s\":false,\"S\":true}\n"])</script><script>self.__next_f.push([1,"14:\"$Sreact.suspense\"\n15:I[4911,[],\"AsyncMetadata\"]\nb:[\"$\",\"$14\",null,{\"fallback\":null,\"children\":[\"$\",\"$L15\",null,{\"promise\":\"$@16\"}]}]\n"])</script><script>self.__next_f.push([1,"e:null\n"])</script><script>self.__next_f.push([1,"12:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"meta\",\"1\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\nd:null\n"])</script><script>self.__next_f.push([1,"16:{\"metadata\":[[\"$\",\"title\",\"0\",{\"children\":\"Jiatong Wei\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"Undergraduate student at Northwestern Polytechnical University focusing on Embodied AI and full-stack robotics development.\"}],[\"$\",\"meta\",\"2\",{\"name\":\"author\",\"content\":\"Jiatong Wei\"}],[\"$\",\"meta\",\"3\",{\"name\":\"keywords\",\"content\":\"Jiatong Wei,PhD,Research,Northwestern Polytechnical University\"}],[\"$\",\"meta\",\"4\",{\"name\":\"creator\",\"content\":\"Jiatong Wei\"}],[\"$\",\"meta\",\"5\",{\"name\":\"publisher\",\"content\":\"Jiatong Wei\"}],[\"$\",\"meta\",\"6\",{\"property\":\"og:title\",\"content\":\"Jiatong Wei\"}],[\"$\",\"meta\",\"7\",{\"property\":\"og:description\",\"content\":\"Undergraduate student at Northwestern Polytechnical University focusing on Embodied AI and full-stack robotics development.\"}],[\"$\",\"meta\",\"8\",{\"property\":\"og:site_name\",\"content\":\"Jiatong Wei's Academic Website\"}],[\"$\",\"meta\",\"9\",{\"property\":\"og:locale\",\"content\":\"zh_CN\"}],[\"$\",\"meta\",\"10\",{\"property\":\"og:type\",\"content\":\"website\"}],[\"$\",\"meta\",\"11\",{\"name\":\"twitter:card\",\"content\":\"summary\"}],[\"$\",\"meta\",\"12\",{\"name\":\"twitter:title\",\"content\":\"Jiatong Wei\"}],[\"$\",\"meta\",\"13\",{\"name\":\"twitter:description\",\"content\":\"Undergraduate student at Northwestern Polytechnical University focusing on Embodied AI and full-stack robotics development.\"}],[\"$\",\"link\",\"14\",{\"rel\":\"icon\",\"href\":\"/profile/favicon.svg\"}]],\"error\":null,\"digest\":\"$undefined\"}\n10:{\"metadata\":\"$16:metadata\",\"error\":null,\"digest\":\"$undefined\"}\n"])</script></body></html>

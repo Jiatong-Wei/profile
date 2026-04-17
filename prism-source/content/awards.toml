@@ -1,0 +1,38 @@
+type = "card"
+title = "Awards"
+description = "Honors, leadership, and social impact."
+
+[[items]]
+title = "Software Copyright Publications (4)"
+subtitle = "Core Member"
+date = "2025"
+content = "Participated as a core team member in publishing four software copyrights."
+tags = ["Research Output", "Intellectual Property"]
+
+[[items]]
+title = "Outstanding Undergraduate Student"
+subtitle = "Northwestern Polytechnical University"
+date = "2024"
+content = "University-level recognition for academic and comprehensive performance."
+tags = ["University Honor"]
+
+[[items]]
+title = "University Scholarship"
+subtitle = "Northwestern Polytechnical University"
+date = "2024"
+content = "Awarded the university scholarship for outstanding academic achievement."
+tags = ["Scholarship"]
+
+[[items]]
+title = "Track and Field Team Captain"
+subtitle = "School of Marine Science and Technology"
+date = "2024-2025"
+content = "Served as team captain and organized athletes to win first place in total team score at the university sports meeting."
+tags = ["Leadership", "Student Affairs"]
+
+[[items]]
+title = "3DGS Campus Reconstruction Impact"
+subtitle = "Explorer Global Platform"
+date = "2025"
+content = "Reconstructed all outdoor military-practice exhibits of Northwestern Polytechnical University using 3DGS. A single work reached the platform TOP100 by views. [Collection link](https://3d.explorerglobal.cn/collection/web/5vxjmwx8)."
+tags = ["Social Impact", "3DGS"]

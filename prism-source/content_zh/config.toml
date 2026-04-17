@@ -1,0 +1,58 @@
+[site]
+title = "魏佳桐"
+description = "西北工业大学本科生个人主页，研究方向为具身智能与机器人全栈开发。"
+favicon = "/profile/favicon.svg"
+last_updated = "2026年4月17日"
+
+[author]
+name = "魏佳桐"
+title = "本科生"
+institution = "西北工业大学"
+avatar = "/profile/portrait-photonew2.jpg"
+
+[social]
+email = "weijiatong@mail.nwpu.edu.cn"
+location = "中国西安"
+location_url = "https://maps.google.com/?q=Northwestern+Polytechnical+University+Xi'an"
+location_details = [
+  "航海学院，",
+  "西北工业大学，中国西安"
+]
+github = "https://github.com/Jiatong-Wei"
+clustrmaps_embed_src = "//clustrmaps.com/map_v2.js?d=TN6h67Q38I8k5lLijaitc8yNMMdIo9wGt_fqmGhIdig&cl=ffffff&w=a"
+
+[[navigation]]
+title = "关于我"
+type = "page"
+target = "about"
+href = "/"
+
+[[navigation]]
+title = "项目"
+type = "page"
+target = "projects"
+href = "/projects"
+
+[[navigation]]
+title = "竞赛"
+type = "page"
+target = "competitions"
+href = "/competitions"
+
+[[navigation]]
+title = "论文"
+type = "page"
+target = "publications"
+href = "/publications"
+
+[[navigation]]
+title = "奖项"
+type = "page"
+target = "awards"
+href = "/awards"
+
+[[navigation]]
+title = "简历"
+type = "page"
+target = "cv"
+href = "/cv"

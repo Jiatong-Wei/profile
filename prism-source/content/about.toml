@@ -1,0 +1,23 @@
+type = "about"
+title = "About"
+
+[profile]
+research_interests = [
+  "Embodied AI",
+  "Reinforcement Learning",
+  "Full-Stack Robotics Development",
+  "Underwater Intelligent Systems"
+]
+
+[[sections]]
+id = "about"
+type = "markdown"
+source = "bio.md"
+title = "About Me"
+
+[[sections]]
+id = "news"
+type = "list"
+title = "News"
+source = "news.toml"
+
