@@ -213,6 +213,28 @@ h3,
   box-shadow: 0 30px 60px -45px rgba(0, 0, 0, 0.85);
 }
 
+.elevated-panel {
+  border: 1px solid rgba(18, 54, 77, 0.12);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.74) 100%);
+  box-shadow: 0 20px 44px -38px rgba(7, 32, 49, 0.65);
+  backdrop-filter: blur(4px);
+}
+
+.dark .elevated-panel {
+  border-color: rgba(98, 167, 190, 0.24);
+  background: linear-gradient(180deg, rgba(8, 28, 40, 0.86) 0%, rgba(7, 21, 32, 0.72) 100%);
+  box-shadow: 0 24px 52px -40px rgba(0, 0, 0, 0.82);
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 30%, transparent);
+  color: var(--primary-dark);
+}
+
+.dark ::selection {
+  color: #ffffff;
+}
+
 /* Typography utilities */
 .text-balance {
   text-wrap: balance;

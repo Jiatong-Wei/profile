@@ -27,6 +27,16 @@ const markdownComponents = {
     code: ({ children }: React.ComponentProps<'code'>) => (
         <code className="px-1.5 py-0.5 rounded bg-neutral-100 dark:bg-neutral-800 text-[0.95em]">{children}</code>
     ),
+    img: ({ alt, ...props }: React.ComponentProps<'img'>) => (
+        // Keep markdown images elegant if future content reintroduces them.
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+            {...props}
+            alt={alt || ''}
+            loading="lazy"
+            className="mt-3 rounded-lg border border-neutral-200/80 dark:border-neutral-700/80 max-h-48 w-auto object-contain"
+        />
+    ),
 };
 
 export default function CardPage({ config, embedded = false }: { config: CardPageConfig; embedded?: boolean }) {
@@ -37,7 +47,7 @@ export default function CardPage({ config, embedded = false }: { config: CardPag
             transition={{ duration: 0.6, delay: 0.4 }}
         >
             <div className={embedded ? "mb-4" : "mb-8"}>
-                <h1 className={`${embedded ? "text-2xl" : "text-4xl"} font-serif font-bold text-primary mb-4`}>{config.title}</h1>
+                <h1 className={`${embedded ? "text-2xl" : "text-4xl"} font-serif font-bold text-primary mb-4 tracking-tight`}>{config.title}</h1>
                 {config.description && (
                     <div className={`${embedded ? "text-base" : "text-lg"} text-neutral-600 dark:text-neutral-500 max-w-2xl leading-relaxed`}>
                         <ReactMarkdown components={markdownComponents}>
@@ -54,12 +64,12 @@ export default function CardPage({ config, embedded = false }: { config: CardPag
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.4, delay: 0.1 * index }}
-                        className={`bg-white dark:bg-neutral-900 ${embedded ? "p-4" : "p-6"} rounded-xl shadow-sm border border-neutral-200 dark:border-neutral-800 hover:shadow-lg transition-all duration-200 hover:scale-[1.01]`}
+                        className={`elevated-panel ${embedded ? "p-4" : "p-6"} rounded-2xl border border-neutral-200/80 dark:border-neutral-700/70 hover:shadow-xl transition-all duration-200 hover:-translate-y-0.5`}
                     >
                         <div className="flex justify-between items-start mb-2">
                             <h3 className={`${embedded ? "text-lg" : "text-xl"} font-semibold text-primary`}>{item.title}</h3>
                             {item.date && (
-                                <span className="text-sm text-neutral-500 font-medium bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded">
+                                <span className="text-sm text-neutral-500 font-medium bg-white/80 dark:bg-neutral-800/80 px-2.5 py-1 rounded-md border border-neutral-200/70 dark:border-neutral-700/70">
                                     {item.date}
                                 </span>
                             )}

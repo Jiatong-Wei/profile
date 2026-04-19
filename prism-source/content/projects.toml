@@ -10,8 +10,6 @@ content = """
 - National Grand Prize.
 - Core member responsible for data acquisition and processing.
 - Supported algorithm validation and field testing with the team.
-
-![Competition Logo](/profile/logos/haihang.png)
 """
 tags = ["Engineering Problem", "National Grand Prize", "Core Member"]
 
@@ -24,8 +22,6 @@ content = """
 - Responsible for overall system design and physical assembly.
 - Independently built control topology and completed upper-lower controller integration.
 - Prototyped both TVC vector propulsion and dual-helical vector propulsion mechanisms.
-
-![Provincial Certificate](/profile/certificates/province_first.jpg)
 """
 tags = ["Engineering Problem", "First Prize", "Sole Contributor"]
 
@@ -38,8 +34,6 @@ content = """
 - Developed robot chassis control and implemented a three-loop coupled PID strategy.
 - Eliminated accumulated heading error caused by Mecanum wheel motion.
 - Advisors: Prof. Qilehua Qi, Prof. Jun Luo.
-
-![Competition Logo](/profile/logos/gongchuang.png)
 """
 tags = ["Engineering Problem", "Provincial First Prize", "Robotics Control"]
 
@@ -51,8 +45,6 @@ content = """
 - Provincial First Prize, Unreal Engine development lead.
 - Built a full digital-agriculture simulation and science-education system in Unreal Engine 5.
 - Advisors: Prof. Xiaoya Liang, Prof. Shenqi Hu.
-
-![Competition Logo](/profile/logos/gongchuang.png)
 """
 tags = ["Engineering Problem", "Provincial First Prize", "UE5"]
 

@@ -18,17 +18,18 @@ export default function About({ content, title }: AboutProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
+            className="elevated-panel rounded-2xl p-6 md:p-8"
         >
-            <h2 className="text-2xl font-serif font-bold text-primary mb-4">{resolvedTitle}</h2>
-            <div className="text-neutral-700 dark:text-neutral-600 leading-relaxed">
+            <h2 className="text-3xl font-serif font-bold text-primary mb-5 tracking-tight">{resolvedTitle}</h2>
+            <div className="text-neutral-700 dark:text-neutral-500 leading-relaxed">
                 <ReactMarkdown
                     components={{
                         h1: ({ children }) => <h1 className="text-3xl font-serif font-bold text-primary mt-8 mb-4">{children}</h1>,
-                        h2: ({ children }) => <h2 className="text-2xl font-serif font-bold text-primary mt-8 mb-4 border-b border-neutral-200 dark:border-neutral-800 pb-2">{children}</h2>,
+                        h2: ({ children }) => <h2 className="text-2xl font-serif font-bold text-primary mt-8 mb-4 border-b border-neutral-200/80 dark:border-neutral-700/80 pb-2">{children}</h2>,
                         h3: ({ children }) => <h3 className="text-xl font-semibold text-primary mt-6 mb-3">{children}</h3>,
-                        p: ({ children }) => <p className="mb-4 last:mb-0">{children}</p>,
-                        ul: ({ children }) => <ul className="list-disc list-inside mb-4 space-y-1 ml-4">{children}</ul>,
-                        ol: ({ children }) => <ol className="list-decimal list-inside mb-4 space-y-1 ml-4">{children}</ol>,
+                        p: ({ children }) => <p className="mb-4 last:mb-0 text-[1.02rem] leading-8">{children}</p>,
+                        ul: ({ children }) => <ul className="list-disc list-inside mb-4 space-y-1.5 ml-4">{children}</ul>,
+                        ol: ({ children }) => <ol className="list-decimal list-inside mb-4 space-y-1.5 ml-4">{children}</ol>,
                         li: ({ children }) => <li className="mb-1">{children}</li>,
                         a: ({ ...props }) => (
                             <a
@@ -39,7 +40,7 @@ export default function About({ content, title }: AboutProps) {
                             />
                         ),
                         blockquote: ({ children }) => (
-                            <blockquote className="border-l-4 border-accent/50 pl-4 italic my-4 text-neutral-600 dark:text-neutral-500">
+                            <blockquote className="my-5 rounded-xl border border-accent/35 bg-accent/8 px-4 py-3 md:px-5 md:py-4 text-primary dark:text-neutral-100 font-medium leading-relaxed shadow-sm">
                                 {children}
                             </blockquote>
                         ),
