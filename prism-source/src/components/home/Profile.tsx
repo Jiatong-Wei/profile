@@ -135,16 +135,21 @@ export default function Profile({ author, social, features, researchInterests }:
             transition={{ duration: 0.6 }}
             className="sticky top-8"
         >
-            {/* Profile Image */}
-            <div className="w-64 h-64 mx-auto mb-8 rounded-xl overflow-hidden p-1.5 liquid-glass rounded-2xl transition-all duration-300 hover:scale-[1.02]">
-                <Image
-                    src={author.avatar}
-                    alt={author.name}
-                    width={256}
-                    height={256}
-                    className="w-full h-full object-cover object-[32%_center]"
-                    priority
-                />
+            {/* Profile Image — glass border separate from image to avoid blur */}
+            <div className="w-64 h-64 mx-auto mb-8 relative">
+                {/* Glass border layer */}
+                <div className="absolute -inset-1.5 liquid-glass rounded-2xl" />
+                {/* Image layer — no glass effects on top */}
+                <div className="relative w-full h-full rounded-xl overflow-hidden">
+                    <Image
+                        src={author.avatar}
+                        alt={author.name}
+                        width={400}
+                        height={400}
+                        className="w-full h-full object-cover object-[32%_center]"
+                        priority
+                    />
+                </div>
             </div>
 
             {/* Name and Title */}
