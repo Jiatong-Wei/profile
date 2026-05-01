@@ -1,11 +1,9 @@
 name: Deploy PRISM to GitHub Pages
 
 on:
-  # Automatic deployment on push to main
   push:
-    branches: 
+    branches:
       - main
-      - ci
   workflow_dispatch:
 
 permissions:
@@ -26,17 +24,20 @@ jobs:
         with:
           node-version: 22
           cache: npm
+          cache-dependency-path: prism-source/package-lock.json
 
       - name: Install dependencies
+        working-directory: prism-source
         run: npm install
 
       - name: Build site
+        working-directory: prism-source
         run: npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./out
+          path: ./prism-source/out
 
   deploy:
     needs: build
