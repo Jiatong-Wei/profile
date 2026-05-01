@@ -167,9 +167,9 @@ export default function Navigation({
             animate={{ y: 0 }}
             transition={{ duration: 0.6 }}
             className={cn(
-              'transition-all duration-300 ease-out',
+              'transition-all duration-500 ease-out',
               scrolled
-                ? 'bg-white/70 dark:bg-neutral-900/70 backdrop-blur-2xl border-b border-neutral-200/60 dark:border-neutral-700/60 shadow-[0_10px_35px_-22px_rgba(7,32,49,0.75)]'
+                ? 'liquid-glass border-b-0'
                 : 'bg-transparent'
             )}
           >
@@ -182,7 +182,7 @@ export default function Navigation({
                 >
                   <Link
                     href="/"
-                    className="text-xl lg:text-2xl font-serif font-semibold text-primary hover:text-accent transition-colors duration-200"
+                    className="text-xl lg:text-2xl font-serif font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent hover:opacity-80 transition-opacity duration-200"
                   >
                     {effectiveSiteTitle}
                   </Link>
@@ -198,10 +198,10 @@ export default function Navigation({
                       {indicatorStyle && (
                         <motion.div
                           className={cn(
-                            'absolute rounded-lg pointer-events-none',
+                            'absolute rounded-xl pointer-events-none',
                             hoveredHref && hoveredHref !== activeHref
-                              ? 'bg-accent/[0.07]'
-                              : 'bg-accent/10'
+                              ? 'bg-primary/[0.08]'
+                              : 'bg-primary/10'
                           )}
                           initial={false}
                           animate={{
@@ -230,12 +230,12 @@ export default function Navigation({
                             onClick={() => enableOnePageMode && setActiveHash(`#${item.target}`)}
                             onMouseEnter={() => setHoveredHref(href)}
                             className={cn(
-                              'relative px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-150',
+                              'relative px-3 py-2 text-sm font-medium rounded-xl transition-colors duration-200',
                               isActive
                                 ? 'text-primary'
                                 : hoveredHref === href
-                                  ? 'text-primary'
-                                  : 'text-neutral-600'
+                                  ? 'text-primary-light'
+                                  : 'text-neutral-400 hover:text-neutral-200'
                             )}
                           >
                             {item.title}
@@ -251,7 +251,7 @@ export default function Navigation({
                 <div className="lg:hidden flex items-center space-x-2">
                   <LanguageToggle i18n={i18n} />
                   <ThemeToggle />
-                  <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-neutral-600 hover:text-primary hover:bg-neutral-100 dark:hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent transition-colors duration-200">
+                  <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-xl text-neutral-400 hover:text-primary hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary/50 transition-colors duration-200">
                     <span className="sr-only">{messages.navigation.openMainMenu}</span>
                     <motion.div
                       animate={{ rotate: open ? 180 : 0 }}
@@ -277,7 +277,7 @@ export default function Navigation({
                   animate={{ opacity: 1, height: 'auto' }}
                   exit={{ opacity: 0, height: 0 }}
                   transition={{ duration: 0.3 }}
-                  className="lg:hidden bg-background/95 backdrop-blur-xl border-b border-neutral-200/50 shadow-lg"
+                  className="lg:hidden liquid-glass border-t border-white/5"
                 >
                   <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                     {effectiveItems.map((item, index) => {
@@ -304,10 +304,10 @@ export default function Navigation({
                             prefetch={true}
                             onClick={() => enableOnePageMode && setActiveHash(item.href === '/' ? '' : `#${item.target}`)}
                             className={cn(
-                              'block px-3 py-2 rounded-md text-base font-medium transition-all duration-200',
+                              'block px-3 py-2 rounded-xl text-base font-medium transition-all duration-200',
                               isActive
-                                ? 'text-primary bg-accent/10 border-l-4 border-accent'
-                                : 'text-neutral-600 hover:text-primary hover:bg-neutral-50'
+                                ? 'text-primary bg-primary/10 border-l-2 border-primary'
+                                : 'text-neutral-400 hover:text-neutral-200 hover:bg-white/5'
                             )}
                           >
                             {item.title}

@@ -48,8 +48,8 @@ export function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <div className="flex items-center justify-center w-10 h-10 rounded-lg border border-neutral-200 dark:border-[rgba(148,163,184,0.24)] bg-background dark:bg-neutral-800">
-        <div className="w-4 h-4 rounded-full bg-neutral-300 animate-pulse" />
+      <div className="flex items-center justify-center w-10 h-10 rounded-xl border border-white/10 bg-white/5">
+        <div className="w-4 h-4 rounded-full bg-neutral-600 animate-pulse" />
       </div>
     );
   }
@@ -70,11 +70,10 @@ export function ThemeToggle() {
           setTheme(next);
         }}
         className={cn(
-          'flex items-center justify-center w-10 h-10 rounded-lg',
-          'border border-neutral-200 bg-background hover:bg-neutral-50',
-          'dark:border-[rgba(148,163,184,0.24)] dark:bg-neutral-800 dark:hover:bg-neutral-700',
-          'transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/50',
-          'text-neutral-600 hover:text-primary dark:text-neutral-400 dark:hover:text-white'
+          'flex items-center justify-center w-10 h-10 rounded-xl',
+          'border border-white/10 bg-white/5 hover:bg-white/10',
+          'transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50',
+          'text-neutral-400 hover:text-primary'
         )}
         title={`${messages.theme.currentTheme}: ${currentTheme.label}. ${messages.theme.cycleTheme}.`}
       >
@@ -110,8 +109,8 @@ export function ThemeToggleDropdown() {
 
   if (!mounted) {
     return (
-      <div className="flex items-center justify-center w-10 h-10 rounded-lg border border-neutral-200 dark:border-[rgba(148,163,184,0.24)] bg-background dark:bg-neutral-800">
-        <div className="w-4 h-4 rounded-full bg-neutral-300 animate-pulse" />
+      <div className="flex items-center justify-center w-10 h-10 rounded-xl border border-white/10 bg-white/5">
+        <div className="w-4 h-4 rounded-full bg-neutral-600 animate-pulse" />
       </div>
     );
   }
@@ -127,11 +126,10 @@ export function ThemeToggleDropdown() {
         onMouseDown={(e) => e.preventDefault()}
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          'flex items-center justify-center w-10 h-10 rounded-lg',
-          'border border-neutral-200 bg-background hover:bg-neutral-50',
-          'dark:border-[rgba(148,163,184,0.24)] dark:bg-neutral-800 dark:hover:bg-neutral-700',
-          'transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/50',
-          'text-neutral-600 hover:text-primary dark:text-neutral-400 dark:hover:text-white'
+          'flex items-center justify-center w-10 h-10 rounded-xl',
+          'border border-white/10 bg-white/5 hover:bg-white/10',
+          'transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50',
+          'text-neutral-400 hover:text-primary'
         )}
         title={`${messages.theme.currentTheme}: ${currentTheme.label}`}
       >
@@ -151,9 +149,8 @@ export function ThemeToggleDropdown() {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: -10 }}
           className={cn(
-            'absolute right-0 mt-2 w-32 rounded-lg shadow-lg border',
-            'bg-background border-neutral-200 dark:border-[rgba(148,163,184,0.24)]',
-            'dark:bg-neutral-800 z-50'
+            'absolute right-0 mt-2 w-32 rounded-xl shadow-lg border',
+            'bg-neutral-900/90 border-white/10 backdrop-blur-xl z-50'
           )}
         >
           <div className="py-1">
@@ -166,11 +163,10 @@ export function ThemeToggleDropdown() {
                 }}
                 className={cn(
                   'flex items-center w-full px-3 py-2 text-sm',
-                  'hover:bg-neutral-50 dark:hover:bg-neutral-700',
-                  'transition-colors duration-200',
+                  'hover:bg-white/5 transition-colors duration-200',
                   theme === themeOption.value
-                    ? 'text-accent bg-accent/10'
-                    : 'text-neutral-700 dark:text-neutral-300'
+                    ? 'text-primary bg-primary/10'
+                    : 'text-neutral-300'
                 )}
               >
                 <span className="mr-2">{themeOption.icon}</span>

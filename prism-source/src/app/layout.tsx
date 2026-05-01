@@ -138,14 +138,15 @@ export default function RootLayout({
                 const parsed = theme ? JSON.parse(theme) : null;
                 const setting = parsed?.state?.theme || 'system';
                 const prefersDark = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-                const effective = setting === 'dark' ? 'dark' : (setting === 'light' ? 'light' : (prefersDark ? 'dark' : 'light'));
+                // Default to dark (deep space theme) unless user explicitly chose light
+                const effective = setting === 'light' ? 'light' : 'dark';
                 var root = document.documentElement;
                 root.classList.add(effective);
                 root.setAttribute('data-theme', effective);
               } catch (e) {
                 var root = document.documentElement;
-                root.classList.add('light');
-                root.setAttribute('data-theme', 'light');
+                root.classList.add('dark');
+                root.setAttribute('data-theme', 'dark');
               }
             `,
           }}
@@ -157,6 +158,7 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans antialiased">
+        <div className="aurora-bg" aria-hidden="true" />
         <ThemeProvider>
           <LocaleProvider config={runtimeI18n}>
             <Navigation
