@@ -89,20 +89,20 @@ class Shader {
     this.container = document.createElement('div');
     this.container.style.cssText = `
       position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      top: 0;
+      left: 0;
       width: ${this.width}px;
       height: ${this.height}px;
       overflow: hidden;
       border-radius: 150px;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 -10px 25px inset rgba(0, 0, 0, 0.15);
-      cursor: grab;
+      cursor: none;
       backdrop-filter: url(#${this.id}_filter) blur(0.25px) contrast(1.2) brightness(1.05) saturate(1.1);
       -webkit-backdrop-filter: url(#${this.id}_filter) blur(0.25px) contrast(1.2) brightness(1.05) saturate(1.1);
       z-index: 9999;
-      pointer-events: auto;
+      pointer-events: none;
       border: 1px solid rgba(255, 255, 255, 0.08);
+      will-change: transform;
     `;
 
     this.svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -166,63 +166,43 @@ class Shader {
   }
 
   setupEventListeners() {
-    let isDragging = false;
-    let startX = 0, startY = 0, initialX = 0, initialY = 0;
+    // Position glass centered on mouse, constrained to viewport
+    const updatePosition = (mouseX: number, mouseY: number) => {
+      const targetX = mouseX - this.width / 2;
+      const targetY = mouseY - this.height / 2;
+      const constrained = this.constrainPosition(targetX, targetY);
+      this.container.style.transform = `translate(${constrained.x}px, ${constrained.y}px)`;
 
-    this.container.addEventListener('mousedown', (e: MouseEvent) => {
-      isDragging = true;
-      this.container.style.cursor = 'grabbing';
-      startX = e.clientX;
-      startY = e.clientY;
-      const rect = this.container.getBoundingClientRect();
-      initialX = rect.left;
-      initialY = rect.top;
-      e.preventDefault();
-    });
-
-    const handleMouseMove = (e: MouseEvent) => {
-      if (isDragging) {
-        const deltaX = e.clientX - startX;
-        const deltaY = e.clientY - startY;
-        const newX = initialX + deltaX;
-        const newY = initialY + deltaY;
-        const constrained = this.constrainPosition(newX, newY);
-        this.container.style.left = constrained.x + 'px';
-        this.container.style.top = constrained.y + 'px';
-        this.container.style.transform = 'none';
-      }
-
-      const rect = this.container.getBoundingClientRect();
-      this.mouse.x = (e.clientX - rect.left) / rect.width;
-      this.mouse.y = (e.clientY - rect.top) / rect.height;
+      // Update mouse UV for shader
+      this.mouse.x = (mouseX - constrained.x) / this.width;
+      this.mouse.y = (mouseY - constrained.y) / this.height;
 
       if (this.mouseUsed) {
         this.updateShader();
       }
     };
 
-    const handleMouseUp = () => {
-      isDragging = false;
-      this.container.style.cursor = 'grab';
+    const handleMouseMove = (e: MouseEvent) => {
+      updatePosition(e.clientX, e.clientY);
     };
 
     const handleResize = () => {
+      // Re-constrain if viewport shrinks
       const rect = this.container.getBoundingClientRect();
       const constrained = this.constrainPosition(rect.left, rect.top);
       if (rect.left !== constrained.x || rect.top !== constrained.y) {
-        this.container.style.left = constrained.x + 'px';
-        this.container.style.top = constrained.y + 'px';
-        this.container.style.transform = 'none';
+        this.container.style.transform = `translate(${constrained.x}px, ${constrained.y}px)`;
       }
     };
 
+    // Initialize at center of viewport
+    updatePosition(window.innerWidth / 2, window.innerHeight / 2);
+
     document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
     window.addEventListener('resize', handleResize);
 
     this.cleanupFn = () => {
       document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
       window.removeEventListener('resize', handleResize);
     };
   }
@@ -301,8 +281,8 @@ export default function LiquidGlassOverlay() {
     }
 
     const shader = new Shader({
-      width: 320,
-      height: 220,
+      width: 200,
+      height: 140,
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       fragment: (uv, _mouse) => {
         const ix = uv.x - 0.5;
