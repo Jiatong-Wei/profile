@@ -57,10 +57,8 @@ export default function Navigation({
 
   useEffect(() => {
     const handleScroll = () => {
-      const isScrolled = window.scrollY > 20;
-      setScrolled(isScrolled);
+      setScrolled(window.scrollY > 20);
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -72,18 +70,13 @@ export default function Navigation({
       setActiveHash(window.location.hash);
       const handleHashChange = () => setActiveHash(window.location.hash);
       window.addEventListener('hashchange', handleHashChange);
-
       visibleSections.current.clear();
 
       const observerCallback = (entries: IntersectionObserverEntry[]) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            visibleSections.current.add(entry.target.id);
-          } else {
-            visibleSections.current.delete(entry.target.id);
-          }
+          if (entry.isIntersecting) visibleSections.current.add(entry.target.id);
+          else visibleSections.current.delete(entry.target.id);
         });
-
         const firstVisible = effectiveItems.find(
           (item) => item.type === 'page' && visibleSections.current.has(item.target)
         );
@@ -92,13 +85,11 @@ export default function Navigation({
         }
       };
 
-      const observerOptions = {
+      const observer = new IntersectionObserver(observerCallback, {
         root: null,
         rootMargin: '-20% 0px -60% 0px',
         threshold: 0,
-      };
-
-      const observer = new IntersectionObserver(observerCallback, observerOptions);
+      });
 
       effectiveItems.forEach((item) => {
         if (item.type === 'page') {
@@ -117,9 +108,7 @@ export default function Navigation({
   const isDesktopItemActive = (item: SiteConfig['navigation'][number]) =>
     enableOnePageMode
       ? activeHash === `#${item.target}` || (!activeHash && item.target === 'about')
-      : (item.href === '/'
-        ? pathname === '/'
-        : pathname.startsWith(item.href));
+      : (item.href === '/' ? pathname === '/' : pathname.startsWith(item.href));
 
   const getDesktopItemHref = (item: SiteConfig['navigation'][number]) =>
     enableOnePageMode ? `/#${item.target}` : item.href;
@@ -134,9 +123,7 @@ export default function Navigation({
       setIndicatorStyle(null);
       return;
     }
-    const el = container.querySelector<HTMLElement>(
-      `[data-nav-href="${CSS.escape(indicatorHref)}"]`
-    );
+    const el = container.querySelector<HTMLElement>(`[data-nav-href="${CSS.escape(indicatorHref)}"]`);
     if (!el) {
       setIndicatorStyle(null);
       return;
@@ -168,40 +155,25 @@ export default function Navigation({
             transition={{ duration: 0.6 }}
             className={cn(
               'transition-all duration-500 ease-out',
-              scrolled
-                ? 'liquid-glass border-b-0'
-                : 'bg-transparent'
+              scrolled ? 'liquid-glass border-b-0' : 'bg-transparent'
             )}
           >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex justify-between items-center h-16 lg:h-20">
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="flex-shrink-0"
-                >
-                  <Link
-                    href="/"
-                    className="text-xl lg:text-2xl font-serif font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent hover:opacity-80 transition-opacity duration-200"
-                  >
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="flex-shrink-0">
+                  <Link href="/" className="text-xl lg:text-2xl font-serif font-semibold text-foreground hover:text-primary transition-colors duration-200">
                     {effectiveSiteTitle}
                   </Link>
                 </motion.div>
 
                 <div className="hidden lg:block">
                   <div className="ml-10 flex items-center space-x-3">
-                    <div
-                      ref={navContainerRef}
-                      className="relative flex items-baseline space-x-1"
-                      onMouseLeave={() => setHoveredHref(null)}
-                    >
+                    <div ref={navContainerRef} className="relative flex items-baseline space-x-1" onMouseLeave={() => setHoveredHref(null)}>
                       {indicatorStyle && (
                         <motion.div
                           className={cn(
                             'absolute rounded-xl pointer-events-none',
-                            hoveredHref && hoveredHref !== activeHref
-                              ? 'bg-primary/[0.08]'
-                              : 'bg-primary/10'
+                            hoveredHref && hoveredHref !== activeHref ? 'bg-white/[0.06]' : 'bg-white/[0.08]'
                           )}
                           initial={false}
                           animate={{
@@ -210,17 +182,12 @@ export default function Navigation({
                             top: indicatorStyle.top,
                             height: indicatorStyle.height,
                           }}
-                          transition={{
-                            type: 'spring',
-                            stiffness: 400,
-                            damping: 28,
-                          }}
+                          transition={{ type: 'spring', stiffness: 400, damping: 28 }}
                         />
                       )}
                       {effectiveItems.map((item) => {
                         const isActive = isDesktopItemActive(item);
                         const href = getDesktopItemHref(item);
-
                         return (
                           <Link
                             key={item.target}
@@ -231,11 +198,7 @@ export default function Navigation({
                             onMouseEnter={() => setHoveredHref(href)}
                             className={cn(
                               'relative px-3 py-2 text-sm font-medium rounded-xl transition-colors duration-200',
-                              isActive
-                                ? 'text-primary'
-                                : hoveredHref === href
-                                  ? 'text-primary-light'
-                                  : 'text-neutral-400 hover:text-neutral-200'
+                              isActive ? 'text-foreground' : hoveredHref === href ? 'text-foreground' : 'text-neutral-400 hover:text-neutral-200'
                             )}
                           >
                             {item.title}
@@ -251,17 +214,10 @@ export default function Navigation({
                 <div className="lg:hidden flex items-center space-x-2">
                   <LanguageToggle i18n={i18n} />
                   <ThemeToggle />
-                  <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-xl text-neutral-400 hover:text-primary hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary/50 transition-colors duration-200">
+                  <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-xl text-neutral-400 hover:text-foreground hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary/50 transition-colors duration-200">
                     <span className="sr-only">{messages.navigation.openMainMenu}</span>
-                    <motion.div
-                      animate={{ rotate: open ? 180 : 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      {open ? (
-                        <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
-                      ) : (
-                        <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
-                      )}
+                    <motion.div animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.2 }}>
+                      {open ? <XMarkIcon className="block h-6 w-6" /> : <Bars3Icon className="block h-6 w-6" />}
                     </motion.div>
                   </Disclosure.Button>
                 </div>
@@ -283,14 +239,8 @@ export default function Navigation({
                     {effectiveItems.map((item, index) => {
                       const isActive = enableOnePageMode
                         ? (item.href === '/' ? pathname === '/' && !activeHash : activeHash === `#${item.target}`)
-                        : (item.href === '/'
-                          ? pathname === '/'
-                          : pathname.startsWith(item.href));
-
-                      const href = enableOnePageMode
-                        ? (item.href === '/' ? '/' : `/#${item.target}`)
-                        : item.href;
-
+                        : (item.href === '/' ? pathname === '/' : pathname.startsWith(item.href));
+                      const href = enableOnePageMode ? (item.href === '/' ? '/' : `/#${item.target}`) : item.href;
                       return (
                         <motion.div
                           key={item.target}
@@ -306,8 +256,8 @@ export default function Navigation({
                             className={cn(
                               'block px-3 py-2 rounded-xl text-base font-medium transition-all duration-200',
                               isActive
-                                ? 'text-primary bg-primary/10 border-l-2 border-primary'
-                                : 'text-neutral-400 hover:text-neutral-200 hover:bg-white/5'
+                                ? 'text-foreground bg-white/[0.08] border-l-2 border-primary'
+                                : 'text-neutral-400 hover:text-neutral-200 hover:bg-white/[0.04]'
                             )}
                           >
                             {item.title}

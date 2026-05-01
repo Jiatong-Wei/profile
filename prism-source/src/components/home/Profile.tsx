@@ -179,7 +179,7 @@ export default function Profile({ author, social, features, researchInterests }:
                                         setLastClickedTooltip('address');
                                     }}
                                     className={`p-2 sm:p-2 transition-colors duration-200 ${isAddressPinned
-                                        ? 'text-accent'
+                                        ? 'text-primary'
                                         : 'text-neutral-400 hover:text-primary'
                                         }`}
                                     aria-label={link.name}
@@ -225,7 +225,7 @@ export default function Profile({ author, social, features, researchInterests }:
                                                             href={social.location_url}
                                                             target="_blank"
                                                             rel="noopener noreferrer"
-                                                            className="inline-flex items-center justify-center space-x-2 bg-accent hover:bg-accent-dark text-white px-3 py-1 rounded-md text-xs font-medium transition-colors duration-200 w-full sm:w-auto"
+                                                            className="inline-flex items-center justify-center space-x-2 bg-primary hover:bg-primary-dark text-white px-3 py-1 rounded-md text-xs font-medium transition-colors duration-200 w-full sm:w-auto"
                                                         >
                                                             <MapPinIcon className="h-4 w-4" />
                                                             <span>{messages.profile.googleMap}</span>
@@ -256,7 +256,7 @@ export default function Profile({ author, social, features, researchInterests }:
                                         setLastClickedTooltip('email');
                                     }}
                                     className={`p-2 sm:p-2 transition-colors duration-200 ${isEmailPinned
-                                        ? 'text-accent'
+                                        ? 'text-primary'
                                         : 'text-neutral-400 hover:text-primary'
                                         }`}
                                     aria-label={link.name}
@@ -297,7 +297,7 @@ export default function Profile({ author, social, features, researchInterests }:
                                                 <div className="mt-2">
                                                     <a
                                                         href={link.href}
-                                                        className="inline-flex items-center justify-center space-x-2 bg-accent hover:bg-accent-dark text-white px-3 py-1 rounded-md text-xs font-medium transition-colors duration-200 w-full sm:w-auto"
+                                                        className="inline-flex items-center justify-center space-x-2 bg-primary hover:bg-primary-dark text-white px-3 py-1 rounded-md text-xs font-medium transition-colors duration-200 w-full sm:w-auto"
                                                     >
                                                         <EnvelopeIcon className="h-4 w-4" />
                                                         <span className="sm:hidden">{messages.profile.send}</span>
@@ -331,7 +331,7 @@ export default function Profile({ author, social, features, researchInterests }:
             {researchInterests && researchInterests.length > 0 && (
                 <div className="elevated-panel rounded-xl p-4 mb-8 hover:shadow-lg transition-all duration-200 hover:scale-[1.015]">
                     <h3 className="font-semibold text-primary mb-3 tracking-tight">{messages.profile.researchInterests}</h3>
-                    <div className="space-y-2 text-sm text-neutral-700 dark:text-neutral-500">
+                    <div className="space-y-2 text-sm text-neutral-400">
                         {researchInterests.map((interest, index) => (
                             <div key={index}>{interest}</div>
                         ))}
@@ -378,8 +378,8 @@ export default function Profile({ author, social, features, researchInterests }:
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 ${hasLiked
-                                ? 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400'
-                                : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-500 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 dark:hover:text-red-400 cursor-pointer'
+                                ? 'bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400'
+                                : 'bg-neutral-100 dark:bg-white/[0.04] text-neutral-400 hover:bg-red-50 dark:hover:bg-red-500/10 hover:text-red-600 dark:hover:text-red-400 cursor-pointer'
                                 }`}
                         >
                             {hasLiked ? (
@@ -397,10 +397,10 @@ export default function Profile({ author, social, features, researchInterests }:
                                     initial={{ opacity: 0, y: 10, scale: 0.8 }}
                                     animate={{ opacity: 1, y: -10, scale: 1 }}
                                     exit={{ opacity: 0, y: -20, scale: 0.8 }}
-                                    className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-full bg-accent text-white px-4 py-2 rounded-lg text-sm font-medium shadow-lg whitespace-nowrap"
+                                    className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-full bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium shadow-lg whitespace-nowrap"
                                 >
                                     {messages.profile.thanks} 😊
-                                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-accent"></div>
+                                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-primary"></div>
                                 </motion.div>
                             )}
                         </AnimatePresence>

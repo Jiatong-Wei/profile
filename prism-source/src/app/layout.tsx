@@ -158,7 +158,6 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans antialiased">
-        <div className="aurora-bg" aria-hidden="true" />
         <ThemeProvider>
           <LocaleProvider config={runtimeI18n}>
             <Navigation

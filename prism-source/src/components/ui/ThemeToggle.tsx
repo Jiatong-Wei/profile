@@ -16,23 +16,10 @@ interface ThemeOption {
 
 function useThemeOptions(): ThemeOption[] {
   const messages = useMessages();
-
   return [
-    {
-      value: 'system',
-      label: messages.theme.system,
-      icon: <ComputerDesktopIcon className="h-4 w-4" />,
-    },
-    {
-      value: 'light',
-      label: messages.theme.light,
-      icon: <SunIcon className="h-4 w-4" />,
-    },
-    {
-      value: 'dark',
-      label: messages.theme.dark,
-      icon: <MoonIcon className="h-4 w-4" />,
-    },
+    { value: 'system', label: messages.theme.system, icon: <ComputerDesktopIcon className="h-4 w-4" /> },
+    { value: 'light', label: messages.theme.light, icon: <SunIcon className="h-4 w-4" /> },
+    { value: 'dark', label: messages.theme.dark, icon: <MoonIcon className="h-4 w-4" /> },
   ];
 }
 
@@ -42,16 +29,10 @@ export function ThemeToggle() {
   const messages = useMessages();
   const themes = useThemeOptions();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  useEffect(() => { setMounted(true); }, []);
 
   if (!mounted) {
-    return (
-      <div className="flex items-center justify-center w-10 h-10 rounded-xl border border-white/10 bg-white/5">
-        <div className="w-4 h-4 rounded-full bg-neutral-600 animate-pulse" />
-      </div>
-    );
+    return <div className="flex items-center justify-center w-10 h-10 rounded-xl border border-white/10 bg-white/[0.04]" />;
   }
 
   const currentTheme = themes.find((t) => t.value === theme) || themes[0];
@@ -65,15 +46,14 @@ export function ThemeToggle() {
         onMouseDown={(e) => e.preventDefault()}
         onClick={() => {
           const order: Theme[] = ['system', 'light', 'dark'];
-          const index = order.indexOf(theme);
-          const next = order[(index + 1) % order.length];
+          const next = order[(order.indexOf(theme) + 1) % order.length];
           setTheme(next);
         }}
         className={cn(
           'flex items-center justify-center w-10 h-10 rounded-xl',
-          'border border-white/10 bg-white/5 hover:bg-white/10',
+          'border border-white/10 bg-white/[0.04] hover:bg-white/[0.08]',
           'transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50',
-          'text-neutral-400 hover:text-primary'
+          'text-neutral-400 hover:text-foreground'
         )}
         title={`${messages.theme.currentTheme}: ${currentTheme.label}. ${messages.theme.cycleTheme}.`}
       >
@@ -83,13 +63,7 @@ export function ThemeToggle() {
           animate={{ rotate: 0, opacity: 1 }}
           transition={{ duration: 0.3 }}
         >
-          {theme === 'system' ? (
-            <ComputerDesktopIcon className="h-4 w-4" />
-          ) : theme === 'dark' ? (
-            <MoonIcon className="h-4 w-4" />
-          ) : (
-            <SunIcon className="h-4 w-4" />
-          )}
+          {theme === 'system' ? <ComputerDesktopIcon className="h-4 w-4" /> : theme === 'dark' ? <MoonIcon className="h-4 w-4" /> : <SunIcon className="h-4 w-4" />}
         </motion.div>
       </motion.button>
     </div>
@@ -103,16 +77,10 @@ export function ThemeToggleDropdown() {
   const messages = useMessages();
   const themes = useThemeOptions();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  useEffect(() => { setMounted(true); }, []);
 
   if (!mounted) {
-    return (
-      <div className="flex items-center justify-center w-10 h-10 rounded-xl border border-white/10 bg-white/5">
-        <div className="w-4 h-4 rounded-full bg-neutral-600 animate-pulse" />
-      </div>
-    );
+    return <div className="flex items-center justify-center w-10 h-10 rounded-xl border border-white/10 bg-white/[0.04]" />;
   }
 
   const currentTheme = themes.find((t) => t.value === theme) || themes[0];
@@ -127,18 +95,13 @@ export function ThemeToggleDropdown() {
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
           'flex items-center justify-center w-10 h-10 rounded-xl',
-          'border border-white/10 bg-white/5 hover:bg-white/10',
+          'border border-white/10 bg-white/[0.04] hover:bg-white/[0.08]',
           'transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50',
-          'text-neutral-400 hover:text-primary'
+          'text-neutral-400 hover:text-foreground'
         )}
         title={`${messages.theme.currentTheme}: ${currentTheme.label}`}
       >
-        <motion.div
-          key={theme}
-          initial={{ rotate: -180, opacity: 0 }}
-          animate={{ rotate: 0, opacity: 1 }}
-          transition={{ duration: 0.3 }}
-        >
+        <motion.div key={theme} initial={{ rotate: -180, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} transition={{ duration: 0.3 }}>
           {currentTheme.icon}
         </motion.div>
       </motion.button>
@@ -148,25 +111,17 @@ export function ThemeToggleDropdown() {
           initial={{ opacity: 0, scale: 0.95, y: -10 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: -10 }}
-          className={cn(
-            'absolute right-0 mt-2 w-32 rounded-xl shadow-lg border',
-            'bg-neutral-900/90 border-white/10 backdrop-blur-xl z-50'
-          )}
+          className="absolute right-0 mt-2 w-32 rounded-xl shadow-lg border border-white/10 bg-[#1c1917]/95 backdrop-blur-xl z-50"
         >
           <div className="py-1">
             {themes.map((themeOption) => (
               <button
                 key={themeOption.value}
-                onClick={() => {
-                  setTheme(themeOption.value);
-                  setIsOpen(false);
-                }}
+                onClick={() => { setTheme(themeOption.value); setIsOpen(false); }}
                 className={cn(
                   'flex items-center w-full px-3 py-2 text-sm',
-                  'hover:bg-white/5 transition-colors duration-200',
-                  theme === themeOption.value
-                    ? 'text-primary bg-primary/10'
-                    : 'text-neutral-300'
+                  'hover:bg-white/[0.05] transition-colors duration-200',
+                  theme === themeOption.value ? 'text-primary bg-primary/10' : 'text-neutral-300'
                 )}
               >
                 <span className="mr-2">{themeOption.icon}</span>
@@ -177,12 +132,7 @@ export function ThemeToggleDropdown() {
         </motion.div>
       )}
 
-      {isOpen && (
-        <div
-          className="fixed inset-0 z-40"
-          onClick={() => setIsOpen(false)}
-        />
-      )}
+      {isOpen && <div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)} />}
     </div>
   );
 }
