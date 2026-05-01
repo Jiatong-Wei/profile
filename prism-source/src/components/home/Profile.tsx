@@ -152,10 +152,10 @@ export default function Profile({ author, social, features, researchInterests }:
                 <h1 className="text-4xl font-serif font-bold text-foreground tracking-tight mb-1">
                     {author.name}
                 </h1>
-                <p className="text-lg font-medium text-primary/90 mb-0.5">
+                <p className="text-lg font-medium text-primary mb-0.5">
                     {author.title}
                 </p>
-                <p className="text-sm text-neutral-400">
+                <p className="text-sm text-neutral-500 dark:text-neutral-400">
                     {author.institution}
                 </p>
             </div>
