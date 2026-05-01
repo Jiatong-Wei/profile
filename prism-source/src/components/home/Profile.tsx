@@ -136,7 +136,7 @@ export default function Profile({ author, social, features, researchInterests }:
             className="sticky top-8"
         >
             {/* Profile Image */}
-            <div className="w-64 h-64 mx-auto mb-6 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105">
+            <div className="w-64 h-64 mx-auto mb-8 rounded-xl overflow-hidden p-1.5 liquid-glass rounded-2xl transition-all duration-300 hover:scale-[1.02]">
                 <Image
                     src={author.avatar}
                     alt={author.name}
@@ -148,20 +148,20 @@ export default function Profile({ author, social, features, researchInterests }:
             </div>
 
             {/* Name and Title */}
-            <div className="text-center mb-6">
-                <h1 className="text-3xl font-serif font-bold text-primary mb-2">
+            <div className="text-center mb-8">
+                <h1 className="text-4xl font-serif font-bold text-foreground tracking-tight mb-1">
                     {author.name}
                 </h1>
-                <p className="text-lg text-accent font-medium mb-1">
+                <p className="text-lg font-medium text-primary/90 mb-0.5">
                     {author.title}
                 </p>
-                <p className="text-neutral-600 mb-2">
+                <p className="text-sm text-neutral-400">
                     {author.institution}
                 </p>
             </div>
 
             {/* Contact Links */}
-            <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-6 relative px-2">
+            <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-8 relative px-2">
                 {socialLinks.map((link) => {
                     const IconComponent = link.icon;
                     if (link.isLocation) {
@@ -180,7 +180,7 @@ export default function Profile({ author, social, features, researchInterests }:
                                     }}
                                     className={`p-2 sm:p-2 transition-colors duration-200 ${isAddressPinned
                                         ? 'text-accent'
-                                        : 'text-neutral-600 dark:text-neutral-400 hover:text-accent'
+                                        : 'text-neutral-400 hover:text-primary'
                                         }`}
                                     aria-label={link.name}
                                 >
@@ -257,7 +257,7 @@ export default function Profile({ author, social, features, researchInterests }:
                                     }}
                                     className={`p-2 sm:p-2 transition-colors duration-200 ${isEmailPinned
                                         ? 'text-accent'
-                                        : 'text-neutral-600 dark:text-neutral-400 hover:text-accent'
+                                        : 'text-neutral-400 hover:text-primary'
                                         }`}
                                     aria-label={link.name}
                                 >
@@ -318,7 +318,7 @@ export default function Profile({ author, social, features, researchInterests }:
                             href={link.href}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="p-2 sm:p-2 text-neutral-600 dark:text-neutral-400 hover:text-accent transition-colors duration-200"
+                            className="p-2 sm:p-2 text-neutral-400 hover:text-primary transition-colors duration-200"
                             aria-label={link.name}
                         >
                             <IconComponent className="h-5 w-5" />
@@ -329,7 +329,7 @@ export default function Profile({ author, social, features, researchInterests }:
 
             {/* Research Interests */}
             {researchInterests && researchInterests.length > 0 && (
-                <div className="elevated-panel rounded-xl p-4 mb-6 hover:shadow-lg transition-all duration-200 hover:scale-[1.015]">
+                <div className="elevated-panel rounded-xl p-4 mb-8 hover:shadow-lg transition-all duration-200 hover:scale-[1.015]">
                     <h3 className="font-semibold text-primary mb-3 tracking-tight">{messages.profile.researchInterests}</h3>
                     <div className="space-y-2 text-sm text-neutral-700 dark:text-neutral-500">
                         {researchInterests.map((interest, index) => (
@@ -340,7 +340,7 @@ export default function Profile({ author, social, features, researchInterests }:
             )}
 
             {(clustrmapsImageSrc || clustrmapsSrc) && (
-                <div className="elevated-panel rounded-xl p-4 mb-6 hover:shadow-lg transition-all duration-200 hover:scale-[1.015]">
+                <div className="elevated-panel rounded-xl p-4 mb-8 hover:shadow-lg transition-all duration-200 hover:scale-[1.015]">
                     <h3 className="font-semibold text-primary mb-3">Visitor Map</h3>
                     {clustrmapsImageSrc ? (
                         <a
