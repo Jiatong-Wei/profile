@@ -7,3 +7,6 @@ Thumbs.db
 
 # macOS metadata
 ._*
+
+# Embedded repo (causes submodule errors in CI)
+profile-live/
