@@ -130,6 +130,21 @@ h1, h2, h3, .font-serif {
   line-height: 1.25;
 }
 
+/* ===== NAV GLASS — Gaussian blur for nav & footer ===== */
+.nav-glass {
+  background: rgba(10, 9, 9, 0.72);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+}
+
+.light .nav-glass {
+  background: rgba(250, 250, 249, 0.78);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
+}
+
 /* ===== LIQUID GLASS — Inspired by Shu Ding's optical model =====
    Core idea: light blur + enhanced contrast/brightness/saturate
    to simulate how real glass treats light, not just "frosted" blur.

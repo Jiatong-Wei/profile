@@ -155,7 +155,7 @@ export default function Navigation({
             transition={{ duration: 0.6 }}
             className={cn(
               'transition-all duration-500 ease-out',
-              scrolled ? 'liquid-glass border-b-0' : 'bg-transparent'
+              scrolled ? 'nav-glass' : 'bg-transparent'
             )}
           >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -233,7 +233,7 @@ export default function Navigation({
                   animate={{ opacity: 1, height: 'auto' }}
                   exit={{ opacity: 0, height: 0 }}
                   transition={{ duration: 0.3 }}
-                  className="lg:hidden liquid-glass border-t border-white/5"
+                  className="lg:hidden nav-glass border-t border-white/5"
                 >
                   <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                     {effectiveItems.map((item, index) => {
