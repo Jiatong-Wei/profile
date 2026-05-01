@@ -62,7 +62,7 @@ function pickAccent(tags: string[] = []): string {
     const t = tags.join(' ').toLowerCase();
     if (t.includes('engineering') || t.includes('robotics') || t.includes('control')) return '#0ea5e9'; // sky
     if (t.includes('scientific') || t.includes('research') || t.includes('national project')) return '#8b5cf6'; // violet
-    if (t.includes('design') || t.includes('creative') || t.includes('ue5')) return '#ec4899'; // pink
+    if (t.includes('design') || t.includes('creative') || t.includes('ue5')) return '#d97706'; // orange
     if (t.includes('mathematical') || t.includes('modeling')) return '#10b981'; // emerald
     if (t.includes('first prize') || t.includes('grand prize')) return '#f59e0b'; // amber
     return '#d97706'; // primary orange fallback
