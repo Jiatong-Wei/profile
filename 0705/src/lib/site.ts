@@ -23,7 +23,7 @@ export const SITE = {
   github: "https://github.com/Jiatong-Wei",
   location: "Xi'an, China",
   institution: "Northwestern Polytechnical University",
-  avatar: "/profile/portrait.png",
+  avatar: "/profile/selfish/beger.png",
   cvPdf: "/cv/WeiJiatong-Resume.pdf"
 };
 

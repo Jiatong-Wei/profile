@@ -18,7 +18,7 @@ export default function HomePage() {
         <div className="profile-portrait-frame">
           <Image
             src={SITE.avatar}
-            alt="Jiatong Wei portrait"
+            alt="Cartoon beagle avatar"
             fill
             priority
             className="profile-portrait"
