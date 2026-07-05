@@ -27,11 +27,11 @@ jobs:
           cache-dependency-path: 0705/package-lock.json
 
       - name: Install dependencies
-        working-directory: 0705
+        working-directory: "0705"
         run: npm ci
 
       - name: Build site
-        working-directory: 0705
+        working-directory: "0705"
         run: npm run build
 
       - name: Upload artifact
