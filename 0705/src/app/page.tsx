@@ -11,6 +11,12 @@ const representativeProjectSlugs = [
   "omni-wheel-transport-platform"
 ];
 
+const visitorMap = {
+  href: "https://mapmyvisitors.com/web/1c69f",
+  image:
+    "https://mapmyvisitors.com/map.png?d=WIE1pZUYqyYa4sM_nKZqQR5FFdt3_eutO6VcR3NQuyI&cl=ffffff"
+};
+
 function isProjectEntry(entry: ContentEntry | undefined): entry is ContentEntry<ProjectFrontmatter> {
   return Boolean(entry);
 }
@@ -80,6 +86,22 @@ export default function HomePage() {
             ) : null}
           </div>
         </div>
+        <a
+          className="visitor-map-widget"
+          href={visitorMap.href}
+          target="_blank"
+          rel="noreferrer"
+          aria-label="View visitor map statistics"
+        >
+          <Image
+            src={visitorMap.image}
+            alt="Visitor map"
+            width={480}
+            height={235}
+            unoptimized
+            className="visitor-map-image"
+          />
+        </a>
       </div>
 
       <aside className="work-panel">

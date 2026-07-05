@@ -6,7 +6,13 @@ const nextConfig: NextConfig = {
   basePath: "/profile",
   assetPrefix: "/profile",
   images: {
-    unoptimized: true
+    unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "mapmyvisitors.com"
+      }
+    ]
   }
 };
 
