@@ -1,4 +1,4 @@
-name: Deploy PRISM to GitHub Pages
+name: Deploy 0705 Profile Wiki to GitHub Pages
 
 on:
   push:
@@ -24,20 +24,20 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: prism-source/package-lock.json
+          cache-dependency-path: 0705/package-lock.json
 
       - name: Install dependencies
-        working-directory: prism-source
-        run: npm install
+        working-directory: 0705
+        run: npm ci
 
       - name: Build site
-        working-directory: prism-source
+        working-directory: 0705
         run: npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./prism-source/out
+          path: ./0705/out
 
   deploy:
     needs: build
