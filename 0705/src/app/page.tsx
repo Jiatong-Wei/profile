@@ -3,68 +3,94 @@ import Link from "next/link";
 import { ArrowUpRight, Download, Github, Mail, MapPin } from "lucide-react";
 import { contactItems, focusAreas, SITE, withBasePath } from "@/lib/site";
 
+const evidenceItems = [
+  {
+    period: "2023.09 - Present",
+    title: "B.Eng. Underwater Acoustics",
+    detail: "Northwestern Polytechnical University · Avg. 85/100",
+    type: "Education"
+  },
+  {
+    period: "2025.08",
+    title: "National Grand Prize",
+    detail:
+      "14th National Ocean Navigation Vehicle Competition · Integrated Underwater Inspection Platform",
+    type: "Award"
+  },
+  {
+    period: "2025.07",
+    title: "Regional First Prize",
+    detail:
+      "14th ONVDC Northwest Regional · Rotary Underwater Vehicle, sole contributor",
+    type: "Award"
+  },
+  {
+    period: "2025.04",
+    title: "Provincial First Prize",
+    detail:
+      "China College Engineering Practice & Innovation Competition · Intelligent Logistics Robot",
+    type: "Award"
+  }
+];
+
 export default function HomePage() {
-  const mail     = contactItems.find((c) => c.href.startsWith("mailto:"));
-  const github   = contactItems.find((c) => c.href.startsWith("https://github.com"));
+  const mail = contactItems.find((c) => c.href.startsWith("mailto:"));
+  const github = contactItems.find((c) => c.href.startsWith("https://github.com"));
   const location = contactItems.find((c) => c.label === SITE.location);
 
   return (
     <section className="home-one-screen">
+      <aside className="profile-panel" aria-label="Academic profile card">
+        <div className="profile-card-top">
+          <div className="profile-portrait-frame">
+            <Image
+              src={SITE.avatar}
+              alt="Cartoon beagle academic avatar"
+              fill
+              priority
+              className="profile-portrait"
+              sizes="(max-width: 720px) 42vw, 160px"
+            />
+          </div>
 
-      {/* ─── Left: Profile ─── */}
-      <div className="profile-panel">
-
-        {/* Portrait — contain, no cropping */}
-        <div className="profile-portrait-frame">
-          <Image
-            src={SITE.avatar}
-            alt="Cartoon beagle avatar"
-            fill
-            priority
-            className="profile-portrait"
-            sizes="(max-width: 720px) 70vw, 260px"
-          />
+          <div className="profile-copy">
+            <p className="profile-kicker">Academic Profile</p>
+            <h1>{SITE.name}</h1>
+            <p className="profile-role">Undergraduate Researcher</p>
+            <p className="profile-tagline">
+              {SITE.institution}
+              <br />
+              Underwater Acoustics · Robotics Systems
+            </p>
+          </div>
         </div>
 
-        {/* Name block */}
-        <div className="profile-copy">
-          <h1>{SITE.name}</h1>
-          <p className="profile-role">Undergraduate Researcher</p>
-          <p className="profile-tagline">
-            {SITE.institution}
-            <br />Marine Science &amp; Technology
-          </p>
-        </div>
+        <p className="profile-statement">
+          I build inspectable robot systems for embodied intelligence and
+          underwater unmanned platforms.
+        </p>
 
-        {/* Contact */}
-        <div className="profile-contact">
-          {mail && (
-            <a href={mail.href} aria-label={`Email ${mail.label}`} title={mail.label}>
-              <Mail aria-hidden="true" size={17} />
-              <span>{mail.label}</span>
+        <div className="profile-contact" aria-label="Contact links">
+          {mail ? (
+            <a href={mail.href}>
+              <Mail aria-hidden="true" size={16} />
+              <span>Email</span>
             </a>
-          )}
-          {github && (
-            <a href={github.href} target="_blank" rel="noreferrer" aria-label="GitHub" title="GitHub">
-              <Github aria-hidden="true" size={17} />
+          ) : null}
+          {github ? (
+            <a href={github.href} target="_blank" rel="noreferrer">
+              <Github aria-hidden="true" size={16} />
               <span>GitHub</span>
             </a>
-          )}
-          {location && (
-            <a href={location.href} aria-label={location.label} title={location.label}>
-              <MapPin aria-hidden="true" size={17} />
+          ) : null}
+          {location ? (
+            <a href={location.href}>
+              <MapPin aria-hidden="true" size={16} />
               <span>{location.label}</span>
             </a>
-          )}
+          ) : null}
         </div>
 
-        <div className="focus-strip" aria-label="Research focus areas">
-          {focusAreas.map((item) => (
-            <span key={item}>{item}</span>
-          ))}
-        </div>
-
-        {/* Actions */}
         <div className="profile-actions">
           <a className="primary-action" href={withBasePath(SITE.cvPdf)} download>
             <Download aria-hidden="true" size={16} />
@@ -76,78 +102,52 @@ export default function HomePage() {
           </Link>
         </div>
 
-      </div>
+        <section className="focus-strip" aria-label="Research focus areas">
+          <h2>Research Focus</h2>
+          <div>
+            {focusAreas.map((item) => (
+              <span key={item}>{item}</span>
+            ))}
+          </div>
+        </section>
+      </aside>
 
-      {/* ─── Right: Bio + Experience ─── */}
-      <aside className="work-panel">
-
-        {/* About Me */}
-        <div className="about-section">
-          <p className="eyebrow">About Me</p>
-          <h2 className="about-heading">机器人与海洋的交叉地带</h2>
+      <aside className="work-panel resume-panel" aria-label="Resume summary">
+        <section className="about-section resume-section">
+          <p className="eyebrow">About</p>
+          <h2 className="about-heading">面向真实系统的机器人与水下智能</h2>
           <p className="about-lead">
-            我是魏佳桐，来自西北工业大学水声工程学院（2023–2027）。
-            研究方向聚焦于<strong>具身智能</strong>与<strong>水下无人系统</strong>，
-            热衷于将强化学习落地为可以实际运动的硬件系统。
+            我是魏佳桐，来自西北工业大学水声工程学院（2023-2027）。目前关注
+            <strong>具身智能</strong>、<strong>水下无人系统</strong>与可落地的机器人全栈工程。
           </p>
           <p className="about-body">
-            我正在将每一个工程项目的设计决策、失败与突破系统化地记录进
-            Personal Wiki，希望未来能在具身智能领域做出有实质贡献的研究工作。
+            这个网站会逐步沉淀我的项目、竞赛、工程决策和失败记录。首页只保留最能支持
+            学术申请与求职判断的信息：教育背景、代表性项目、奖项证据和可追溯的个人 Wiki。
           </p>
-        </div>
+        </section>
 
-        {/* Experience timeline */}
-        <div className="experience-section">
-          <p className="eyebrow">Experience</p>
-          <ol className="timeline" aria-label="Experience timeline">
+        <section className="experience-section resume-section">
+          <div className="resume-section-heading">
+            <p className="eyebrow">Evidence</p>
+            <Link href="/projects">
+              Projects
+              <ArrowUpRight aria-hidden="true" size={15} />
+            </Link>
+          </div>
 
-            <li className="tl-item">
-              <span className="tl-dot tl-edu" aria-hidden="true" />
-              <div className="tl-body">
-                <time className="tl-period">2023.09 – present</time>
-                <strong className="tl-title">B.Eng. Underwater Acoustics</strong>
-                <span className="tl-sub">
-                  Northwestern Polytechnical University · Avg.&nbsp;85/100
-                </span>
-              </div>
-            </li>
-
-            <li className="tl-item">
-              <span className="tl-dot tl-award" aria-hidden="true" />
-              <div className="tl-body">
-                <time className="tl-period">2025.08</time>
-                <strong className="tl-title">National Grand Prize 🏆</strong>
-                <span className="tl-sub">
-                  14th National Ocean Navigation Vehicle Competition — Integrated Underwater Inspection Platform
-                </span>
-              </div>
-            </li>
-
-            <li className="tl-item">
-              <span className="tl-dot tl-award" aria-hidden="true" />
-              <div className="tl-body">
-                <time className="tl-period">2025.07</time>
-                <strong className="tl-title">Regional First Prize 🥇</strong>
-                <span className="tl-sub">
-                  14th ONVDC Northwest Regional — Rotary Underwater Vehicle&nbsp;(sole contributor)
-                </span>
-              </div>
-            </li>
-
-            <li className="tl-item">
-              <span className="tl-dot tl-award" aria-hidden="true" />
-              <div className="tl-body">
-                <time className="tl-period">2025.04</time>
-                <strong className="tl-title">Provincial First Prize 🥇</strong>
-                <span className="tl-sub">
-                  China College Engineering Practice &amp; Innovation Competition — Intelligent Logistics Robot
-                </span>
-              </div>
-            </li>
-
+          <ol className="evidence-list" aria-label="Education and selected evidence">
+            {evidenceItems.map((item) => (
+              <li className="evidence-item" key={`${item.period}-${item.title}`}>
+                <span className="evidence-period">{item.period}</span>
+                <div>
+                  <span className="evidence-type">{item.type}</span>
+                  <strong>{item.title}</strong>
+                  <p>{item.detail}</p>
+                </div>
+              </li>
+            ))}
           </ol>
-        </div>
-
+        </section>
       </aside>
     </section>
   );
