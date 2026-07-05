@@ -23,7 +23,8 @@ export const SITE = {
   github: "https://github.com/Jiatong-Wei",
   location: "Xi'an, China",
   institution: "Northwestern Polytechnical University",
-  avatar: "/profile/portrait-photonew2.jpg"
+  avatar: "/profile/portrait.png",
+  cvPdf: "/cv/WeiJiatong-Resume.pdf"
 };
 
 export const navItems = [
@@ -31,7 +32,7 @@ export const navItems = [
   { href: "/wiki", label: "Wiki", icon: BookOpen },
   { href: "/papers", label: "Papers", icon: ScrollText },
   { href: "/projects", label: "Projects", icon: Layers3 },
-  { href: "/cv", label: "CV", icon: FileText }
+  { href: SITE.cvPdf, label: "CV", icon: FileText, download: true }
 ];
 
 export const contactItems = [

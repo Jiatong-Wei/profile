@@ -1,9 +1,8 @@
 import { ContentCard } from "@/components/content-card";
 import { KnowledgeGraph } from "@/components/knowledge-graph";
 import { PageHero } from "@/components/page-hero";
-import { TagPill } from "@/components/tag-pill";
 import { WikiSearch } from "@/components/wiki-search";
-import { buildGraph, getAllTags, getEntriesByCollection } from "@/lib/content";
+import { buildGraph, getEntriesByCollection } from "@/lib/content";
 import type { WikiFrontmatter } from "@/lib/types";
 
 export const metadata = {
@@ -13,7 +12,6 @@ export const metadata = {
 
 export default function WikiPage() {
   const notes = getEntriesByCollection<WikiFrontmatter>("wiki");
-  const tags = getAllTags();
   const graph = buildGraph(notes);
 
   return (
@@ -42,13 +40,6 @@ export default function WikiPage() {
         <div className="card-grid">
           {notes.map((note) => (
             <ContentCard entry={note} key={note.slug} />
-          ))}
-        </div>
-      </section>
-      <section className="section-band">
-        <div className="tag-cloud">
-          {tags.map((item) => (
-            <TagPill tag={item.tag} count={item.count} key={item.tag} />
           ))}
         </div>
       </section>

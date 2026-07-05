@@ -21,6 +21,4 @@ related: [full-stack-robotics, embodied-ai-roadmap]
 
 ## 项目入口
 
-- [[integrated-underwater-platform|探海龙兵·水下探查与处置一体化作业平台]]
 - [[rotary-underwater-vehicle|智戍海疆·多功能回转体型航行器]]
-- [[vector-pump-underwater-vehicle|回转体型矢量泵喷水下航行器]]

@@ -5,7 +5,7 @@ tags: [UE5, 虚拟仿真, 数字农业, 省级一等奖]
 status: evergreen
 period: 2025.04
 role: Unreal Engine 开发负责人
-publish: true
+publish: false
 related: [3dgs-campus-reconstruction]
 ---
 

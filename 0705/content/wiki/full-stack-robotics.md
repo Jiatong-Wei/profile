@@ -25,4 +25,4 @@ related: [underwater-robotics, reinforcement-learning]
 
 [[rotary-underwater-vehicle|多功能回转体型航行器]] 是“唯一完成人”的项目，适合用来记录从总体设计到实物装配的完整链条。
 
-[[integrated-underwater-platform|水下探查与处置一体化平台]] 则更适合记录团队协作、数据采集和算法验证过程。
+团队型水下探查项目则更适合记录协作、数据采集和算法验证过程，暂时先不作为公开节点展示。

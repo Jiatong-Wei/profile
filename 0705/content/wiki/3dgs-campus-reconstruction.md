@@ -7,7 +7,7 @@ status: growing
 updated: 2026-07-05
 publish: true
 aliases: [3DGS Campus Reconstruction]
-related: [digital-agriculture-simulation]
+related: []
 ---
 
 这个节点用于记录我在 3DGS 场景重建中的工作流、采集策略和展示效果。
@@ -19,4 +19,4 @@ related: [digital-agriculture-simulation]
 - 采集设备与拍摄路径。
 - 重建质量评估方式。
 - 展示平台链接和访问数据截图。
-- 与 [[digital-agriculture-simulation|数字农业工程场景仿真系统]] 的虚拟场景经验对照。
+- 与数字农业工程场景仿真系统的虚拟场景经验对照。

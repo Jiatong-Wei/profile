@@ -8,7 +8,7 @@ status: in-progress
 tags: [具身智能, Reading Note, Research]
 bibtexKey: wei2026embodiedmap
 featured: true
-publish: true
+publish: false
 related: [embodied-ai-roadmap, reinforcement-learning]
 ---
 

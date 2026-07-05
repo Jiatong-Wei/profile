@@ -28,4 +28,4 @@ related: [reinforcement-learning, full-stack-robotics]
 
 ## 与项目的关系
 
-[[integrated-underwater-platform|水下探查与处置一体化平台]] 和 [[rotary-underwater-vehicle|多功能回转体型航行器]] 会作为我整理水下机器人经验的入口。
+[[rotary-underwater-vehicle|多功能回转体型航行器]] 会作为我整理水下机器人全栈经验的入口。

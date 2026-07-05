@@ -1,15 +1,25 @@
 import { ContentCard } from "@/components/content-card";
 import { PageHero } from "@/components/page-hero";
-import { getEntriesByCollection } from "@/lib/content";
-import type { ProjectFrontmatter } from "@/lib/types";
+import { getEntry } from "@/lib/content";
+import type { ContentEntry, ProjectFrontmatter } from "@/lib/types";
 
 export const metadata = {
   title: "Projects",
   description: "代表性工程项目、竞赛项目和证据材料。"
 };
 
+const projectOrder = [
+  "intelligent-logistics-robot",
+  "rotary-underwater-vehicle",
+  "omni-wheel-transport-platform"
+];
+
+function isProjectEntry(entry: ContentEntry | undefined): entry is ContentEntry<ProjectFrontmatter> {
+  return Boolean(entry);
+}
+
 export default function ProjectsPage() {
-  const projects = getEntriesByCollection<ProjectFrontmatter>("projects");
+  const projects = projectOrder.map((slug) => getEntry("projects", slug)).filter(isProjectEntry);
 
   return (
     <>

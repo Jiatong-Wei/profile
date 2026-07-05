@@ -7,7 +7,7 @@ year: 2026
 status: seed
 tags: [水下机器人, Working Note, Robotics]
 bibtexKey: wei2026underwaternote
-publish: true
+publish: false
 related: [underwater-robotics, integrated-underwater-platform, rotary-underwater-vehicle]
 ---
 

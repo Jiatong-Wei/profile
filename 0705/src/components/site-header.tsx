@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { navItems, SITE } from "@/lib/site";
+import { navItems, SITE, withBasePath } from "@/lib/site";
 
 export function SiteHeader() {
   return (
@@ -11,6 +11,15 @@ export function SiteHeader() {
       <nav className="site-nav" aria-label="Primary navigation">
         {navItems.map((item) => {
           const Icon = item.icon;
+
+          if ("download" in item && item.download) {
+            return (
+              <a href={withBasePath(item.href)} download key={item.href}>
+                <Icon aria-hidden="true" size={16} />
+                <span>{item.label}</span>
+              </a>
+            );
+          }
 
           return (
             <Link href={item.href} key={item.href}>

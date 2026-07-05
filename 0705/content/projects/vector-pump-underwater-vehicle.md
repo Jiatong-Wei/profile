@@ -5,7 +5,7 @@ tags: [水下机器人, 矢量泵喷, 国家级项目, 无人系统]
 status: growing
 period: 2024-2025
 role: 唯一负责人
-publish: true
+publish: false
 related: [underwater-robotics]
 ---
 
