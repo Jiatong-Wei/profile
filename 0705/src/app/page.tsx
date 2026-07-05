@@ -22,45 +22,46 @@ export default function HomePage() {
             fill
             priority
             className="profile-portrait"
-            sizes="(max-width: 720px) 90vw, 420px"
+            sizes="(max-width: 720px) 70vw, 260px"
           />
         </div>
 
         {/* Name block */}
         <div className="profile-copy">
-          <p className="eyebrow">Personal Profile</p>
           <h1>{SITE.name}</h1>
+          <p className="profile-role">Undergraduate Researcher</p>
           <p className="profile-tagline">
-            Undergraduate&nbsp;·&nbsp;{SITE.institution}
+            {SITE.institution}
             <br />Marine Science &amp; Technology
           </p>
-          <div className="focus-strip" aria-label="Research focus areas">
-            {focusAreas.map((item) => (
-              <span key={item}>{item}</span>
-            ))}
-          </div>
         </div>
 
         {/* Contact */}
         <div className="profile-contact">
           {mail && (
-            <a href={mail.href}>
-              <Mail aria-hidden="true" size={14} />
+            <a href={mail.href} aria-label={`Email ${mail.label}`} title={mail.label}>
+              <Mail aria-hidden="true" size={17} />
               <span>{mail.label}</span>
             </a>
           )}
           {github && (
-            <a href={github.href} target="_blank" rel="noreferrer">
-              <Github aria-hidden="true" size={14} />
+            <a href={github.href} target="_blank" rel="noreferrer" aria-label="GitHub" title="GitHub">
+              <Github aria-hidden="true" size={17} />
               <span>GitHub</span>
             </a>
           )}
           {location && (
-            <span className="profile-location-tag">
-              <MapPin aria-hidden="true" size={14} />
+            <a href={location.href} aria-label={location.label} title={location.label}>
+              <MapPin aria-hidden="true" size={17} />
               <span>{location.label}</span>
-            </span>
+            </a>
           )}
+        </div>
+
+        <div className="focus-strip" aria-label="Research focus areas">
+          {focusAreas.map((item) => (
+            <span key={item}>{item}</span>
+          ))}
         </div>
 
         {/* Actions */}

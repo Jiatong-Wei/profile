@@ -186,19 +186,20 @@ body:has(.home-one-screen) .site-footer {
   flex-direction: column;
   gap: 18px;
   min-width: 0;
-  padding: 22px;
-  align-items: stretch;
+  padding: 28px 24px;
+  align-items: center;
 }
 
 .profile-portrait-frame {
   position: relative;
   align-self: center;
-  width: min(100%, 430px);
-  aspect-ratio: 3 / 4;
+  width: min(100%, 260px);
+  aspect-ratio: 1;
   min-height: 0;
-  border-radius: var(--radius);
+  border-radius: calc(var(--radius) + 6px);
   overflow: hidden;
   background: var(--mint);
+  box-shadow: 0 12px 30px rgba(14, 42, 40, 0.11);
 }
 
 .profile-portrait-frame::after {
@@ -213,12 +214,16 @@ body:has(.home-one-screen) .site-footer {
 .profile-portrait {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  object-position: center bottom;
+  object-fit: cover;
+  object-position: center 28%;
 }
 
 .profile-copy {
+  display: grid;
+  justify-items: center;
   min-width: 0;
+  width: 100%;
+  text-align: center;
 }
 
 .profile-copy h1 {
@@ -228,7 +233,7 @@ body:has(.home-one-screen) .site-footer {
     "Noto Serif SC",
     Georgia,
     serif;
-  font-size: clamp(2.65rem, 4vw, 3.15rem);
+  font-size: clamp(2.15rem, 3vw, 2.55rem);
   font-weight: 780;
   line-height: 1.05;
 }
@@ -246,36 +251,88 @@ body:has(.home-one-screen) .site-footer {
   gap: 10px;
 }
 
-.profile-copy .focus-strip {
-  margin-top: 14px;
+.profile-actions {
+  justify-content: center;
+  width: 100%;
+  margin-top: auto;
+}
+
+.profile-panel > .focus-strip {
+  display: grid;
+  justify-items: start;
+  width: min(100%, 350px);
+  margin: 0 auto;
+  padding: 18px;
+  border: 1px solid rgba(214, 230, 220, 0.55);
+  border-radius: calc(var(--radius) + 2px);
+  background: #f3f7fb;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  text-align: left;
+}
+
+.profile-panel > .focus-strip::before {
+  content: "Research Interests";
+  margin-bottom: 2px;
+  color: var(--ink);
+  font-size: 0.96rem;
+  font-weight: 760;
+}
+
+.profile-panel > .focus-strip span {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+  line-height: 1.55;
 }
 
 .profile-contact a,
 .profile-contact .profile-location-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
   color: var(--ink-soft);
   font-size: 0.88rem;
-  transition: color 140ms ease;
+  transition: background 140ms ease, color 140ms ease, transform 140ms var(--ease-out);
+}
+
+.profile-contact {
+  justify-content: center;
+  gap: 18px;
+  width: 100%;
+}
+
+.profile-contact a span,
+.profile-contact .profile-location-tag span {
+  display: none;
 }
 
 .profile-contact a:hover {
+  background: var(--teal-dim);
   color: var(--teal);
+  transform: translateY(-1px);
 }
 
 /* profile extras */
-.profile-tagline {
+.profile-role {
   margin: 10px 0 0;
+  color: #bd9b45;
+  font-size: 1rem;
+  font-weight: 720;
+}
+
+.profile-tagline {
+  margin: 4px 0 0;
   color: var(--ink-soft);
   font-size: 0.94rem;
   line-height: 1.55;
 }
 
 .profile-location-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
   color: var(--ink-soft);
   font-size: 0.9rem;
 }
@@ -1340,7 +1397,8 @@ body:has(.home-one-screen) .site-footer {
   }
 
   .profile-portrait-frame {
-    height: clamp(220px, 56vw, 320px);
+    width: min(72vw, 240px);
+    height: auto;
   }
 
   .profile-copy h1 {
