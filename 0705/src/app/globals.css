@@ -192,6 +192,8 @@ body:has(.home-one-screen) .site-footer {
 
 .profile-portrait-frame {
   position: relative;
+  align-self: center;
+  width: min(100%, 430px);
   aspect-ratio: 3 / 4;
   min-height: 0;
   border-radius: var(--radius);
