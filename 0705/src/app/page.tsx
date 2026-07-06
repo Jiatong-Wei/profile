@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Download, Github, Mail, MapPin } from "lucide-react";
-import { contactItems, focusAreas, SITE, withBasePath } from "@/lib/site";
+import { ArrowUpRight, Github, Mail, MapPin } from "lucide-react";
+import { contactItems, focusAreas, SITE } from "@/lib/site";
 
 const evidenceItems = [
   {
-    period: "2023.09 - Present",
+    period: "2023.09 – Present",
     title: "B.Eng. Underwater Acoustics",
     detail: "Northwestern Polytechnical University · Avg. 85/100",
     type: "Education"
@@ -33,15 +33,21 @@ const evidenceItems = [
   }
 ];
 
+const GITHUB_USER = "Jiatong-Wei";
+
 export default function HomePage() {
-  const mail = contactItems.find((c) => c.href.startsWith("mailto:"));
-  const github = contactItems.find((c) => c.href.startsWith("https://github.com"));
+  const mail     = contactItems.find((c) => c.href.startsWith("mailto:"));
+  const github   = contactItems.find((c) => c.href.startsWith("https://github.com"));
   const location = contactItems.find((c) => c.label === SITE.location);
 
   return (
     <section className="home-one-screen">
+
+      {/* ── Left: Profile ── */}
       <aside className="profile-panel" aria-label="Academic profile card">
-        <div className="profile-card-top">
+
+        {/* Portrait — centered, bigger */}
+        <div className="profile-avatar-wrap">
           <div className="profile-portrait-frame">
             <Image
               src={SITE.avatar}
@@ -49,75 +55,81 @@ export default function HomePage() {
               fill
               priority
               className="profile-portrait"
-              sizes="(max-width: 720px) 42vw, 160px"
+              sizes="(max-width: 720px) 60vw, 200px"
             />
           </div>
-
-          <div className="profile-copy">
-            <p className="profile-kicker">Academic Profile</p>
-            <h1>{SITE.shortName}</h1>
-            <p className="profile-role">Undergraduate Researcher</p>
-            <p className="profile-tagline">
-              {SITE.institution}
-              <br />
-              Underwater Acoustics · Robotics Systems
-            </p>
-          </div>
         </div>
 
-        <p className="profile-statement">
-          I build inspectable robot systems for embodied intelligence and
-          underwater unmanned platforms.
-        </p>
+        {/* Name block */}
+        <div className="profile-copy">
+          <p className="profile-kicker">Academic Profile</p>
+          <h1>{SITE.shortName}</h1>
+          <p className="profile-role">Undergraduate Researcher</p>
+          <p className="profile-tagline">
+            {SITE.institution}
+            <br />
+            Underwater Acoustics · Robotics Systems
+          </p>
+          <p className="profile-statement">
+            I build inspectable robot systems for embodied intelligence and
+            underwater unmanned platforms.
+          </p>
+        </div>
 
+        {/* Contact */}
         <div className="profile-contact" aria-label="Contact links">
-          {mail ? (
+          {mail && (
             <a href={mail.href}>
-              <Mail aria-hidden="true" size={16} />
+              <Mail aria-hidden="true" size={15} />
               <span>Email</span>
             </a>
-          ) : null}
-          {github ? (
+          )}
+          {github && (
             <a href={github.href} target="_blank" rel="noreferrer">
-              <Github aria-hidden="true" size={16} />
+              <Github aria-hidden="true" size={15} />
               <span>GitHub</span>
             </a>
-          ) : null}
-          {location ? (
-            <a href={location.href}>
-              <MapPin aria-hidden="true" size={16} />
+          )}
+          {location && (
+            <span className="profile-location-tag">
+              <MapPin aria-hidden="true" size={15} />
               <span>{location.label}</span>
-            </a>
-          ) : null}
+            </span>
+          )}
         </div>
 
-        <div className="profile-actions">
-          <a className="primary-action" href={withBasePath(SITE.cvPdf)} download>
-            <Download aria-hidden="true" size={16} />
-            Download CV
-          </a>
-          <Link className="secondary-action" href="/projects">
-            <ArrowUpRight aria-hidden="true" size={16} />
-            View Projects
-          </Link>
+        {/* Focus tags */}
+        <div className="focus-strip" aria-label="Research focus areas">
+          {focusAreas.map((item) => (
+            <span key={item}>{item}</span>
+          ))}
         </div>
 
-        <section className="focus-strip" aria-label="Research focus areas">
-          <h2>Research Focus</h2>
-          <div>
-            {focusAreas.map((item) => (
-              <span key={item}>{item}</span>
-            ))}
+        {/* GitHub contribution heatmap */}
+        <div className="contrib-heatmap">
+          <div className="contrib-heatmap-label">
+            <Github aria-hidden="true" size={13} />
+            <span>Contributions · {GITHUB_USER}</span>
           </div>
-        </section>
+          {/* ghchart.rshah.org renders GitHub's contribution graph as SVG */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={`https://ghchart.rshah.org/${GITHUB_USER}`}
+            alt={`GitHub contribution graph for ${GITHUB_USER}`}
+            className="contrib-heatmap-img"
+          />
+        </div>
+
       </aside>
 
+      {/* ── Right: Bio + Experience ── */}
       <aside className="work-panel resume-panel" aria-label="Resume summary">
+
         <section className="about-section resume-section">
           <p className="eyebrow">About</p>
           <h2 className="about-heading">面向真实系统的机器人与水下智能</h2>
           <p className="about-lead">
-            我是魏佳桐，来自西北工业大学水声工程学院（2023-2027）。目前关注
+            我是魏佳桐，来自西北工业大学水声工程学院（2023–2027）。目前关注
             <strong>具身智能</strong>、<strong>水下无人系统</strong>与可落地的机器人全栈工程。
           </p>
           <p className="about-body">
@@ -148,6 +160,7 @@ export default function HomePage() {
             ))}
           </ol>
         </section>
+
       </aside>
     </section>
   );
