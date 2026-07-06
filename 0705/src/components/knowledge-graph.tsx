@@ -3,24 +3,25 @@
 import * as d3 from "d3";
 import { useEffect, useRef, useState } from "react";
 import type { GraphEdge, GraphNode } from "@/lib/types";
+import { SITE } from "@/lib/site";
 
-const collectionHref: Record<string, string> = {
-  wiki: "/wiki",
-  projects: "/projects",
-  papers: "/papers"
-};
+// basePath-aware href builder (mirrors withBasePath in site.ts)
+function nodeHref(collection: string, id: string): string {
+  const base = SITE.basePath; // "/profile"
+  return `${base}/${collection}/${id}`;
+}
 
 const collectionColor: Record<string, string> = {
-  wiki: "var(--teal)",
-  projects: "var(--orange)",
-  papers: "var(--blue)"
+  wiki:     "#0a9b92",   // teal
+  projects: "#f06a2a",   // orange
+  papers:   "#2b78e4"    // blue
 };
 
 interface SimNode extends d3.SimulationNodeDatum {
-  id: string;
-  title: string;
+  id:         string;
+  title:      string;
   collection: string;
-  featured: boolean;
+  featured:   boolean;
 }
 
 interface SimEdge extends d3.SimulationLinkDatum<SimNode> {
@@ -29,170 +30,140 @@ interface SimEdge extends d3.SimulationLinkDatum<SimNode> {
 }
 
 interface KnowledgeGraphProps {
-  nodes: GraphNode[];
-  edges: GraphEdge[];
+  nodes:    GraphNode[];
+  edges:    GraphEdge[];
   compact?: boolean;
 }
 
 export function KnowledgeGraph({ nodes, edges, compact = false }: KnowledgeGraphProps) {
-  const svgRef = useRef<SVGSVGElement>(null);
+  const svgRef      = useRef<SVGSVGElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const svg = svgRef.current;
+    const svg       = svgRef.current;
     const container = containerRef.current;
     if (!svg || !container) return;
 
     const W = container.clientWidth  || 560;
     const H = container.clientHeight || 520;
 
-    // Clear previous render
     d3.select(svg).selectAll("*").remove();
-
-    svg.setAttribute("width",  String(W));
-    svg.setAttribute("height", String(H));
     svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
 
-    const simNodes: SimNode[] = nodes.map((n) => ({ ...n, featured: n.featured ?? false }));
+    const simNodes: SimNode[] = nodes.map((n) => ({
+      ...n,
+      featured: n.featured ?? false
+    }));
+
+    const nodeSet = new Set(simNodes.map((n) => n.id));
     const simEdges: SimEdge[] = edges
-      .filter((e) => simNodes.some((n) => n.id === e.source) && simNodes.some((n) => n.id === e.target))
+      .filter((e) => nodeSet.has(e.source) && nodeSet.has(e.target))
       .map((e) => ({ source: e.source, target: e.target }));
 
-    // ── Defs: arrow marker ──────────────────────────────────────────
-    const defs = d3.select(svg).append("defs");
-    defs.append("marker")
-      .attr("id", "arrow")
-      .attr("viewBox", "0 -4 8 8")
-      .attr("refX", 18)
-      .attr("refY", 0)
-      .attr("markerWidth", 6)
-      .attr("markerHeight", 6)
-      .attr("orient", "auto")
-      .append("path")
-      .attr("d", "M0,-4L8,0L0,4")
-      .attr("fill", "rgba(69,97,95,0.35)");
-
-    // ── Simulation ───────────────────────────────────────────────────
+    // ── Simulation ────────────────────────────────────────────────
     const simulation = d3.forceSimulation<SimNode>(simNodes)
       .force("link", d3.forceLink<SimNode, SimEdge>(simEdges)
         .id((d) => d.id)
-        .distance(compact ? 90 : 120)
-        .strength(0.6))
-      .force("charge", d3.forceManyBody().strength(compact ? -180 : -260))
-      .force("center", d3.forceCenter(W / 2, H / 2).strength(0.08))
-      .force("collision", d3.forceCollide(compact ? 48 : 60))
+        .distance(compact ? 80 : 110)
+        .strength(0.55))
+      .force("charge", d3.forceManyBody().strength(compact ? -160 : -240))
+      .force("center", d3.forceCenter(W / 2, H / 2).strength(0.06))
+      .force("collision", d3.forceCollide(compact ? 44 : 54))
       .force("x", d3.forceX(W / 2).strength(0.04))
       .force("y", d3.forceY(H / 2).strength(0.04));
 
-    // ── Zoom/pan layer ───────────────────────────────────────────────
-    const root = d3.select(svg).append("g").attr("class", "graph-root");
+    // ── Zoom/pan layer ────────────────────────────────────────────
+    const root = d3.select(svg).append("g");
+    d3.select(svg).call(
+      d3.zoom<SVGSVGElement, unknown>()
+        .scaleExtent([0.35, 3.5])
+        .on("zoom", (ev) => root.attr("transform", ev.transform))
+    );
 
-    const zoom = d3.zoom<SVGSVGElement, unknown>()
-      .scaleExtent([0.4, 3])
-      .on("zoom", (event) => root.attr("transform", event.transform));
-
-    d3.select(svg).call(zoom);
-
-    // ── Edges ────────────────────────────────────────────────────────
+    // ── Edges ─────────────────────────────────────────────────────
     const link = root.append("g")
+      .attr("stroke", "rgba(69,97,95,0.28)")
+      .attr("stroke-width", 1.2)
       .selectAll<SVGLineElement, SimEdge>("line")
       .data(simEdges)
-      .join("line")
-      .attr("stroke", "rgba(69,97,95,0.22)")
-      .attr("stroke-width", 1.5)
-      .attr("marker-end", "url(#arrow)");
+      .join("line");
 
-    // ── Nodes (foreignObject for HTML labels) ────────────────────────
-    const NODE_W = compact ? 110 : 130;
-    const NODE_H = compact ? 32  : 36;
+    // ── Node groups ───────────────────────────────────────────────
+    const R       = compact ? 9  : 11;   // circle radius
+    const R_feat  = compact ? 13 : 15;   // featured node radius
 
-    const nodeGroup = root.append("g")
-      .selectAll<SVGForeignObjectElement, SimNode>("foreignObject")
+    const nodeG = root.append("g")
+      .selectAll<SVGGElement, SimNode>("g")
       .data(simNodes)
-      .join("foreignObject")
-      .attr("width", NODE_W)
-      .attr("height", NODE_H)
-      .attr("overflow", "visible")
+      .join("g")
+      .attr("class", "obs-node")
       .style("cursor", "pointer");
 
-    // Inner HTML node
-    nodeGroup.append("xhtml:a")
-      .attr("href", (d) => `${collectionHref[d.collection] ?? "/wiki"}/${d.id}`)
-      .attr("class", "fg-node")
-      .style("display", "inline-flex")
-      .style("align-items", "center")
-      .style("gap", "7px")
-      .style("max-width", `${NODE_W}px`)
-      .style("padding", "6px 10px")
-      .style("border", "1px solid rgba(214,230,220,0.8)")
-      .style("border-radius", "999px")
-      .style("background", "rgba(255,255,255,0.92)")
-      .style("box-shadow", "0 2px 10px rgba(14,42,40,0.07)")
-      .style("text-decoration", "none")
-      .style("white-space", "nowrap")
-      .style("overflow", "hidden")
-      .style("font-family", "Inter, system-ui, sans-serif")
-      .style("font-size", compact ? "0.78rem" : "0.84rem")
-      .style("color", "var(--ink,#0e2a28)")
-      .style("transition", "background 140ms, box-shadow 140ms, border-color 140ms")
-      .on("mouseover", function() {
-        d3.select(this)
-          .style("background", "rgba(255,255,255,1)")
-          .style("box-shadow", "0 6px 20px rgba(14,42,40,0.14)")
-          .style("border-color", "rgba(10,155,146,0.55)");
+    // Outer glow ring (always visible, subtle)
+    nodeG.append("circle")
+      .attr("r", (d) => (d.featured ? R_feat : R) + 5)
+      .attr("fill", (d) => collectionColor[d.collection] ?? "#0a9b92")
+      .attr("opacity", 0.12);
+
+    // Main filled circle
+    nodeG.append("circle")
+      .attr("r", (d) => d.featured ? R_feat : R)
+      .attr("fill", (d) => collectionColor[d.collection] ?? "#0a9b92")
+      .attr("stroke", "#fff")
+      .attr("stroke-width", 2);
+
+    // Label below the circle
+    nodeG.append("text")
+      .attr("y", (d) => (d.featured ? R_feat : R) + 14)
+      .attr("text-anchor", "middle")
+      .attr("font-size", compact ? "11" : "12")
+      .attr("font-family", "Inter, system-ui, sans-serif")
+      .attr("font-weight", (d) => d.featured ? "600" : "400")
+      .attr("fill", "#0e2a28")
+      .attr("pointer-events", "none")
+      // truncate long titles
+      .text((d) => d.title.length > 12 ? d.title.slice(0, 11) + "…" : d.title);
+
+    // Invisible wider hit-area for easy clicking
+    nodeG.append("circle")
+      .attr("r", (d) => (d.featured ? R_feat : R) + 10)
+      .attr("fill", "transparent")
+      .on("click", (_ev, d) => {
+        window.location.href = nodeHref(d.collection, d.id);
       })
-      .on("mouseout", function() {
-        d3.select(this)
-          .style("background", "rgba(255,255,255,0.92)")
-          .style("box-shadow", "0 2px 10px rgba(14,42,40,0.07)")
-          .style("border-color", "rgba(214,230,220,0.8)");
+      .on("mouseover", function(_ev, d) {
+        const parent = d3.select(this.parentNode as SVGGElement);
+        parent.select<SVGCircleElement>("circle:nth-child(2)")
+          .attr("r", (d.featured ? R_feat : R) * 1.25)
+          .attr("stroke-width", 2.5);
+        parent.select<SVGCircleElement>("circle:first-child")
+          .attr("opacity", 0.22);
       })
-      .each(function(d) {
-        const anchor = d3.select(this);
-        // Colored dot
-        anchor.append("xhtml:span")
-          .style("display", "inline-block")
-          .style("flex-shrink", "0")
-          .style("width", "8px")
-          .style("height", "8px")
-          .style("border-radius", "50%")
-          .style("background", collectionColor[d.collection] ?? "var(--teal)");
-        // Label
-        anchor.append("xhtml:span")
-          .style("overflow", "hidden")
-          .style("text-overflow", "ellipsis")
-          .style("font-weight", d.featured ? "700" : "500")
-          .text(d.title);
+      .on("mouseout", function(_ev, d) {
+        const parent = d3.select(this.parentNode as SVGGElement);
+        parent.select<SVGCircleElement>("circle:nth-child(2)")
+          .attr("r", d.featured ? R_feat : R)
+          .attr("stroke-width", 2);
+        parent.select<SVGCircleElement>("circle:first-child")
+          .attr("opacity", 0.12);
       });
 
-    // ── Drag behavior ────────────────────────────────────────────────
-    nodeGroup.call(
-      d3.drag<SVGForeignObjectElement, SimNode>()
-        .on("start", (event, d) => {
-          if (!event.active) simulation.alphaTarget(0.3).restart();
-          d.fx = d.x;
-          d.fy = d.y;
+    // ── Drag ─────────────────────────────────────────────────────
+    nodeG.call(
+      d3.drag<SVGGElement, SimNode>()
+        .on("start", (ev, d) => {
+          if (!ev.active) simulation.alphaTarget(0.3).restart();
+          d.fx = d.x; d.fy = d.y;
         })
-        .on("drag", (event, d) => {
-          d.fx = event.x;
-          d.fy = event.y;
-        })
-        .on("end", (event, d) => {
-          if (!event.active) simulation.alphaTarget(0);
-          d.fx = null;
-          d.fy = null;
+        .on("drag", (ev, d) => { d.fx = ev.x; d.fy = ev.y; })
+        .on("end", (ev, d) => {
+          if (!ev.active) simulation.alphaTarget(0);
+          d.fx = null; d.fy = null;
         })
     );
 
-    // Prevent click-through when dragging
-    nodeGroup.on("click", (event) => {
-      if ((event as MouseEvent & { _dragged?: boolean })._dragged) {
-        event.preventDefault();
-      }
-    });
-
-    // ── Tick ─────────────────────────────────────────────────────────
+    // ── Tick ──────────────────────────────────────────────────────
     simulation.on("tick", () => {
       link
         .attr("x1", (d) => (d.source as SimNode).x ?? 0)
@@ -200,18 +171,11 @@ export function KnowledgeGraph({ nodes, edges, compact = false }: KnowledgeGraph
         .attr("x2", (d) => (d.target as SimNode).x ?? 0)
         .attr("y2", (d) => (d.target as SimNode).y ?? 0);
 
-      nodeGroup
-        .attr("x", (d) => (d.x ?? 0) - NODE_W / 2)
-        .attr("y", (d) => (d.y ?? 0) - NODE_H / 2);
+      nodeG.attr("transform", (d) => `translate(${d.x ?? 0},${d.y ?? 0})`);
     });
 
-    // Fade in after initial settle
-    const timer = setTimeout(() => setReady(true), 200);
-
-    return () => {
-      simulation.stop();
-      clearTimeout(timer);
-    };
+    const timer = setTimeout(() => setReady(true), 300);
+    return () => { simulation.stop(); clearTimeout(timer); };
   }, [nodes, edges, compact]);
 
   return (
@@ -219,9 +183,12 @@ export function KnowledgeGraph({ nodes, edges, compact = false }: KnowledgeGraph
       ref={containerRef}
       className={`knowledge-graph ${compact ? "knowledge-graph-compact" : ""}`}
       aria-label="Knowledge graph"
-      style={{ opacity: ready ? 1 : 0, transition: "opacity 400ms ease" }}
+      style={{ opacity: ready ? 1 : 0, transition: "opacity 500ms ease" }}
     >
-      <svg ref={svgRef} style={{ display: "block", width: "100%", height: "100%" }} />
+      <svg
+        ref={svgRef}
+        style={{ display: "block", width: "100%", height: "100%" }}
+      />
     </div>
   );
 }
