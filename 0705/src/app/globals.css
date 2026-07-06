@@ -1,35 +1,33 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@400;600;700&family=Inter:wght@400;500;600&display=swap');
 
 :root {
   color-scheme: light;
-  /* surfaces */
-  --paper:        #f7f8f5;
-  --paper-strong: #ffffff;
-  --paper-soft:   #f1f4ef;
-  --mint:         #e7f1ec;
-  --sky:          #edf3f8;
-  --sun:          #f6ead0;
-  /* text */
-  --ink:          #172724;
-  --ink-soft:     #52635f;
-  --ink-muted:    #7c8c88;
-  /* chrome */
-  --line:         #dde5df;
-  /* brand */
-  --teal:         #207c73;
-  --teal-dim:     rgba(32, 124, 115, 0.10);
-  --blue:         #476a88;
-  --orange:       #9d6f3a;
-  --yellow:       #b58a38;
-  --brass:        #9f7a35;
-  /* elevation */
-  --shadow-sm:    0 1px 2px rgba(23, 39, 36, 0.06);
-  --shadow:       0 3px 8px rgba(23, 39, 36, 0.08);
-  --shadow-lg:    0 8px 16px rgba(23, 39, 36, 0.10);
-  /* layout */
-  --radius:       8px;
+  /* ── Parchment surfaces ── */
+  --paper:        #f5f0e8;   /* warm cream, the "paper" base */
+  --paper-strong: #faf7f1;   /* slightly lighter card surface */
+  --paper-soft:   #ede8de;   /* sunken / secondary surface */
+  --mint:         #e8e2d6;   /* was green-tinted, now warm stone */
+  --sky:          #eae6da;
+  --sun:          #e8dfc8;
+  /* ── Ink ── */
+  --ink:          #1c1a16;   /* deep warm black */
+  --ink-soft:     #5a5349;   /* warm brown-grey */
+  --ink-muted:    #8a7f74;
+  /* ── Chrome ── */
+  --line:         #d8d0c0;   /* warm parchment border */
+  /* ── Brand — muted academic palette ── */
+  --teal:         #4a6e64;   /* desaturated forest green */
+  --teal-dim:     rgba(74, 110, 100, 0.10);
+  --blue:         #4a6275;   /* slate blue */
+  --orange:       #8b5e35;   /* burnt sienna / academic red-brown */
+  --yellow:       #9a7c32;   /* old gold */
+  /* ── Elevation — very subtle, no coloured shadows ── */
+  --shadow-sm:    0 1px 3px  rgba(28, 26, 22, 0.07);
+  --shadow:       0 2px 8px  rgba(28, 26, 22, 0.08);
+  --shadow-lg:    0 6px 18px rgba(28, 26, 22, 0.09);
+  /* ── Layout ── */
+  --radius:       6px;       /* slightly tighter corners, more editorial */
   --max:          1180px;
-  /* transitions */
   --ease-out:     cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -47,14 +45,12 @@ body {
   background: var(--paper);
   color: var(--ink);
   font-family:
-    Aptos,
-    "Segoe UI",
-    "Microsoft YaHei",
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    sans-serif;
-  line-height: 1.65;
+    "EB Garamond",
+    Georgia,
+    "Noto Serif SC",
+    "Source Han Serif SC",
+    serif;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -288,7 +284,7 @@ body:has(.home-one-screen) .site-footer {
 .contrib-heatmap {
   width: 100%;
   margin-top: auto;
-  padding-top: 14px;
+  padding-top: 16px;
   border-top: 1px solid var(--line);
 }
 
@@ -296,20 +292,22 @@ body:has(.home-one-screen) .site-footer {
   display: flex;
   align-items: center;
   gap: 6px;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   color: var(--ink-soft);
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.07em;
 }
 
 .contrib-heatmap-img {
   display: block;
   width: 100%;
+  /* force a taller render box so the SVG scales up visibly */
+  min-height: 100px;
   height: auto;
   border-radius: 6px;
-  filter: hue-rotate(150deg) saturate(1.2);  /* shift green→teal to match theme */
+  filter: hue-rotate(150deg) saturate(1.2);
 }
 
 .profile-panel > .focus-strip div {
