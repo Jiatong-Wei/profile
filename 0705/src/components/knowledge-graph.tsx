@@ -12,9 +12,9 @@ function nodeHref(collection: string, id: string): string {
 }
 
 const collectionColor: Record<string, string> = {
-  wiki:     "#0a9b92",   // teal
-  projects: "#f06a2a",   // orange
-  papers:   "#2b78e4"    // blue
+  wiki:     "#8b5e35",   // warm brown — matches parchment theme
+  projects: "#a0522d",   // sienna
+  papers:   "#6b7c4a"    // muted olive
 };
 
 interface SimNode extends d3.SimulationNodeDatum {

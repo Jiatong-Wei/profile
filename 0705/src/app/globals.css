@@ -303,11 +303,9 @@ body:has(.home-one-screen) .site-footer {
 .contrib-heatmap-img {
   display: block;
   width: 100%;
-  /* force a taller render box so the SVG scales up visibly */
-  min-height: 100px;
   height: auto;
   border-radius: 6px;
-  filter: hue-rotate(150deg) saturate(1.2);
+  /* no filter — keep GitHub's native green */
 }
 
 .profile-panel > .focus-strip div {
