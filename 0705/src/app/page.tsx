@@ -55,7 +55,7 @@ export default function HomePage() {
 
           <div className="profile-copy">
             <p className="profile-kicker">Academic Profile</p>
-            <h1>{SITE.name}</h1>
+            <h1>{SITE.shortName}</h1>
             <p className="profile-role">Undergraduate Researcher</p>
             <p className="profile-tagline">
               {SITE.institution}
