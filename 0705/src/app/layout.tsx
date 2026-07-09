@@ -11,7 +11,11 @@ export const metadata: Metadata = {
   },
   description: SITE.description,
   icons: {
-    icon: `${SITE.basePath}/favicon.svg`
+    icon: [
+      { url: `${SITE.basePath}/icons/icon.png`, type: "image/png" }
+    ],
+    shortcut: `${SITE.basePath}/icons/icon.png`,
+    apple: `${SITE.basePath}/icons/icon.png`
   },
   metadataBase: new URL("https://jiatong-wei.github.io/profile/")
 };

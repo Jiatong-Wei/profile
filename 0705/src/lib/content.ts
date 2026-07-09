@@ -82,6 +82,7 @@ function coerceFrontmatter(collection: Collection, data: Record<string, unknown>
     status: data.status ? String(data.status) as Frontmatter["status"] : undefined,
     aliases: Array.isArray(data.aliases) ? data.aliases.map(String) : [],
     featured: data.featured === true,
+    humanCertified: data.humanCertified === true || data.human_certified === true,
     related: Array.isArray(data.related) ? data.related.map((item) => normalizeSlug(String(item))) : [],
     area: collection === "wiki" && data.area ? String(data.area) : undefined,
     role: collection === "projects" && data.role ? String(data.role) : undefined,

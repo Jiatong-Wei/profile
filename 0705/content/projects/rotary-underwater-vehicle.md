@@ -7,6 +7,7 @@ period: 2025.07
 role: 唯一完成人
 featured: true
 publish: true
+human_certified: true
 related: [underwater-robotics, full-stack-robotics]
 ---
 

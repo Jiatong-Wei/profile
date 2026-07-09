@@ -6,6 +6,7 @@ status: growing
 period: 2024-2025
 role: 唯一负责人
 publish: true
+human_certified: true
 related: [reinforcement-learning, full-stack-robotics]
 ---
 

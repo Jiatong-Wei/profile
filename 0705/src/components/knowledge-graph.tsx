@@ -12,9 +12,9 @@ function nodeHref(collection: string, id: string): string {
 }
 
 const collectionColor: Record<string, string> = {
-  wiki:     "#8b5e35",   // warm brown — matches parchment theme
-  projects: "#a0522d",   // sienna
-  papers:   "#6b7c4a"    // muted olive
+  wiki:     "#c9a57b",   // softer tan
+  projects: "#d4a582",   // pale sienna
+  papers:   "#a3b088"    // pale sage
 };
 
 interface SimNode extends d3.SimulationNodeDatum {
@@ -122,8 +122,8 @@ export function KnowledgeGraph({ nodes, edges, compact = false }: KnowledgeGraph
       .attr("font-weight", (d) => d.featured ? "600" : "400")
       .attr("fill", "#0e2a28")
       .attr("pointer-events", "none")
-      // truncate long titles
-      .text((d) => d.title.length > 12 ? d.title.slice(0, 11) + "…" : d.title);
+      // truncate very long titles (allow more room for CJK)
+      .text((d) => d.title.length > 18 ? d.title.slice(0, 17) + "…" : d.title);
 
     // Invisible wider hit-area for easy clicking
     nodeG.append("circle")

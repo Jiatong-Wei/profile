@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { contactItems, SITE } from "@/lib/site";
 
 export function SiteFooter() {
@@ -13,12 +12,16 @@ export function SiteFooter() {
       <div className="footer-links">
         {contactItems.map((item) => {
           const Icon = item.icon;
+          const isExternal = /^https?:\/\//.test(item.href);
+          const linkProps = isExternal
+            ? { target: "_blank", rel: "noreferrer" }
+            : {};
 
           return (
-            <Link href={item.href} key={item.href}>
+            <a href={item.href} key={item.href} {...linkProps}>
               <Icon aria-hidden="true" size={16} />
               <span>{item.label}</span>
-            </Link>
+            </a>
           );
         })}
       </div>

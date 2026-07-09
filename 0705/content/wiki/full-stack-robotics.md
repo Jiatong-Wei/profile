@@ -7,6 +7,7 @@ status: growing
 updated: 2026-07-05
 featured: true
 publish: true
+human_certified: true
 aliases: [Full-stack Robotics]
 related: [underwater-robotics, reinforcement-learning]
 ---

@@ -6,7 +6,8 @@ status: evergreen
 period: 2025.08
 role: 核心成员，负责数据采集与处理
 featured: true
-publish: false
+publish: true
+human_certified: true
 related: [underwater-robotics, full-stack-robotics]
 ---
 

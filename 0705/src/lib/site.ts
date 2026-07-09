@@ -1,15 +1,12 @@
 import {
   BookOpen,
   FileText,
-  FlaskConical,
   Github,
   Home,
   Layers3,
   Mail,
   MapPin,
-  Network,
-  ScrollText,
-  Sparkles
+  ScrollText
 } from "lucide-react";
 
 export const SITE = {
@@ -24,7 +21,8 @@ export const SITE = {
   location: "Xi'an, China",
   institution: "Northwestern Polytechnical University",
   avatar: "/profile/selfish/beger.png",
-  cvPdf: "/cv/WeiJiatong-Resume.pdf"
+  cvPdf: "/cv/WeiJiatong-Resume.pdf",
+  githubUser: "Jiatong-Wei"
 };
 
 export const navItems = [
@@ -46,27 +44,6 @@ export const focusAreas = [
   "强化学习",
   "机器人全栈开发",
   "智能无人系统"
-];
-
-export const homepageLanes = [
-  {
-    title: "Personal Wiki",
-    href: "/wiki",
-    icon: Network,
-    description: "沉淀研究问题、工程经验和 Obsidian 双链笔记。"
-  },
-  {
-    title: "Papers",
-    href: "/papers",
-    icon: FlaskConical,
-    description: "整理论文、预印本、阅读笔记和正在形成的问题意识。"
-  },
-  {
-    title: "Projects",
-    href: "/projects",
-    icon: Sparkles,
-    description: "展示机器人、仿真、3DGS 与竞赛项目的证据链。"
-  }
 ];
 
 export function withBasePath(pathname: string): string {

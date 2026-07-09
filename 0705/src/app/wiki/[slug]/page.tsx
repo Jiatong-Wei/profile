@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { ShieldCheck } from "lucide-react";
 import { Backlinks } from "@/components/backlinks";
 import { MarkdownRenderer } from "@/components/markdown-renderer";
 import { StatusBadge } from "@/components/status-badge";
@@ -42,6 +43,12 @@ export default async function WikiDetailPage({ params }: { params: Promise<{ slu
         <div className="detail-meta">
           <StatusBadge status={entry.meta.status} />
           {entry.meta.updated ? <span>Updated {entry.meta.updated}</span> : null}
+          {entry.meta.humanCertified ? (
+            <span className="human-cert-badge" title="Human-written, no AI generation">
+              <ShieldCheck aria-hidden="true" size={13} />
+              <span>Human Certified</span>
+            </span>
+          ) : null}
         </div>
         <div className="tag-cloud">
           {(entry.meta.tags ?? []).map((tag) => (

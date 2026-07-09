@@ -9,6 +9,7 @@ interface SearchItem {
   title: string;
   summary: string;
   tags: string[];
+  collection?: string;
 }
 
 export function WikiSearch({ items }: { items: SearchItem[] }) {
@@ -42,7 +43,10 @@ export function WikiSearch({ items }: { items: SearchItem[] }) {
       />
       <div className="search-results">
         {results.map((item) => (
-          <Link href={`/wiki/${item.slug}`} key={item.slug}>
+          <Link
+            href={`/${item.collection ?? "wiki"}/${item.slug}`}
+            key={`${item.collection ?? "wiki"}-${item.slug}`}
+          >
             <strong>{item.title}</strong>
             <span>{item.summary}</span>
           </Link>

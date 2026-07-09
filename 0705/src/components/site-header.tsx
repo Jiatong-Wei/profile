@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { navItems, SITE, withBasePath } from "@/lib/site";
 
@@ -5,7 +6,14 @@ export function SiteHeader() {
   return (
     <header className="site-header">
       <Link className="brand-mark" href="/" aria-label="Go to home">
-        <span className="brand-spark" />
+        <Image
+          className="brand-logo"
+          src={withBasePath("/icons/icon.png")}
+          alt=""
+          width={28}
+          height={28}
+          priority
+        />
         <span>{SITE.shortName}</span>
       </Link>
       <nav className="site-nav" aria-label="Primary navigation">

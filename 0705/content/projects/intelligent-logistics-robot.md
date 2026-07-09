@@ -7,6 +7,7 @@ period: 2025.04
 role: 电控负责人
 featured: true
 publish: true
+human_certified: true
 related: [reinforcement-learning, full-stack-robotics]
 ---
 

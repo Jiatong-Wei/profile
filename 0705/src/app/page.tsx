@@ -33,9 +33,8 @@ const evidenceItems = [
   }
 ];
 
-const GITHUB_USER = "Jiatong-Wei";
-
 export default function HomePage() {
+  const githubUser = SITE.githubUser;
   const mail     = contactItems.find((c) => c.href.startsWith("mailto:"));
   const github   = contactItems.find((c) => c.href.startsWith("https://github.com"));
   const location = contactItems.find((c) => c.label === SITE.location);
@@ -109,13 +108,13 @@ export default function HomePage() {
         <div className="contrib-heatmap">
           <div className="contrib-heatmap-label">
             <Github aria-hidden="true" size={13} />
-            <span>Contributions · {GITHUB_USER}</span>
+            <span>Contributions · {githubUser}</span>
           </div>
           {/* ghchart.rshah.org renders GitHub's contribution graph as SVG */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={`https://ghchart.rshah.org/${GITHUB_USER}`}
-            alt={`GitHub contribution graph for ${GITHUB_USER}`}
+            src={`https://ghchart.rshah.org/${githubUser}`}
+            alt={`GitHub contribution graph for ${githubUser}`}
             className="contrib-heatmap-img"
           />
         </div>

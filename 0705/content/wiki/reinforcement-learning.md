@@ -7,6 +7,7 @@ status: seed
 updated: 2026-07-05
 featured: true
 publish: true
+human_certified: true
 aliases: [RL, reinforcement-learning]
 related: [embodied-ai-roadmap]
 ---

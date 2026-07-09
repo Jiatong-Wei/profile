@@ -6,6 +6,7 @@ area: Project Notes
 status: growing
 updated: 2026-07-05
 publish: true
+human_certified: true
 aliases: [3DGS Campus Reconstruction]
 related: []
 ---

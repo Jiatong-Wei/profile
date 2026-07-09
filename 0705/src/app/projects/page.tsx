@@ -1,25 +1,32 @@
 import { ContentCard } from "@/components/content-card";
 import { PageHero } from "@/components/page-hero";
-import { getEntry } from "@/lib/content";
-import type { ContentEntry, ProjectFrontmatter } from "@/lib/types";
+import { getEntriesByCollection } from "@/lib/content";
+import type { ProjectFrontmatter } from "@/lib/types";
 
 export const metadata = {
   title: "Projects",
   description: "代表性工程项目、竞赛项目和证据材料。"
 };
 
-const projectOrder = [
+// Preferred display order for projects — any project not listed here still
+// appears, sorted by date, after the ordered ones.
+const preferredOrder = [
   "intelligent-logistics-robot",
   "rotary-underwater-vehicle",
-  "omni-wheel-transport-platform"
+  "omni-wheel-transport-platform",
+  "integrated-underwater-platform",
+  "vector-pump-underwater-vehicle",
+  "digital-agriculture-simulation"
 ];
 
-function isProjectEntry(entry: ContentEntry | undefined): entry is ContentEntry<ProjectFrontmatter> {
-  return Boolean(entry);
-}
-
 export default function ProjectsPage() {
-  const projects = projectOrder.map((slug) => getEntry("projects", slug)).filter(isProjectEntry);
+  const all = getEntriesByCollection<ProjectFrontmatter>("projects");
+  const bySlug = new Map(all.map((entry) => [entry.slug, entry]));
+  const ordered = preferredOrder
+    .map((slug) => bySlug.get(slug))
+    .filter((entry): entry is (typeof all)[number] => Boolean(entry));
+  const rest = all.filter((entry) => !preferredOrder.includes(entry.slug));
+  const projects = [...ordered, ...rest];
 
   return (
     <>

@@ -24,6 +24,7 @@ export interface BaseFrontmatter {
   aliases?: string[];
   featured?: boolean;
   related?: string[];
+  humanCertified?: boolean;
 }
 
 export interface WikiFrontmatter extends BaseFrontmatter {

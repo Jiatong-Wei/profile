@@ -27,7 +27,8 @@ export default function WikiPage() {
             slug: note.slug,
             title: note.meta.title,
             summary: note.meta.summary,
-            tags: note.meta.tags ?? []
+            tags: note.meta.tags ?? [],
+            collection: note.collection
           }))}
         />
         <KnowledgeGraph nodes={graph.nodes} edges={graph.edges} />
