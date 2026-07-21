@@ -1,4 +1,4 @@
-name: Deploy 0705 Profile Wiki to GitHub Pages
+name: Deploy 0713 Profile to GitHub Pages
 
 on:
   push:
@@ -19,31 +19,40 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.9.0
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
-          cache-dependency-path: 0705/package-lock.json
+          cache: pnpm
+          cache-dependency-path: 0713/2025-blog-public-main/pnpm-lock.yaml
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
       - name: Install dependencies
-        working-directory: "0705"
-        run: npm ci
+        working-directory: "0713/2025-blog-public-main"
+        run: pnpm install --frozen-lockfile
 
       - name: Build site
-        working-directory: "0705"
-        run: npm run build
+        working-directory: "0713/2025-blog-public-main"
+        run: pnpm run build
+
+      - name: Validate static export
+        working-directory: "0713/2025-blog-public-main"
+        run: pnpm run check:export
 
       - name: Disable Jekyll
-        run: touch 0705/out/.nojekyll
+        run: touch 0713/2025-blog-public-main/out/.nojekyll
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./0705/out
+          path: ./0713/2025-blog-public-main/out
 
   deploy:
     needs: build
