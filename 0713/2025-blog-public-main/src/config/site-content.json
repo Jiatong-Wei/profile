@@ -1,0 +1,60 @@
+{
+	"meta": {
+		"title": "魏佳桐 / Jiatong Wei",
+		"description": "Leo 的个人主页，记录机器人项目、学习笔记与阶段性思考。",
+		"username": "Leo"
+	},
+	"theme": {
+		"colorBrand": "#087c70",
+		"colorPrimary": "#17353f",
+		"colorSecondary": "#5d737c",
+		"colorBrandSecondary": "#f29c45",
+		"colorBg": "#f2f5f6",
+		"colorBorder": "#ffffff",
+		"colorCard": "#ffffff99",
+		"colorArticle": "#ffffffcc"
+	},
+	"backgroundColors": ["#f7da3987", "#8fdbe9", "#fffef8"],
+	"artImages": [
+		{
+			"id": "portrait",
+			"url": "/portrait-photonew2.jpg"
+		}
+	],
+	"currentArtImageId": "portrait",
+	"backgroundImages": [
+		{
+			"id": "",
+			"url": ""
+		}
+	],
+	"currentBackgroundImageId": "",
+	"socialButtons": [
+		{
+			"id": "github",
+			"type": "github",
+			"value": "https://github.com/Jiatong-Wei",
+			"label": "Github",
+			"order": 2
+		},
+		{
+			"id": "email",
+			"type": "email",
+			"value": "joyetong58@gmail.com",
+			"label": "Gmail",
+			"order": 1
+		}
+	],
+	"clockShowSeconds": false,
+	"summaryInContent": false,
+	"isCachePem": false,
+	"hideEditButton": false,
+	"enableCategories": false,
+	"currentHatIndex": 3,
+	"hatFlipped": false,
+	"enableChristmas": false,
+	"beian": {
+		"text": "",
+		"link": ""
+	}
+}

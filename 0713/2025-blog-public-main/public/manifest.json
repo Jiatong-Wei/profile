@@ -1,0 +1,23 @@
+{
+	"short_name": "Leo",
+	"name": "Leo - Personal Profile",
+	"start_url": "/profile/",
+	"scope": "/profile/",
+	"display": "standalone",
+	"background_color": "#f7fbfc",
+	"theme_color": "#1fb7a6",
+	"icons": [
+		{
+			"src": "/profile/icon-192.png",
+			"sizes": "192x192",
+			"type": "image/png",
+			"purpose": "any maskable"
+		},
+		{
+			"src": "/profile/favicon.png",
+			"sizes": "512x512",
+			"type": "image/png",
+			"purpose": "any maskable"
+		}
+	]
+}

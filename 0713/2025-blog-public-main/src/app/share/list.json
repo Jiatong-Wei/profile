@@ -1,0 +1,26 @@
+[
+	{
+		"name": "ROS 2 Documentation",
+		"logo": "https://docs.ros.org/favicon.ico",
+		"url": "https://docs.ros.org/en/jazzy/",
+		"description": "机器人软件中间件的官方文档，适合从节点、话题、服务和工具链开始建立系统开发基础。",
+		"tags": ["Robotics", "Middleware"],
+		"stars": 5
+	},
+	{
+		"name": "OpenCV Documentation",
+		"logo": "https://opencv.org/favicon.ico",
+		"url": "https://docs.opencv.org/4.x/",
+		"description": "计算机视觉与图像处理的官方文档，适合查阅 API、示例和基础视觉算法。",
+		"tags": ["Computer Vision", "Engineering"],
+		"stars": 4
+	},
+	{
+		"name": "PyTorch Tutorials",
+		"logo": "https://pytorch.org/favicon.ico",
+		"url": "https://pytorch.org/tutorials/",
+		"description": "从张量、自动微分到模型训练的官方教程，适合作为深度学习工程实践的参考入口。",
+		"tags": ["Deep Learning", "Research"],
+		"stars": 4
+	}
+]

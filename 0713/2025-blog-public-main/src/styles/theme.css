@@ -1,0 +1,19 @@
+@theme {
+	--color-primary: #17353f;
+	--color-secondary: #5d737c;
+	--color-brand-secondary: #f29c45;
+	--color-brand-ink: #066b62;
+	--color-bg: #f2f5f6;
+	--color-border: #dcecef;
+	--color-brand: #087c70;
+	--color-card: #ffffffd9;
+	--color-article: #fffffff2;
+	--radius-shell: 24px;
+	--radius-card: 18px;
+	--radius-control: 12px;
+
+	--font-averia: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei UI', 'Microsoft YaHei', sans-serif;
+	--font-sans:
+		-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, Cantarell, 'Helvetica Neue', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei UI',
+		'Microsoft YaHei', 'Noto Sans CJK SC', 'Noto Sans', Arial, sans-serif;
+}
