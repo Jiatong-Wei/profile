@@ -4,15 +4,15 @@ import path from 'node:path'
 const root = process.cwd()
 const outDir = path.join(root, 'out')
 
+function fail(message) {
+	console.error(`export check failed: ${message}`)
+	process.exitCode = 1
+}
+
 const requiredFiles = [
 	'index.html',
 	'projects/index.html',
 	'blog/index.html',
-	'blog/embodied-ai-roadmap/index.html',
-	'blog/full-stack-robotics/index.html',
-	'blog/reinforcement-learning/index.html',
-	'blog/underwater-robotics/index.html',
-	'blog/3dgs-campus-reconstruction/index.html',
 	'about/index.html',
 	'share/index.html',
 	'bloggers/index.html',
@@ -22,9 +22,29 @@ const requiredFiles = [
 	'sitemap.xml'
 ]
 
-function fail(message) {
-	console.error(`export check failed: ${message}`)
-	process.exitCode = 1
+const blogIndexPath = path.join(root, 'public', 'blogs', 'index.json')
+if (!fs.existsSync(blogIndexPath)) {
+	fail('public/blogs/index.json does not exist')
+} else {
+	try {
+		const blogIndex = JSON.parse(fs.readFileSync(blogIndexPath, 'utf8'))
+		if (!Array.isArray(blogIndex)) {
+			fail('public/blogs/index.json must contain an array')
+		} else {
+			for (const item of blogIndex) {
+				const slug = typeof item?.slug === 'string' ? item.slug.trim() : ''
+				if (!/^[a-z0-9][a-z0-9-]*$/.test(slug)) {
+					fail(`invalid blog slug in index: ${JSON.stringify(item?.slug)}`)
+					continue
+				}
+
+				requiredFiles.push(`write/${slug}/index.html`)
+				if (item.hidden !== true) requiredFiles.push(`blog/${slug}/index.html`)
+			}
+		}
+	} catch (error) {
+		fail(`could not parse public/blogs/index.json: ${error instanceof Error ? error.message : String(error)}`)
+	}
 }
 
 if (!fs.existsSync(outDir)) fail('out/ does not exist; run pnpm run build first')

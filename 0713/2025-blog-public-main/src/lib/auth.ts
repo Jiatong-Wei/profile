@@ -3,8 +3,8 @@ import { GITHUB_CONFIG } from '@/consts'
 import { useAuthStore } from '@/hooks/use-auth'
 import { toast } from 'sonner'
 import { decrypt, encrypt } from './aes256-util'
+import { GITHUB_TOKEN_CACHE_KEY, notifyAdminSessionChange } from './admin-session'
 
-const GITHUB_TOKEN_CACHE_KEY = 'github_token'
 const GITHUB_PEM_CACHE_KEY = 'p_info'
 
 function getTokenFromCache(): string | null {
@@ -20,6 +20,7 @@ function saveTokenToCache(token: string): void {
 	if (typeof sessionStorage === 'undefined') return
 	try {
 		sessionStorage.setItem(GITHUB_TOKEN_CACHE_KEY, token)
+		notifyAdminSessionChange()
 	} catch (error) {
 		console.error('Failed to save token to cache:', error)
 	}
@@ -29,6 +30,7 @@ function clearTokenCache(): void {
 	if (typeof sessionStorage === 'undefined') return
 	try {
 		sessionStorage.removeItem(GITHUB_TOKEN_CACHE_KEY)
+		notifyAdminSessionChange()
 	} catch (error) {
 		console.error('Failed to clear token cache:', error)
 	}

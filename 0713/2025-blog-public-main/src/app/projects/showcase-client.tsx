@@ -110,7 +110,7 @@ export default function Page() {
 
 	useEffect(() => {
 		const handleKeyDown = (e: KeyboardEvent) => {
-			if (!isEditMode && (e.ctrlKey || e.metaKey) && e.key === ',') {
+			if (!isEditMode && isAuth && (e.ctrlKey || e.metaKey) && e.key === ',') {
 				e.preventDefault()
 				setIsEditMode(true)
 			}
@@ -120,7 +120,7 @@ export default function Page() {
 		return () => {
 			window.removeEventListener('keydown', handleKeyDown)
 		}
-	}, [isEditMode])
+	}, [isAuth, isEditMode])
 
 	return (
 		<>
@@ -179,7 +179,7 @@ export default function Page() {
 						</motion.button>
 					</>
 				) : (
-					!hideEditButton && (
+					(isAuth || !hideEditButton) && (
 						<motion.button
 							whileHover={PRESSABLE_HOVER}
 							whileTap={PRESSABLE_TAP}

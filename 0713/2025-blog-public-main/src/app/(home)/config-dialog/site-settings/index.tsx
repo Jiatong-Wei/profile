@@ -93,7 +93,7 @@ export function SiteSettings({
 						onChange={e => setFormData({ ...formData, hideEditButton: e.target.checked })}
 						className='accent-brand h-4 w-4 rounded'
 					/>
-					<span className='text-sm font-medium'>隐藏编辑按钮（编辑快捷键 ctrl/cmd + ,）</span>
+					<span className='text-sm font-medium'>对未认证访客隐藏编辑入口</span>
 				</label>
 			</div>
 			<div className='flex gap-3'>

@@ -15,7 +15,7 @@ import { useReadArticles } from '@/hooks/use-read-articles'
 import { useAuthStore } from '@/hooks/use-auth'
 import { useConfigStore } from '@/app/(home)/stores/config-store'
 import { cn } from '@/lib/utils'
-import { Check, CheckCircle2, Pencil } from 'lucide-react'
+import { Check, CheckCircle2, LogOut, Pencil } from 'lucide-react'
 import { BlogCoverHoverPreview, useBlogCoverHover } from './components/blog-cover-hover'
 import { PageHeader } from '@/components/page-header'
 import { APPLE_EASE_OUT, PRESSABLE_HOVER, PRESSABLE_TAP, SELECTION_SPRING, SPRING_SNAPPY, pageReveal } from '@/lib/motion'
@@ -30,7 +30,7 @@ export default function BlogPage() {
 	const { items, loading } = useBlogIndex()
 	const { categories: categoriesFromServer } = useCategories()
 	const { isRead } = useReadArticles()
-	const { isAuth, authenticatePrivateKey } = useAuthStore()
+	const { isAuth, authenticatePrivateKey, clearAuth } = useAuthStore()
 	const { siteContent } = useConfigStore()
 	const hideEditButton = siteContent.hideEditButton ?? false
 	const enableCategories = siteContent.enableCategories ?? false
@@ -136,16 +136,16 @@ export default function BlogPage() {
 	const selectedCount = selectedSlugs.size
 	const buttonText = isAuth ? '保存' : '导入密钥'
 
-	const toggleEditMode = useCallback(() => {
-		if (editMode) {
-			setEditMode(false)
-			setEditableItems(items)
-			setSelectedSlugs(new Set())
-		} else {
-			setEditableItems(items)
-			setEditMode(true)
+	const enterEditMode = useCallback(() => {
+		if (!isAuth) {
+			keyInputRef.current?.click()
+			return
 		}
-	}, [editMode, items])
+
+		setEditableItems(items)
+		setSelectedSlugs(new Set())
+		setEditMode(true)
+	}, [isAuth, items])
 
 	const toggleSelect = useCallback((slug: string) => {
 		setSelectedSlugs(prev => {
@@ -212,9 +212,17 @@ export default function BlogPage() {
 			toast.info('请选择要删除的文章')
 			return
 		}
+
+		const selectedTitles = editableItems.filter(item => selectedSlugs.has(item.slug)).map(item => item.title || item.slug)
+		const confirmed = window.confirm(
+			`将以下 ${selectedTitles.length} 篇文章标记为待删除：\n\n${selectedTitles.join('\n')}\n\n此时尚未修改 GitHub，点击“保存”后还会再次确认。`
+		)
+		if (!confirmed) return
+
 		setEditableItems(prev => prev.filter(item => !selectedSlugs.has(item.slug)))
 		setSelectedSlugs(new Set())
-	}, [selectedCount, selectedSlugs])
+		toast.info('已标记为待删除，尚未提交到 GitHub')
+	}, [editableItems, selectedCount, selectedSlugs])
 
 	const handleAssignCategory = useCallback((slug: string, category?: string) => {
 		setEditableItems(prev =>
@@ -269,6 +277,14 @@ export default function BlogPage() {
 			return
 		}
 
+		if (removedSlugs.length > 0) {
+			const removedTitles = items.filter(item => removedSlugs.includes(item.slug)).map(item => item.title || item.slug)
+			const confirmed = window.confirm(
+				`即将从 GitHub 仓库永久删除以下 ${removedTitles.length} 篇文章及其文件：\n\n${removedTitles.join('\n')}\n\n该操作会产生提交并触发网站重新部署，确认继续吗？`
+			)
+			if (!confirmed) return
+		}
+
 		try {
 			setSaving(true)
 			const { saveBlogEdits } = await import('./services/save-blog-edits')
@@ -297,20 +313,35 @@ export default function BlogPage() {
 			try {
 				const pem = await file.text()
 				await authenticatePrivateKey(pem)
-				toast.success('密钥验证成功，请再次点击保存')
+				if (!editMode) {
+					setEditableItems(items)
+					setSelectedSlugs(new Set())
+					setEditMode(true)
+					toast.success('密钥验证成功，已进入管理模式')
+				} else {
+					toast.success('密钥验证成功，请再次点击保存')
+				}
 			} catch (error) {
 				console.error(error)
 				toast.error('密钥验证失败，请确认文件与 GitHub App 匹配')
 			}
 		},
-		[authenticatePrivateKey]
+		[authenticatePrivateKey, editMode, items]
 	)
+
+	const handleLogout = useCallback(() => {
+		clearAuth()
+		setEditableItems(items)
+		setSelectedSlugs(new Set())
+		setEditMode(false)
+		toast.success('已退出管理模式')
+	}, [clearAuth, items])
 
 	useEffect(() => {
 		const handleKeyDown = (e: KeyboardEvent) => {
-			if (!editMode && (e.ctrlKey || e.metaKey) && e.key === ',') {
+			if (!editMode && isAuth && (e.ctrlKey || e.metaKey) && e.key === ',') {
 				e.preventDefault()
-				toggleEditMode()
+				enterEditMode()
 			}
 		}
 
@@ -318,7 +349,7 @@ export default function BlogPage() {
 		return () => {
 			window.removeEventListener('keydown', handleKeyDown)
 		}
-	}, [editMode, toggleEditMode])
+	}, [editMode, enterEditMode, isAuth])
 
 	return (
 		<>
@@ -499,6 +530,16 @@ export default function BlogPage() {
 						<motion.button
 							whileHover={PRESSABLE_HOVER}
 							whileTap={PRESSABLE_TAP}
+							onClick={handleLogout}
+							disabled={saving}
+							aria-label='退出管理模式'
+							title='退出管理模式'
+							className='pressable-icon text-secondary hover:text-primary flex h-10 w-10 items-center justify-center rounded-xl border bg-white/60 transition-colors'>
+							<LogOut size={16} aria-hidden='true' />
+						</motion.button>
+						<motion.button
+							whileHover={PRESSABLE_HOVER}
+							whileTap={PRESSABLE_TAP}
 							onClick={selectedCount === editableItems.length ? handleDeselectAll : handleSelectAll}
 							className='rounded-xl border bg-white/60 px-4 py-2 text-sm transition-colors hover:bg-white/80'>
 							{selectedCount === editableItems.length ? '取消全选' : '全选'}
@@ -509,18 +550,18 @@ export default function BlogPage() {
 							onClick={handleDeleteSelected}
 							disabled={selectedCount === 0}
 							className='rounded-xl border border-red-200 bg-red-50 px-4 py-2 text-sm text-red-600 transition-colors disabled:opacity-60'>
-							删除(已选:{selectedCount}篇)
+							标记删除(已选:{selectedCount}篇)
 						</motion.button>
 						<motion.button whileHover={PRESSABLE_HOVER} whileTap={PRESSABLE_TAP} onClick={handleSaveClick} disabled={saving} className='brand-btn px-6'>
 							{saving ? '保存中...' : buttonText}
 						</motion.button>
 					</>
 				) : (
-					!hideEditButton && (
+					(isAuth || !hideEditButton) && (
 						<motion.button
 							whileHover={PRESSABLE_HOVER}
 							whileTap={PRESSABLE_TAP}
-							onClick={toggleEditMode}
+							onClick={enterEditMode}
 							aria-label='编辑文章列表'
 							title='编辑文章列表'
 							className='glass-panel glass-quiet text-secondary hover:text-primary flex h-10 w-10 items-center justify-center rounded-xl transition-colors'>

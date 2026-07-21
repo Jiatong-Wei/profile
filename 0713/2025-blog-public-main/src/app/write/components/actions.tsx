@@ -6,11 +6,14 @@ import { useWriteStore } from '../stores/write-store'
 import { usePreviewStore } from '../stores/preview-store'
 import { usePublish } from '../hooks/use-publish'
 import { PRESSABLE_HOVER, PRESSABLE_TAP } from '@/lib/motion'
+import { LogOut } from 'lucide-react'
+import { useAuthStore } from '@/hooks/use-auth'
 
 export function WriteActions() {
 	const { loading, mode, form, loadBlogForEdit, originalSlug, updateForm } = useWriteStore()
 	const { openPreview } = usePreviewStore()
 	const { isAuth, onChoosePrivateKey, onPublish, onDelete } = usePublish()
+	const clearAuth = useAuthStore(state => state.clearAuth)
 	const [saving, setSaving] = useState(false)
 	const keyInputRef = useRef<HTMLInputElement>(null)
 	const mdInputRef = useRef<HTMLInputElement>(null)
@@ -83,6 +86,22 @@ export function WriteActions() {
 			<input ref={mdInputRef} type='file' accept='.md' className='hidden' onChange={handleMdFileChange} />
 
 			<ul className='fixed top-24 right-6 z-50 flex items-center gap-2'>
+				{isAuth && (
+					<motion.button
+						initial={{ opacity: 0, scale: 0.96 }}
+						animate={{ opacity: 1, scale: 1 }}
+						whileHover={PRESSABLE_HOVER}
+						whileTap={PRESSABLE_TAP}
+						onClick={() => {
+							clearAuth()
+							toast.success('已退出管理模式')
+						}}
+						aria-label='退出管理模式'
+						title='退出管理模式'
+						className='bg-card pressable-icon text-secondary hover:text-primary flex h-10 w-10 items-center justify-center rounded-xl border transition-colors'>
+						<LogOut size={16} aria-hidden='true' />
+					</motion.button>
+				)}
 				{mode === 'edit' && (
 					<>
 						<motion.div

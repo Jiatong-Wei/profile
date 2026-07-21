@@ -19,6 +19,7 @@ import { lazy, Suspense, useEffect } from 'react'
 import { motion } from 'motion/react'
 import { toast } from 'sonner'
 import { PRESSABLE_HOVER, PRESSABLE_TAP } from '@/lib/motion'
+import { useAdminSession } from '@/hooks/use-admin-session'
 
 const ConfigDialog = lazy(() => import('@/app/(home)/config-dialog/index'))
 export default function HomeClient() {
@@ -27,6 +28,7 @@ export default function HomeClient() {
 	const editing = useLayoutEditStore(state => state.editing)
 	const saveEditing = useLayoutEditStore(state => state.saveEditing)
 	const cancelEditing = useLayoutEditStore(state => state.cancelEditing)
+	const isAuth = useAdminSession()
 
 	const handleSave = () => {
 		saveEditing()
@@ -40,7 +42,7 @@ export default function HomeClient() {
 
 	useEffect(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
-			if ((event.ctrlKey || event.metaKey) && (event.key === 'l' || event.key === ',')) {
+			if (isAuth && (event.ctrlKey || event.metaKey) && (event.key === 'l' || event.key === ',')) {
 				event.preventDefault()
 				setConfigDialogOpen(true)
 			}
@@ -48,7 +50,7 @@ export default function HomeClient() {
 
 		window.addEventListener('keydown', handleKeyDown)
 		return () => window.removeEventListener('keydown', handleKeyDown)
-	}, [setConfigDialogOpen])
+	}, [isAuth, setConfigDialogOpen])
 
 	return (
 		<>
@@ -89,7 +91,7 @@ export default function HomeClient() {
 				{cardStyles.beianCard?.enabled !== false && <BeianCard />}
 			</div>
 
-			<Suspense fallback={null}>{configDialogOpen && <ConfigDialog open onClose={() => setConfigDialogOpen(false)} />}</Suspense>
+			<Suspense fallback={null}>{isAuth && configDialogOpen && <ConfigDialog open onClose={() => setConfigDialogOpen(false)} />}</Suspense>
 		</>
 	)
 }

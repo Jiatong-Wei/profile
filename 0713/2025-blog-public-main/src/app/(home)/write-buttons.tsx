@@ -10,6 +10,7 @@ import { HomeDraggableLayer } from './home-draggable-layer'
 import { withSiteBase } from '@/lib/site-path'
 import { PRESSABLE_HOVER, PRESSABLE_TAP, windowReveal } from '@/lib/motion'
 import { useLayoutEditStore } from './stores/layout-edit-store'
+import { useAdminSession } from '@/hooks/use-admin-session'
 
 export default function WriteButton() {
 	const center = useCenterStore()
@@ -20,9 +21,10 @@ export default function WriteButton() {
 	const hiCardStyles = cardStyles.hiCard
 	const clockCardStyles = cardStyles.clockCard
 	const layoutInteraction = useLayoutEditStore(state => state.interaction)
+	const isAuth = useAdminSession()
 	const isLayoutDragging = layoutInteraction?.cardKey === 'writeButtons' && (layoutInteraction.phase === 'dragging' || layoutInteraction.phase === 'resizing')
 
-	if (maxSM) return null
+	if (maxSM || !isAuth) return null
 
 	const x = styles.offsetX !== null ? center.x + styles.offsetX : snapToHomeGrid(center.x + CARD_SPACING + hiCardStyles.width / 2)
 	const y =
