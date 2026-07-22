@@ -45,7 +45,7 @@ export function PublishedBlogPreview({ html, toc, title, tags, date, readingStat
 					<div className='mt-3 flex flex-wrap items-center justify-center gap-2 text-sm'>
 						<span className='text-secondary'>{date}</span>
 						<ArticleReadingStats stats={readingStats} />
-						<span className='human-certified-badge' title='作者人工审核' aria-label='Human certified，作者人工审核'>
+						<span className='human-certified-badge' title='由Leo亲自掌勺，GenAI添加量为0' aria-label='Human certified，由Leo亲自掌勺，GenAI添加量为0'>
 							<ShieldCheck size={13} aria-hidden='true' />
 							Human certified
 						</span>

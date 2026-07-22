@@ -13,8 +13,6 @@ type TocItem = {
 
 type BlogTocProps = { toc: TocItem[]; entranceDelay?: number; embedded?: boolean }
 
-const TOC_NAVIGATION_LOCK_MS = 900
-
 function getHashId() {
 	const hash = window.location.hash.slice(1)
 	try {
@@ -26,10 +24,10 @@ function getHashId() {
 
 export function BlogToc({ toc, entranceDelay = 0, embedded = false }: BlogTocProps) {
 	const [activeId, setActiveId] = useState<string | undefined>(toc[0]?.id)
-	const navigationLockRef = useRef<{ id: string; until: number } | null>(null)
+	const navigationLockRef = useRef<string | null>(null)
 	const reduceMotion = useReducedMotion()
 	const lockActiveId = (id: string) => {
-		navigationLockRef.current = { id, until: performance.now() + TOC_NAVIGATION_LOCK_MS }
+		navigationLockRef.current = id
 		setActiveId(id)
 	}
 
@@ -43,11 +41,10 @@ export function BlogToc({ toc, entranceDelay = 0, embedded = false }: BlogTocPro
 		const updateActiveId = () => {
 			frame = 0
 			const navigationLock = navigationLockRef.current
-			if (navigationLock && performance.now() < navigationLock.until) {
-				setActiveId(navigationLock.id)
+			if (navigationLock) {
+				setActiveId(navigationLock)
 				return
 			}
-			navigationLockRef.current = null
 
 			let nextActiveId = toc[0]?.id
 			const remainingScroll = Math.max(0, document.documentElement.scrollHeight - window.scrollY - window.innerHeight)
@@ -66,10 +63,19 @@ export function BlogToc({ toc, entranceDelay = 0, embedded = false }: BlogTocPro
 			if (frame) return
 			frame = window.requestAnimationFrame(updateActiveId)
 		}
+		const releaseNavigationLock = () => {
+			if (!navigationLockRef.current) return
+			navigationLockRef.current = null
+			scheduleUpdate()
+		}
+		const releaseNavigationLockOnKeyDown = (event: KeyboardEvent) => {
+			if (!['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Home', 'End', ' '].includes(event.key)) return
+			releaseNavigationLock()
+		}
 		const syncHash = () => {
 			const hashId = getHashId()
 			if (!toc.some(item => item.id === hashId)) return
-			navigationLockRef.current = { id: hashId, until: performance.now() + TOC_NAVIGATION_LOCK_MS }
+			navigationLockRef.current = hashId
 			setActiveId(hashId)
 		}
 
@@ -78,12 +84,20 @@ export function BlogToc({ toc, entranceDelay = 0, embedded = false }: BlogTocPro
 		window.addEventListener('scroll', scheduleUpdate, { passive: true })
 		window.addEventListener('resize', scheduleUpdate)
 		window.addEventListener('hashchange', syncHash)
+		window.addEventListener('wheel', releaseNavigationLock, { passive: true })
+		window.addEventListener('touchstart', releaseNavigationLock, { passive: true })
+		window.addEventListener('pointerdown', releaseNavigationLock, { passive: true })
+		window.addEventListener('keydown', releaseNavigationLockOnKeyDown)
 
 		return () => {
 			if (frame) window.cancelAnimationFrame(frame)
 			window.removeEventListener('scroll', scheduleUpdate)
 			window.removeEventListener('resize', scheduleUpdate)
 			window.removeEventListener('hashchange', syncHash)
+			window.removeEventListener('wheel', releaseNavigationLock)
+			window.removeEventListener('touchstart', releaseNavigationLock)
+			window.removeEventListener('pointerdown', releaseNavigationLock)
+			window.removeEventListener('keydown', releaseNavigationLockOnKeyDown)
 		}
 	}, [toc])
 

@@ -28,6 +28,16 @@ export function BlogSidebar({ cover, summary, summaryInContent = false, toc, slu
 	const tocDelay = (Number(Boolean(cover)) + Number(hasSummaryPanel)) * 40
 	const graphDelay = tocDelay + 40
 	const entranceStyle = (delay: number) => ({ '--article-sidebar-delay': `${delay}ms` }) as CSSProperties
+	const visibleGraph = graph
+		? (() => {
+				const nodes = graph.nodes.filter(node => node.collection !== 'projects')
+				const nodeIds = new Set(nodes.map(node => node.id))
+				return {
+					nodes,
+					edges: graph.edges.filter(edge => nodeIds.has(edge.source) && nodeIds.has(edge.target))
+				}
+			})()
+		: undefined
 
 	return (
 		<div className='sticky flex w-[360px] shrink-0 flex-col items-start gap-3 self-start max-lg:w-[280px] max-sm:hidden' style={{ top: 24 }}>
@@ -47,7 +57,7 @@ export function BlogSidebar({ cover, summary, summaryInContent = false, toc, slu
 
 				<BlogToc toc={toc} entranceDelay={tocDelay} embedded />
 
-				{graph && graph.nodes.length > 0 && (
+				{visibleGraph && visibleGraph.nodes.length > 0 && (
 					<div className='article-inspector-section article-sidebar-enter' style={entranceStyle(graphDelay)}>
 						<h2 className='text-secondary mb-2 font-medium'>知识图谱</h2>
 						<div className='text-secondary mb-1 flex flex-wrap gap-x-3 gap-y-1 text-[11px]' aria-label='图谱节点类型'>
@@ -55,12 +65,8 @@ export function BlogSidebar({ cover, summary, summaryInContent = false, toc, slu
 								<i className='bg-brand h-2 w-2 rounded-full' aria-hidden='true' />
 								笔记
 							</span>
-							<span className='inline-flex items-center gap-1'>
-								<i className='bg-brand-secondary h-2 w-2 rounded-full' aria-hidden='true' />
-								项目
-							</span>
 						</div>
-						<DeferredKnowledgeGraph nodes={graph.nodes} edges={graph.edges} currentNodeId={slug ? `wiki:${slug}` : undefined} />
+						<DeferredKnowledgeGraph nodes={visibleGraph.nodes} edges={visibleGraph.edges} currentNodeId={slug ? `wiki:${slug}` : undefined} />
 					</div>
 				)}
 			</div>

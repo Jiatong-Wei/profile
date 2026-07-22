@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState, useCallback } from 'react'
-import TopSVG from '@/svgs/top.svg'
+import { ArrowUp } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { APPLE_EASE_OUT, PRESSABLE_HOVER, PRESSABLE_TAP, SPRING_SNAPPY } from '@/lib/motion'
@@ -50,8 +50,8 @@ export function ScrollTopButton({ className, delay }: ScrollTopButtonProps) {
 					onClick={handleClick}
 					aria-label='返回顶部'
 					title='返回顶部'
-					className={cn('glass-panel glass-quiet text-secondary scroll-top-button static gap-2 rounded-full p-3 text-sm', className)}>
-					<TopSVG className='w-7' />
+					className={cn('glass-panel glass-quiet text-brand-ink scroll-top-button static gap-2 rounded-full p-3 text-sm', className)}>
+					<ArrowUp size={22} strokeWidth={2.35} aria-hidden='true' />
 				</motion.button>
 			)}
 		</AnimatePresence>
