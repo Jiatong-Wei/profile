@@ -202,7 +202,7 @@
 
 /* Images */
 .prose img {
-	max-width: 40%;
+	max-width: 82%;
 	margin: 1.5em auto;
 	height: auto;
 	border-radius: 12px;
@@ -213,7 +213,7 @@
 
 .prose .markdown-image-placeholder {
 	display: block;
-	max-width: 40%;
+	max-width: 82%;
 	margin: 1.5em auto;
 	border-radius: 12px;
 	background: rgba(255, 255, 255, 0.18);
