@@ -1,6 +1,6 @@
 ---
 title: 高斯泼溅二三事
-summary: 记录从校园飞机坪航拍采集、COLMAP 位姿解算到 3D Gaussian Splatting 重建工具选型与工程落地的完整过程。
+summary: 一个toy的小项目~
 tags: [3DGS, 计算机视觉, 工程实践]
 area: Project Notes
 status: growing
