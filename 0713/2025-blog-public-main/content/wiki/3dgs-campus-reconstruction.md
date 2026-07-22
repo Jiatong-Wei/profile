@@ -1,10 +1,10 @@
 ---
-title: 3DGS 校园展陈重建
-summary: 用 3D Gaussian Splatting 重建校园军工素质实践教育中心外场展陈的经验入口。
-tags: [3DGS, 计算机视觉, 社会影响]
+title: 高斯泼溅二三事
+summary: 记录从校园飞机坪航拍采集、COLMAP 位姿解算到 3D Gaussian Splatting 重建工具选型与工程落地的完整过程。
+tags: [3DGS, 计算机视觉, 工程实践]
 area: Project Notes
 status: growing
-updated: 2026-07-05
+updated: 2026-02-28
 publish: true
 aliases: [3DGS Campus Reconstruction]
 related: []

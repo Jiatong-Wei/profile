@@ -1,7 +1,23 @@
 import { useEffect, useRef } from 'react'
-import { motion } from 'motion/react'
+import { motion, useReducedMotion } from 'motion/react'
 import siteContent from '@/config/site-content.json'
 import { makeNoise2D, rand } from './utils'
+
+interface BlurredBubblesBackgroundProps {
+	count?: number
+	colors?: string[]
+	minRadius?: number
+	maxRadius?: number
+	bottomBandStart?: number
+	speed?: number
+	noiseScale?: number
+	noiseTimeScale?: number
+	targetFps?: number
+	debugFps?: boolean
+	startDelayMs?: number
+	regenerateKey?: number
+	opacity?: number
+}
 
 /**
  * Blurred Floating Circles Background
@@ -21,19 +37,26 @@ export default function BlurredBubblesBackground({
 	noiseTimeScale = 0.00015,
 	targetFps = 6,
 	debugFps = false,
-	startDelayMs = 1500,
-	regenerateKey = 0
-}) {
+	startDelayMs = 0,
+	regenerateKey = 0,
+	opacity = 1
+}: BlurredBubblesBackgroundProps) {
 	const ref = useRef<HTMLCanvasElement>(null)
 	const noise = useRef(makeNoise2D())
 	const animRef = useRef(0)
+	const reduceMotion = useReducedMotion()
 
 	useEffect(() => {
 		const canvas = ref.current
 		if (!canvas) return
-		const ctx = canvas.getContext('2d')!
+		const context = canvas.getContext('2d')
+		if (!context) return
+		const ctx = context
 		let width = (canvas.width = canvas.clientWidth)
 		let height = (canvas.height = canvas.clientHeight)
+		const palette = colors.length > 0 ? colors : ['#b96d4566', '#df9d4f52', '#c1c8b4', '#f2e5cf']
+		const coarsePointer = window.matchMedia('(pointer: coarse)').matches
+		const canAnimate = reduceMotion !== true && !coarsePointer
 
 		const DPR = Math.min(2, window.devicePixelRatio || 1)
 		canvas.width = Math.floor(width * DPR)
@@ -41,6 +64,18 @@ export default function BlurredBubblesBackground({
 		ctx.scale(DPR, DPR)
 
 		const effectiveFps = Math.max(1, targetFps)
+		const FRAME_INTERVAL = 1000 / effectiveFps
+		let isRunning = false
+		let startTimer: number | null = null
+		let frameTimer: number | null = null
+
+		function queueFrame(delay = 0) {
+			if (!isRunning || animRef.current !== 0 || frameTimer !== null) return
+			frameTimer = window.setTimeout(() => {
+				frameTimer = null
+				if (isRunning) animRef.current = window.requestAnimationFrame(frame)
+			}, Math.max(0, delay))
+		}
 
 		// 1s debounce for resize observer
 		let resizeTimer: number | null = null
@@ -139,7 +174,7 @@ export default function BlurredBubblesBackground({
 					x,
 					y,
 					r,
-					color: colors[bubbles.length % colors.length | 0],
+					color: palette[bubbles.length % palette.length | 0],
 					vx: rand(-0.2, 0.2),
 					vy: rand(-0.2, 0.2),
 					jitter: rand(0.6, 1.2),
@@ -151,9 +186,6 @@ export default function BlurredBubblesBackground({
 		// console.log('[bg] bubbles count:', bubbles.length)
 
 		// --- Animation loop ---
-		const FRAME_INTERVAL = 1000 / effectiveFps
-		let lastTime = 0
-		let accumulatedTime = 0
 		let fpsCounter = 0
 		let fpsStart = 0
 
@@ -236,6 +268,7 @@ export default function BlurredBubblesBackground({
 			}
 		}
 		function draw() {
+			ctx.clearRect(0, 0, width, height)
 			for (const b of bubbles) {
 				ctx.save()
 				ctx.filter = `blur(${b.blur}px)`
@@ -249,29 +282,9 @@ export default function BlurredBubblesBackground({
 		}
 
 		function frame(t: number) {
-			if (!ctx) return
-
-			// Rate limiting
-			{
-				if (document.hidden) {
-					animRef.current = requestAnimationFrame(frame)
-					return
-				}
-
-				// Frame rate limiting
-				const deltaTime = lastTime ? t - lastTime : 0
-				lastTime = t
-				accumulatedTime += deltaTime
-
-				if (accumulatedTime < FRAME_INTERVAL) {
-					animRef.current = requestAnimationFrame(frame)
-					return
-				}
-
-				accumulatedTime = 0
-			}
-
-			ctx.clearRect(0, 0, width, height)
+			animRef.current = 0
+			if (!isRunning) return
+			if (document.hidden) return
 
 			updatePhysics(t)
 
@@ -282,39 +295,64 @@ export default function BlurredBubblesBackground({
 				if (fpsStart === 0) fpsStart = t
 				fpsCounter++
 				if (t - fpsStart >= 1000) {
-					// Log measured fps vs target
-					// eslint-disable-next-line no-console
-					console.log('[blurred-bubbles] fps=', fpsCounter, 'target=', effectiveFps)
 					fpsCounter = 0
 					fpsStart = t
 				}
 			}
 
-			animRef.current = requestAnimationFrame(frame)
+			queueFrame(FRAME_INTERVAL)
 		}
 
-		if (window.innerWidth < 640) {
-			setTimeout(() => {
-				animRef.current = requestAnimationFrame(frame)
-			}, startDelayMs)
+		const handleVisibilityChange = () => {
+			if (document.hidden) {
+				isRunning = false
+				if (frameTimer !== null) {
+					window.clearTimeout(frameTimer)
+					frameTimer = null
+				}
+				if (animRef.current !== 0) {
+					window.cancelAnimationFrame(animRef.current)
+					animRef.current = 0
+				}
+				return
+			}
+			if (canAnimate) {
+				isRunning = true
+				queueFrame()
+			}
+		}
+		document.addEventListener('visibilitychange', handleVisibilityChange)
+
+		if (canAnimate) {
+			startTimer = window.setTimeout(() => {
+				if (document.hidden) return
+				isRunning = true
+				queueFrame()
+			}, Math.max(0, startDelayMs))
 		}
 
 		draw()
 
 		return () => {
-			cancelAnimationFrame(animRef.current)
+			isRunning = false
+			if (startTimer !== null) window.clearTimeout(startTimer)
+			if (frameTimer !== null) window.clearTimeout(frameTimer)
+			window.cancelAnimationFrame(animRef.current)
+			animRef.current = 0
+			document.removeEventListener('visibilitychange', handleVisibilityChange)
 			ro.disconnect()
 			if (resizeTimer !== null) window.clearTimeout(resizeTimer)
 		}
-	}, [colors, regenerateKey])
+	}, [bottomBandStart, colors, count, debugFps, maxRadius, minRadius, noiseScale, noiseTimeScale, reduceMotion, regenerateKey, speed, startDelayMs, targetFps])
 
 	return (
 		<motion.div
-			animate={{ opacity: 1 }}
-			initial={{ opacity: 0 }}
+			animate={{ opacity }}
+			initial={{ opacity }}
 			transition={{ duration: 1 }}
-			className='fixed inset-0 z-0 overflow-hidden'
-			style={{ filter: 'blur(50px)' }}>
+			className='pointer-events-none fixed top-0 left-0 z-0 overflow-hidden'
+			aria-hidden='true'
+			style={{ filter: 'blur(50px)', width: '100vw', height: '100dvh' }}>
 			<canvas ref={ref} className='h-full w-full' style={{ display: 'block' }} />
 		</motion.div>
 	)

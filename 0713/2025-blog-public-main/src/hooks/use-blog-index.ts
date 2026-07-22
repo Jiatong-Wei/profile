@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import useSWR from 'swr'
 import { useAuthStore } from '@/hooks/use-auth'
 import type { BlogIndexItem } from '@/app/blog/types'
@@ -11,6 +12,7 @@ const initialBlogIndex = blogIndex as BlogIndexItem[]
 // 改进 fetcher，抛出状态码以便处理 404
 const fetcher = async (url: string) => {
 	const res = await fetch(url, { cache: 'no-store' })
+	if (res.status === 404) return []
 	if (!res.ok) {
 		const error: any = new Error('Fetch failed')
 		error.status = res.status
@@ -43,7 +45,10 @@ export function useBlogIndex(fallbackData: BlogIndexItem[] = initialBlogIndex) {
 export function useLatestBlog() {
 	const { items, loading, error } = useBlogIndex()
 
-	const latestBlog = items.length > 0 ? [...items].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())[0] : null
+	const latestBlog = useMemo(() => {
+		if (items.length === 0) return null
+		return [...items].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())[0]
+	}, [items])
 
 	return {
 		blog: latestBlog,

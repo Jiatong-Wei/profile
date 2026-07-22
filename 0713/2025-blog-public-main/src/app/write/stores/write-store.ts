@@ -137,13 +137,13 @@ export const useWriteStore = create<WriteStore>((set, get) => ({
 			for (const it of state.images) {
 				if (it.type === 'file' && it.id === id) {
 					URL.revokeObjectURL(it.previewUrl)
-
-					if (it.id === state.cover?.id) {
-						set({ cover: null })
-					}
 				}
 			}
-			return { images: state.images.filter(it => it.id !== id) }
+			const isRemovingCover = state.cover && state.images.some(it => it.type === 'file' && it.id === id && it.id === state.cover?.id)
+			return {
+				images: state.images.filter(it => it.id !== id),
+				cover: isRemovingCover ? null : state.cover
+			}
 		}),
 
 	// Cover state
@@ -183,6 +183,15 @@ export const useWriteStore = create<WriteStore>((set, get) => ({
 				cover = { id: coverId, type: 'url', url: blog.cover }
 			}
 
+			// Parse date safely — fallback to now on invalid date
+			let dateStr = formatDateTimeLocal()
+			if (blog.config.date) {
+				const parsed = new Date(blog.config.date)
+				if (!isNaN(parsed.getTime())) {
+					dateStr = formatDateTimeLocal(parsed)
+				}
+			}
+
 			// Set form
 			set({
 				mode: 'edit',
@@ -192,7 +201,7 @@ export const useWriteStore = create<WriteStore>((set, get) => ({
 					title: blog.config.title || '',
 					md: blog.markdown,
 					tags: blog.config.tags || [],
-					date: blog.config.date ? formatDateTimeLocal(new Date(blog.config.date)) : formatDateTimeLocal(),
+					date: dateStr,
 					summary: blog.config.summary || '',
 					hidden: blog.config.hidden || false,
 					category: blog.config.category || ''

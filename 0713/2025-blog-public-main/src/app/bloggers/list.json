@@ -14,5 +14,13 @@
 		"description": "n+e's blog",
 		"stars": 5,
 		"status": "recent"
+	},
+	{
+		"name": "蒋炎岩",
+		"avatar": "https://jyywiki.cn/favicon.ico",
+		"url": "https://jyywiki.cn/",
+		"description": "Everything is a state machine",
+		"stars": 5,
+		"status": "recent"
 	}
 ]

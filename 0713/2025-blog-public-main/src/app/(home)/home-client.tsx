@@ -1,7 +1,7 @@
 'use client'
 
 import ArtCard from '@/app/(home)/art-card'
-import ArticleCard from '@/app/(home)/aritcle-card'
+import ArticleCard from '@/app/(home)/article-card'
 import BeianCard from '@/app/(home)/beian-card'
 import CalendarCard from '@/app/(home)/calendar-card'
 import ClockCard from '@/app/(home)/clock-card'
@@ -77,7 +77,7 @@ export default function HomeClient() {
 				</div>
 			)}
 
-			<div className='max-lg:flex max-lg:w-full max-lg:flex-col max-lg:items-center max-lg:gap-6 max-lg:pb-4 max-sm:pt-6 sm:max-lg:pt-24'>
+			<div className='max-[899px]:flex max-[899px]:w-full max-[899px]:flex-col max-[899px]:items-center max-[899px]:gap-6 max-[899px]:pb-4 max-sm:pt-6 sm:max-[899px]:pt-24'>
 				{cardStyles.artCard?.enabled !== false && <ArtCard />}
 				{cardStyles.hiCard?.enabled !== false && <HiCard />}
 				{!maxLG && cardStyles.clockCard?.enabled !== false && <ClockCard />}

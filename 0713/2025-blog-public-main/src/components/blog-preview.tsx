@@ -38,7 +38,7 @@ export function BlogPreview({ markdown, title, tags, date, summary, cover, slug,
 	}
 
 	return (
-		<div className='public-page mx-auto flex max-w-[1140px] justify-center gap-6 px-6 pt-28 max-sm:px-4 max-sm:pt-7'>
+		<div className='article-page public-page mx-auto flex max-w-[1140px] justify-center gap-6 px-6 pt-28 max-sm:px-4 max-sm:pt-7'>
 			<motion.article
 				variants={pageReveal}
 				initial='hidden'

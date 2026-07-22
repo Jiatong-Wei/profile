@@ -126,8 +126,7 @@ export default function NavCard() {
 						whileHover={{ scale: 1.015 }}
 						whileTap={{ scale: 0.97 }}
 						transition={{ scale: SPRING_SNAPPY }}>
-						<source srcSet={withSiteBase('/images/avatar.webp')} type='image/webp' />
-						<img src={withSiteBase('/images/avatar.png')} alt='Leo' width={40} height={40} className='nav-avatar' />
+						<img src={withSiteBase('/selfish/beger-avatar.webp')} alt='Leo' width={40} height={40} className='nav-avatar' />
 					</motion.picture>
 					<AnimatePresence mode='popLayout' initial={false}>
 						{showExpandedContent && (

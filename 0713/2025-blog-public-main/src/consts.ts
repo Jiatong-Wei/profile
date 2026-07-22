@@ -17,7 +17,7 @@ export const GITHUB_CONFIG = {
 	REPO: process.env.NEXT_PUBLIC_GITHUB_REPO || 'profile',
 	BRANCH: process.env.NEXT_PUBLIC_GITHUB_BRANCH || 'main',
 	APP_ID: process.env.NEXT_PUBLIC_GITHUB_APP_ID || '4353467',
-	// Only used as a local cache salt when the user explicitly enables PEM caching.
-	ENCRYPT_KEY: process.env.NEXT_PUBLIC_GITHUB_ENCRYPT_KEY || 'jiatong-wei-profile-public-key-cache',
+	// Must be set via env var when PEM caching is enabled — no default to avoid trivial reversal.
+	ENCRYPT_KEY: process.env.NEXT_PUBLIC_GITHUB_ENCRYPT_KEY || '',
 	SOURCE_ROOT: '0713/2025-blog-public-main'
 } as const

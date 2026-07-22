@@ -24,12 +24,12 @@ const initState = {
 
 const computeSize = (): Omit<SizeState, 'recalc'> => {
 	if (typeof window !== 'undefined') {
-		const width = window.innerWidth
+		const width = document.documentElement.clientWidth || window.innerWidth
 
 		return {
 			init: true,
 			maxXL: width < 1280,
-			maxLG: width < 1024,
+			maxLG: width < 900,
 			maxMD: width < 768,
 			maxSM: width < 640,
 			maxXS: width < 360

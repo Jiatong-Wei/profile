@@ -7,10 +7,25 @@ import { GITHUB_TOKEN_CACHE_KEY, notifyAdminSessionChange } from './admin-sessio
 
 const GITHUB_PEM_CACHE_KEY = 'p_info'
 
+// GitHub installation tokens expire after 1 hour — we treat them as stale after 55 min.
+const TOKEN_MAX_AGE_MS = 55 * 60 * 1000
+
+interface CachedToken {
+	token: string
+	createdAt: number
+}
+
 function getTokenFromCache(): string | null {
 	if (typeof sessionStorage === 'undefined') return null
 	try {
-		return sessionStorage.getItem(GITHUB_TOKEN_CACHE_KEY)
+		const raw = sessionStorage.getItem(GITHUB_TOKEN_CACHE_KEY)
+		if (!raw) return null
+		const parsed: CachedToken = JSON.parse(raw)
+		if (Date.now() - parsed.createdAt > TOKEN_MAX_AGE_MS) {
+			sessionStorage.removeItem(GITHUB_TOKEN_CACHE_KEY)
+			return null
+		}
+		return parsed.token
 	} catch {
 		return null
 	}
@@ -19,7 +34,7 @@ function getTokenFromCache(): string | null {
 function saveTokenToCache(token: string): void {
 	if (typeof sessionStorage === 'undefined') return
 	try {
-		sessionStorage.setItem(GITHUB_TOKEN_CACHE_KEY, token)
+		sessionStorage.setItem(GITHUB_TOKEN_CACHE_KEY, JSON.stringify({ token, createdAt: Date.now() }))
 		notifyAdminSessionChange()
 	} catch (error) {
 		console.error('Failed to save token to cache:', error)
@@ -38,8 +53,8 @@ function clearTokenCache(): void {
 
 export async function getPemFromCache(): Promise<string | null> {
 	if (typeof sessionStorage === 'undefined') return null
+	if (!GITHUB_CONFIG.ENCRYPT_KEY) return null
 	try {
-		// 解密缓存中的 pem
 		const encryptedPem = sessionStorage.getItem(GITHUB_PEM_CACHE_KEY)
 		if (!encryptedPem) return null
 		return await decrypt(encryptedPem, GITHUB_CONFIG.ENCRYPT_KEY)
@@ -50,8 +65,8 @@ export async function getPemFromCache(): Promise<string | null> {
 
 export async function savePemToCache(pem: string): Promise<void> {
 	if (typeof sessionStorage === 'undefined') return
+	if (!GITHUB_CONFIG.ENCRYPT_KEY) return
 	try {
-		// 加密 pem 后存储
 		const encryptedPem = await encrypt(pem, GITHUB_CONFIG.ENCRYPT_KEY)
 		sessionStorage.setItem(GITHUB_PEM_CACHE_KEY, encryptedPem)
 	} catch (error) {

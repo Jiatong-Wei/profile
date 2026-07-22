@@ -77,11 +77,11 @@ export default function CalendarCard() {
 }
 
 const todayCellStyle = {
-	border: '1px solid rgba(255, 255, 255, 0.66)',
-	background: 'linear-gradient(145deg, #43cbb6 0%, #159b8d 48%, #087c70 100%)',
+	border: '1px solid rgba(255, 248, 238, 0.72)',
+	background: 'linear-gradient(145deg, #d98945 0%, #b85b38 50%, #8f4532 100%)',
 	color: '#fff',
-	boxShadow: '0 7px 16px -11px rgba(6, 107, 98, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.42)',
-	textShadow: '0 1px 1px rgba(4, 76, 69, 0.24)'
+	boxShadow: '0 7px 16px -11px rgba(125, 63, 40, 0.78), inset 0 1px 0 rgba(255, 248, 238, 0.42)',
+	textShadow: '0 1px 1px rgba(79, 36, 25, 0.3)'
 } satisfies CSSProperties
 
 const dates = ['一', '二', '三', '四', '五', '六', '日']

@@ -18,7 +18,7 @@ export default function ArtCard() {
 	const artImages = siteContent.artImages ?? []
 	const currentId = siteContent.currentArtImageId
 	const currentArt = (currentId ? artImages.find(item => item.id === currentId) : undefined) ?? artImages[0]
-	const artUrl = withSiteBase(currentArt?.url || '/portrait-photonew2.jpg')
+	const artUrl = withSiteBase(currentArt?.url || '/selfish/beger-art.webp')
 
 	return (
 		<HomeDraggableLayer cardKey='artCard' x={x} y={y} width={styles.width} height={styles.height}>
@@ -26,7 +26,7 @@ export default function ArtCard() {
 				cardKey='artCard'
 				glassTone='standard'
 				motionRole='pressable'
-				className='p-2 max-lg:static max-lg:translate-0'
+				className='p-2 max-[899px]:static max-[899px]:translate-0'
 				order={styles.order}
 				width={styles.width}
 				height={styles.height}
@@ -44,7 +44,7 @@ export default function ArtCard() {
 				)}
 
 				<Link href='/pictures' className='group block h-full w-full overflow-hidden rounded-[18px]' aria-label='查看图片'>
-					<img src={artUrl} alt='wall art' className='home-art-image h-full w-full object-cover' />
+					<img src={artUrl} alt='戴博士帽的比格犬插画' className='home-art-image h-full w-full object-cover' />
 				</Link>
 			</Card>
 		</HomeDraggableLayer>

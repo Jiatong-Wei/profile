@@ -86,7 +86,7 @@ export default function ConfigDialog({ open, onClose }: ConfigDialogProps) {
 			toast.success('密钥验证成功，请再次点击保存')
 		} catch (error) {
 			console.error('Failed to authenticate private key:', error)
-			toast.error('密钥验证失败，请确认文件与 GitHub App 匹配')
+			toast.error('密钥验证失败，请确认文件�?GitHub App 匹配')
 		}
 	}
 
@@ -107,8 +107,8 @@ export default function ConfigDialog({ open, onClose }: ConfigDialogProps) {
 			const removedArtImages = originalArtImages.filter(orig => !currentArtImages.some(current => current.id === orig.id))
 
 			// Calculate removed background images
-			const originalBackgroundImages = originalData.backgroundImages ?? []
-			const currentBackgroundImages = formData.backgroundImages ?? []
+			const originalBackgroundImages = (originalData.backgroundImages ?? []) as Array<{ id: string; url: string }>
+			const currentBackgroundImages = (formData.backgroundImages ?? []) as Array<{ id: string; url: string }>
 			const removedBackgroundImages = originalBackgroundImages.filter(orig => !currentBackgroundImages.some(current => current.id === orig.id))
 
 			const { pushSiteContent } = await import('../services/push-site-content')
@@ -202,7 +202,6 @@ export default function ConfigDialog({ open, onClose }: ConfigDialogProps) {
 	}
 
 	const handlePreview = () => {
-		console.log('formData', formData)
 		setSiteContent(formData)
 		setCardStyles(cardStylesData)
 		regenerateBubbles()
@@ -274,7 +273,7 @@ export default function ConfigDialog({ open, onClose }: ConfigDialogProps) {
 							取消
 						</motion.button>
 						<motion.button whileHover={PRESSABLE_HOVER} whileTap={PRESSABLE_TAP} onClick={handleSaveClick} disabled={isSaving} className='brand-btn px-6'>
-							{isSaving ? '保存中...' : buttonText}
+							{isSaving ? '保存�?..' : buttonText}
 						</motion.button>
 					</div>
 				</div>

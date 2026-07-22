@@ -43,7 +43,7 @@ export default function HiCard() {
 				y={y}
 				glassTone='primary'
 				interactiveGlass
-				className='relative text-center max-lg:static max-lg:translate-0'>
+				className='relative text-center max-[899px]:static max-[899px]:translate-0'>
 				{siteContent.enableChristmas && (
 					<>
 						<img
@@ -66,9 +66,8 @@ export default function HiCard() {
 					title='Live2D'
 					className='focus-visible:outline-brand/50 inline-block rounded-full focus-visible:outline-2 focus-visible:outline-offset-4'>
 					<motion.picture tabIndex={-1} whileHover={PRESSABLE_HOVER} whileTap={PRESSABLE_TAP} transition={SPRING_SNAPPY} className='block'>
-						<source srcSet={withSiteBase('/images/avatar.webp')} type='image/webp' />
 						<img
-							src={withSiteBase('/images/avatar.png')}
+							src={withSiteBase('/selfish/beger-avatar.webp')}
 							alt='Leo'
 							width={120}
 							height={120}

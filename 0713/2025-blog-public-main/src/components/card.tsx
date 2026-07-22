@@ -57,7 +57,7 @@ export default function Card({
 	const whileHover = canHover ? (motionRole === 'pressable' ? PRESSABLE_HOVER : WINDOW_HOVER) : undefined
 	const whileTap = motionRole === 'pressable' ? PRESSABLE_TAP : undefined
 
-	if (x === 0 && y === 0) return null
+	if (!init) return null
 
 	return (
 		<motion.div

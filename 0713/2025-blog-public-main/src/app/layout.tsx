@@ -10,9 +10,9 @@ const {
 	theme
 } = siteContent
 
-const hasBackdrop = Boolean(
-	siteContent.currentBackgroundImageId && siteContent.backgroundImages?.some(item => item.id === siteContent.currentBackgroundImageId && item.url?.trim())
-)
+const hasBackdrop =
+	siteContent.backgroundColors.some(color => color.trim()) ||
+	Boolean(siteContent.currentBackgroundImageId && (siteContent.backgroundImages as Array<{ id: string; url: string }>)?.some(item => item.id === siteContent.currentBackgroundImageId && item.url?.trim()))
 
 export const metadata: Metadata = {
 	title,
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
 	width: 'device-width',
 	initialScale: 1,
-	themeColor: '#f2f5f6'
+	themeColor: '#f4f2ed'
 }
 
 const htmlStyle = {
@@ -72,6 +72,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
 				/>
 
 				<Layout>{children}</Layout>
+				<script data-goatcounter="https://joye.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 			</body>
 		</html>
 	)

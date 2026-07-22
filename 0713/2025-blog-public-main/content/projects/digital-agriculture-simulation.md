@@ -26,4 +26,4 @@ related: [3dgs-campus-reconstruction]
 
 ## 后续整理
 
-这个项目后续会与 [[3dgs-campus-reconstruction|3DGS 校园展陈重建]] 对照，整理虚拟场景制作与真实场景重建的差异。
+这个项目后续会与 [[3dgs-campus-reconstruction|高斯泼溅二三事]] 对照，整理虚拟场景制作与真实场景重建的差异。

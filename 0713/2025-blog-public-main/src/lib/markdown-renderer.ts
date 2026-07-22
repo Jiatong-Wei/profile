@@ -17,12 +17,36 @@ export function slugify(text: string): string {
 		.replace(/\s+/g, '-')
 }
 
+function escapeHtml(value: string): string {
+	return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+}
+
 function escapeHtmlAttribute(value: string): string {
 	return value.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/'/g, '&#39;')
 }
 
 function resolveMarkdownUrl(value: string): string {
 	return value.startsWith('/') ? withSiteBase(value) : value
+}
+
+// ── Module-level extension state (math extensions are global in marked) ──
+let mathExtensionsRegistered = false
+let currentKatexModule: any = null
+
+function renderMathWithKatex(content: string, displayMode: boolean): string {
+	if (!currentKatexModule) {
+		return displayMode ? `$$${content}$$` : `$${content}$`
+	}
+	try {
+		return currentKatexModule.renderToString(content, {
+			displayMode,
+			throwOnError: false,
+			output: 'html',
+			strict: 'ignore'
+		})
+	} catch {
+		return displayMode ? `$$${content}$$` : `$${content}$`
+	}
 }
 
 // Lazy load shiki to handle environments where it's not available (e.g., Cloudflare Workers)
@@ -73,11 +97,19 @@ export async function renderMarkdown(markdown: string): Promise<MarkdownRenderRe
 
 	// Render HTML with heading ids
 	const renderer = new marked.Renderer()
+	const renderTable = renderer.table
+
+	renderer.table = function (token: Tokens.Table) {
+		const widthClass = token.header.length >= 4 ? ' table-scroll-wide' : ''
+		return `<div class="table-scroll${widthClass}" role="region" aria-label="可横向滚动的表格" tabindex="0">${renderTable.call(this, token)}</div>`
+	}
 
 	renderer.link = ({ href, title, tokens }: Tokens.Link) => {
 		const text = marked.parser(tokens) as string
 		const titleAttribute = title ? ` title="${escapeHtmlAttribute(title)}"` : ''
-		return `<a href="${escapeHtmlAttribute(resolveMarkdownUrl(href))}"${titleAttribute}>${text}</a>`
+		const resolvedHref = resolveMarkdownUrl(href)
+			const relAttribute = /^(https?:|\/\/)/i.test(resolvedHref) ? ' rel="noreferrer noopener"' : ''
+			return `<a href="${escapeHtmlAttribute(resolvedHref)}"${titleAttribute}${relAttribute}>${text}</a>`
 	}
 
 	renderer.image = ({ href, title, text }: Tokens.Image) => {
@@ -87,7 +119,7 @@ export async function renderMarkdown(markdown: string): Promise<MarkdownRenderRe
 
 	renderer.heading = (token: Tokens.Heading) => {
 		const id = slugify(token.text || '')
-		return `<h${token.depth} id="${id}">${token.text}</h${token.depth}>`
+		return `<h${token.depth} id="${id}">${escapeHtml(token.text)}</h${token.depth}>`
 	}
 
 	renderer.code = (token: Tokens.Code) => {
@@ -124,80 +156,70 @@ export async function renderMarkdown(markdown: string): Promise<MarkdownRenderRe
 		return `<li>${inner}</li>\n`
 	}
 
-	const renderMath = (content: string, displayMode: boolean) => {
-		if (!katex) {
-			// Keep original delimiters if katex is not available
-			return displayMode ? `$$${content}$$` : `$${content}$`
-		}
+	// Update the module-level katex reference so extension renderers can use it.
+	currentKatexModule = katex
 
-		try {
-			return katex.renderToString(content, {
-				displayMode,
-				throwOnError: false,
-				output: 'html',
-				strict: 'ignore'
-			})
-		} catch {
-			return displayMode ? `$$${content}$$` : `$${content}$`
-		}
+	// Register math extensions once (extensions are global in marked).
+	if (!mathExtensionsRegistered) {
+		marked.use({
+			extensions: [
+				// Block math: $$ ... $$
+				{
+					name: 'mathBlock',
+					level: 'block',
+					start(src: string) {
+						return src.indexOf('$$')
+					},
+					tokenizer(src: string) {
+						const match = src.match(/^\$\$([\s\S]+?)\$\$(?:\n+|$)/)
+						if (!match) return
+						return {
+							type: 'mathBlock',
+							raw: match[0],
+							text: match[1].trim()
+						} as any
+					},
+					renderer(token: any) {
+						return `${renderMathWithKatex(token.text || '', true)}\n`
+					}
+				},
+				// Inline math: $ ... $
+				{
+					name: 'mathInline',
+					level: 'inline',
+					start(src: string) {
+						const idx = src.indexOf('$')
+						return idx === -1 ? undefined : idx
+					},
+					tokenizer(src: string) {
+						// Avoid $$ (block) and escaped dollars
+						if (src.startsWith('$$')) return
+						if (src.startsWith('\\$')) return
+
+						const match = src.match(/^\$([^\n$]+?)\$/)
+						if (!match) return
+
+						const inner = match[1]
+						// Heuristic: require some non-space content
+						if (!inner || !inner.trim()) return
+
+						return {
+							type: 'mathInline',
+							raw: match[0],
+							text: inner.trim()
+						} as any
+					},
+					renderer(token: any) {
+						return renderMathWithKatex(token.text || '', false)
+					}
+				}
+			]
+		})
+		mathExtensionsRegistered = true
 	}
 
-	// Register extensions BEFORE lexing so math gets tokenized on cold refresh.
-	marked.use({
-		renderer,
-		extensions: [
-			// Block math: $$ ... $$
-			{
-				name: 'mathBlock',
-				level: 'block',
-				start(src: string) {
-					return src.indexOf('$$')
-				},
-				tokenizer(src: string) {
-					const match = src.match(/^\$\$([\s\S]+?)\$\$(?:\n+|$)/)
-					if (!match) return
-					return {
-						type: 'mathBlock',
-						raw: match[0],
-						text: match[1].trim()
-					} as any
-				},
-				renderer(token: any) {
-					return `${renderMath(token.text || '', true)}\n`
-				}
-			},
-			// Inline math: $ ... $
-			{
-				name: 'mathInline',
-				level: 'inline',
-				start(src: string) {
-					const idx = src.indexOf('$')
-					return idx === -1 ? undefined : idx
-				},
-				tokenizer(src: string) {
-					// Avoid $$ (block) and escaped dollars
-					if (src.startsWith('$$')) return
-					if (src.startsWith('\\$')) return
-
-					const match = src.match(/^\$([^\n$]+?)\$/)
-					if (!match) return
-
-					const inner = match[1]
-					// Heuristic: require some non-space content
-					if (!inner || !inner.trim()) return
-
-					return {
-						type: 'mathInline',
-						raw: match[0],
-						text: inner.trim()
-					} as any
-				},
-				renderer(token: any) {
-					return renderMath(token.text || '', false)
-				}
-			}
-		]
-	})
+	// Set the per-call renderer (marked.use with renderer merely replaces the default — it is idempotent).
+	marked.use({ renderer })
 
 	// Pre-process with marked lexer first (after extensions are registered)
 	const tokens = marked.lexer(markdown)

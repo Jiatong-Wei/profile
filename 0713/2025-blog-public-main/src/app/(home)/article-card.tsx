@@ -25,7 +25,7 @@ export default function ArticleCard() {
 
 	return (
 		<HomeDraggableLayer cardKey='articleCard' x={x} y={y} width={styles.width} height={styles.height}>
-			<Card cardKey='articleCard' glassTone='standard' order={styles.order} width={styles.width} height={styles.height} x={x} y={y} className='space-y-2 max-lg:static'>
+			<Card cardKey='articleCard' glassTone='standard' order={styles.order} width={styles.width} height={styles.height} x={x} y={y} className='space-y-2 max-[899px]:static'>
 				{siteContent.enableChristmas && (
 					<img
 						src={withSiteBase('/images/christmas/snow-9.webp')}

@@ -1,6 +1,8 @@
+import { useEffect, useRef } from 'react'
 import { create } from 'zustand'
 import { clearAllAuthCache, getAuthToken as getToken, hasAuth as checkAuth, getPemFromCache, savePemToCache } from '@/lib/auth'
 import { useConfigStore } from '@/app/(home)/stores/config-store'
+
 interface AuthStore {
 	// State
 	isAuth: boolean
@@ -61,15 +63,22 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
 	}
 }))
 
-if (typeof window !== 'undefined') {
-	const allowPemCache = useConfigStore.getState().siteContent?.isCachePem === true
-	if (allowPemCache) {
-		getPemFromCache().then(key => {
-			if (key) useAuthStore.setState({ privateKey: key })
-		})
-	}
+export function useAuthInit() {
+	const initedRef = useRef(false)
 
-	checkAuth(allowPemCache).then(isAuth => {
-		if (isAuth) useAuthStore.setState({ isAuth })
-	})
+	useEffect(() => {
+		if (initedRef.current) return
+		initedRef.current = true
+
+		const allowPemCache = useConfigStore.getState().siteContent?.isCachePem === true
+		if (allowPemCache) {
+			getPemFromCache().then(key => {
+				if (key) useAuthStore.setState({ privateKey: key })
+			})
+		}
+
+		checkAuth(allowPemCache).then(isAuth => {
+			if (isAuth) useAuthStore.setState({ isAuth })
+		})
+	}, [])
 }

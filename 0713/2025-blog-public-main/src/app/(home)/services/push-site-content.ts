@@ -8,7 +8,7 @@ import type { SiteContent, CardStyles } from '../stores/config-store'
 import type { FileItem, ArtImageUploads, SocialButtonImageUploads, BackgroundImageUploads } from '../config-dialog/site-settings'
 
 type ArtImageConfig = SiteContent['artImages'][number]
-type BackgroundImageConfig = SiteContent['backgroundImages'][number]
+type BackgroundImageConfig = { id: string; url: string }
 
 export async function pushSiteContent(
 	siteContent: SiteContent,
@@ -108,7 +108,7 @@ export async function pushSiteContent(
 		for (const [id, item] of Object.entries(backgroundImageUploads)) {
 			if (item.type !== 'file') continue
 
-			const bgConfig = siteContent.backgroundImages?.find(bg => bg.id === id)
+			const bgConfig = (siteContent.backgroundImages as Array<{ id: string; url: string }>)?.find(bg => bg.id === id)
 			if (!bgConfig) continue
 
 			// Only upload if URL starts with /images/background/ (local file)

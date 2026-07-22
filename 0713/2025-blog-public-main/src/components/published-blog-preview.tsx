@@ -29,7 +29,7 @@ export function PublishedBlogPreview({ html, toc, title, tags, date, readingStat
 	const summaryInContent = siteContent.summaryInContent ?? false
 
 	return (
-		<div className='public-page mx-auto flex max-w-[1140px] justify-center gap-6 px-6 pt-28 max-sm:px-4 max-sm:pt-7'>
+		<div className='article-page public-page mx-auto flex max-w-[1140px] justify-center gap-6 px-6 pt-28 max-sm:px-4 max-sm:pt-7'>
 			<ArticleMotionSurface className='card glass-standard static flex-1 overflow-auto rounded-[var(--radius-card)] p-8 max-sm:p-5'>
 				<div>
 					<ArticleMotionTitle slug={slug} className='text-center text-2xl font-semibold'>

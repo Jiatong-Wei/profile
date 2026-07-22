@@ -7,10 +7,12 @@ import { useMarkdownRender } from '@/hooks/use-markdown-render'
 import type { AboutData } from './services/push-about'
 import { useAuthStore } from '@/hooks/use-auth'
 import { useConfigStore } from '@/app/(home)/stores/config-store'
-import { Github, Pencil } from 'lucide-react'
+import { FileDown, Pencil } from 'lucide-react'
+import EmailSVG from '@/svgs/email.svg'
 import initialData from './list.json'
 import { PageHeader } from '@/components/page-header'
 import { APPLE_EASE_OUT, PRESSABLE_HOVER, PRESSABLE_TAP } from '@/lib/motion'
+import { withSiteBase } from '@/lib/site-path'
 
 export default function Page() {
 	const [data, setData] = useState<AboutData>(initialData as AboutData)
@@ -106,20 +108,17 @@ export default function Page() {
 			/>
 
 			<div className='public-page flex flex-col items-center justify-center px-6 pt-28 max-sm:px-4 max-sm:pt-7'>
-				<div className='w-full max-w-[800px]'>
+				<div className='w-full max-w-[960px]'>
 					{isEditMode ? (
 						isPreviewMode ? (
 							<div className='space-y-6'>
-								<div className='text-center'>
-									<h1 className='mb-4 text-4xl font-bold'>{data.title || '标题预览'}</h1>
-									<p className='text-secondary text-lg'>{data.description || '描述预览'}</p>
-								</div>
+								<PageHeader title={data.title || '标题预览'} meta={data.description || undefined} className='about-page-header max-w-[960px]' />
 
 								{loading ? (
 									<div className='text-secondary text-center'>预览渲染中...</div>
 								) : (
-									<div className='card relative p-6'>
-										<div className='prose prose-sm max-w-none'>{content}</div>
+									<div className='about-card card relative p-8 max-sm:p-5'>
+										<div className='about-prose prose prose-sm max-w-none'>{content}</div>
 									</div>
 								)}
 							</div>
@@ -154,7 +153,7 @@ export default function Page() {
 						)
 					) : (
 						<>
-							<PageHeader title={data.title} meta={data.description} className='max-w-[800px] max-sm:flex-col max-sm:items-start max-sm:gap-2!' />
+							<PageHeader title={data.title} meta={data.description} className='about-page-header max-w-[960px]' />
 
 							{loading ? (
 								<div className='text-secondary text-center'>加载中...</div>
@@ -163,8 +162,8 @@ export default function Page() {
 									initial={{ opacity: 0, scale: 0.96 }}
 									animate={{ opacity: 1, scale: 1 }}
 									transition={{ duration: 0.22, ease: APPLE_EASE_OUT }}
-									className='card relative rounded-[18px] p-6'>
-									<div className='prose prose-sm max-w-none'>{content}</div>
+									className='about-card card relative rounded-[18px] p-8 max-sm:p-5'>
+									<div className='about-prose prose prose-sm max-w-none'>{content}</div>
 								</motion.div>
 							)}
 						</>
@@ -172,18 +171,30 @@ export default function Page() {
 
 					<div className='mt-8 flex items-center justify-center gap-6'>
 						<motion.a
-							href='https://github.com/Jiatong-Wei'
-							target='_blank'
-							rel='noreferrer'
-							aria-label='访问 GitHub 主页'
-							title='GitHub'
+							href='mailto:joyetong58@gmail.com'
+							aria-label='通过 Gmail 发送邮件'
+							title='Gmail'
 							initial={{ opacity: 0, scale: 0.96 }}
 							animate={{ opacity: 1, scale: 1 }}
 							transition={{ duration: 0.22, ease: [0.23, 1, 0.32, 1] }}
 							whileHover={PRESSABLE_HOVER}
 							whileTap={PRESSABLE_TAP}
 							className='glass-panel glass-quiet pressable-icon flex h-[53px] w-[53px] items-center justify-center rounded-full'>
-							<Github size={24} strokeWidth={1.8} aria-hidden='true' />
+							<EmailSVG className='size-8' aria-hidden='true' />
+						</motion.a>
+						<motion.a
+							href={withSiteBase('/cv/Leo-CV.pdf')}
+							download='Leo-CV.pdf'
+							aria-label='下载 CV'
+							title='下载 CV'
+							initial={{ opacity: 0, scale: 0.96 }}
+							animate={{ opacity: 1, scale: 1 }}
+							transition={{ duration: 0.22, delay: 0.04, ease: [0.23, 1, 0.32, 1] }}
+							whileHover={PRESSABLE_HOVER}
+							whileTap={PRESSABLE_TAP}
+							className='glass-panel glass-quiet text-primary flex h-[53px] items-center justify-center gap-2 rounded-[var(--radius-control)] px-4 text-sm font-medium'>
+							<FileDown size={20} strokeWidth={1.8} aria-hidden='true' />
+							<span>CV</span>
 						</motion.a>
 					</div>
 				</div>
