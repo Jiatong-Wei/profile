@@ -1,7 +1,7 @@
 'use client'
 
 import clsx from 'clsx'
-import { useEffect, useState, type CSSProperties } from 'react'
+import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { motion, useReducedMotion } from 'motion/react'
 import { SELECTION_SPRING } from '@/lib/motion'
 
@@ -13,9 +13,25 @@ type TocItem = {
 
 type BlogTocProps = { toc: TocItem[]; entranceDelay?: number; embedded?: boolean }
 
+const TOC_NAVIGATION_LOCK_MS = 900
+
+function getHashId() {
+	const hash = window.location.hash.slice(1)
+	try {
+		return decodeURIComponent(hash)
+	} catch {
+		return hash
+	}
+}
+
 export function BlogToc({ toc, entranceDelay = 0, embedded = false }: BlogTocProps) {
 	const [activeId, setActiveId] = useState<string | undefined>(toc[0]?.id)
+	const navigationLockRef = useRef<{ id: string; until: number } | null>(null)
 	const reduceMotion = useReducedMotion()
+	const lockActiveId = (id: string) => {
+		navigationLockRef.current = { id, until: performance.now() + TOC_NAVIGATION_LOCK_MS }
+		setActiveId(id)
+	}
 
 	useEffect(() => {
 		if (toc.length === 0) {
@@ -26,17 +42,22 @@ export function BlogToc({ toc, entranceDelay = 0, embedded = false }: BlogTocPro
 		let frame = 0
 		const updateActiveId = () => {
 			frame = 0
-			let nextActiveId = toc[0]?.id
-			const reachedDocumentEnd = window.scrollY > 0 && window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2
+			const navigationLock = navigationLockRef.current
+			if (navigationLock && performance.now() < navigationLock.until) {
+				setActiveId(navigationLock.id)
+				return
+			}
+			navigationLockRef.current = null
 
-			if (reachedDocumentEnd) {
-				nextActiveId = toc[toc.length - 1]?.id
-			} else {
-				for (const item of toc) {
-					const heading = document.getElementById(item.id)
-					if (!heading || heading.getBoundingClientRect().top > 120) break
-					nextActiveId = item.id
-				}
+			let nextActiveId = toc[0]?.id
+			const remainingScroll = Math.max(0, document.documentElement.scrollHeight - window.scrollY - window.innerHeight)
+			const endProgress = window.scrollY > 0 ? 1 - Math.min(1, remainingScroll / window.innerHeight) : 0
+			const activationOffset = 120 + (window.innerHeight * 0.82 - 120) * endProgress
+
+			for (const item of toc) {
+				const heading = document.getElementById(item.id)
+				if (!heading || heading.getBoundingClientRect().top > activationOffset) break
+				nextActiveId = item.id
 			}
 
 			setActiveId(previous => (previous === nextActiveId ? previous : nextActiveId))
@@ -45,15 +66,24 @@ export function BlogToc({ toc, entranceDelay = 0, embedded = false }: BlogTocPro
 			if (frame) return
 			frame = window.requestAnimationFrame(updateActiveId)
 		}
+		const syncHash = () => {
+			const hashId = getHashId()
+			if (!toc.some(item => item.id === hashId)) return
+			navigationLockRef.current = { id: hashId, until: performance.now() + TOC_NAVIGATION_LOCK_MS }
+			setActiveId(hashId)
+		}
 
 		updateActiveId()
+		syncHash()
 		window.addEventListener('scroll', scheduleUpdate, { passive: true })
 		window.addEventListener('resize', scheduleUpdate)
+		window.addEventListener('hashchange', syncHash)
 
 		return () => {
 			if (frame) window.cancelAnimationFrame(frame)
 			window.removeEventListener('scroll', scheduleUpdate)
 			window.removeEventListener('resize', scheduleUpdate)
+			window.removeEventListener('hashchange', syncHash)
 		}
 	}, [toc])
 
@@ -68,6 +98,7 @@ export function BlogToc({ toc, entranceDelay = 0, embedded = false }: BlogTocPro
 					<a
 						key={item.id + item.level}
 						href={`#${item.id}`}
+						onClick={() => lockActiveId(item.id)}
 						className={clsx('hover:text-brand-ink relative block min-h-7 rounded-lg py-1 pr-2 transition-colors', item.id === activeId && 'text-brand-ink')}
 						style={{ paddingLeft: Math.max(8, (item.level - 1) * 8 + 8) }}>
 						{item.id === activeId && (
